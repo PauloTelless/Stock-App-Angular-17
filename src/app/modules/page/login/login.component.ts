@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 
 import { MatCardModule } from '@angular/material/card';
 
@@ -9,7 +9,8 @@ import { MatButtonModule } from '@angular/material/button'
 import { Router } from '@angular/router';
 
 import { ReactiveFormsModule, FormsModule, FormBuilder, Validators } from '@angular/forms';
-
+import { user } from '../../../models/user/user';
+import { AuthService } from '../../../services/auth.service';
 
 
 @Component({
@@ -26,24 +27,51 @@ import { ReactiveFormsModule, FormsModule, FormBuilder, Validators } from '@angu
   templateUrl: './login.component.html',
   styleUrl: './login.component.sass'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
+  constructor(private authService: AuthService){}
+
+  ngOnInit(): void {
+    this.getAllUsers();
+  }
+
+
   private routerService = inject(Router)
   private formBuilder = inject(FormBuilder);
+  private user !: user;
+  public usersDatas !: Array<user>;
 
 
   formLogin = this.formBuilder.group({
-    user: ['', Validators.required],
-    password: ['', Validators.required]
+    nomeUsuario: ['', Validators.required],
+    senha: ['', Validators.required]
   })
 
-  formLoginSubmit(){
-    if (this.formLogin.value && this.formLogin.valid) {
-      console.log(`user: ${this.formLogin.value.user}/password: ${this.formLogin.value.password}`)
-      this.routerService.navigate(['/dashboard'])
+  formLoginSubmit() {
+    if (this.formLogin.value && this.formLogin.valid && this.usersDatas) {
+      const nomeUsuario = this.formLogin.value.nomeUsuario;
+      const userExists = this.usersDatas.some(userData => userData.nomeUsuario === nomeUsuario);
+
+      if (userExists) {
+        this.routerService.navigate(['/dashboard']);
+      }
     }
+  }
+
+
+  getAllUsers() {
+    this.authService.getAllUsers().subscribe({
+      next: (response => {
+        this.usersDatas = response
+        console.log(this.usersDatas)
+      })
+    })
   }
 
   redirectToRegister(){
     this.routerService.navigate(['/cadastro'])
+  }
+
+  handSubmitLogin(){
+
   }
 }
