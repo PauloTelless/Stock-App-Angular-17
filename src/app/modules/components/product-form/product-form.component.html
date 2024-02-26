@@ -1,6 +1,6 @@
 <div class="form-class">
   <h1>Cadastrar produto</h1>
-  <form [formGroup]="createProductForm">
+  <form [formGroup]="createProductForm" (submit)="createProductSubmit()">
     <mat-form-field>
       <mat-label class="cadastro-title">Nome do produto</mat-label>
       <input matInput type="text" placeholder="Nome do produto" required autocomplete="off" formControlName="nomeProduto">
@@ -21,6 +21,6 @@
       <input matInput type="text" placeholder="Quantidade disponível" required formControlName="quantidadeProduto">
     </mat-form-field>
 
-    <button type="submit" mat-raised-button  color="primary">Cadastrar Produto</button>
+    <button type="submit" mat-raised-button  color="primary" (click)="closeModalCreateFormSubmti()">Cadastrar Produto</button>
   </form>
 </div>
