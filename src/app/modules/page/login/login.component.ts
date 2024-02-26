@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit{
   formLoginSubmit() {
     if (this.formLogin.value && this.formLogin.valid && this.usersDatas) {
       const nomeUsuario = this.formLogin.value.nomeUsuario;
-      const userExists = this.usersDatas.some(userData => userData.nomeUsuario === nomeUsuario);
+      const userExists = this.usersDatas.map(userData => userData.nomeUsuario === nomeUsuario);
 
       if (userExists) {
         this.routerService.navigate(['/dashboard']);

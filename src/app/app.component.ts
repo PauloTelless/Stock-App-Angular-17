@@ -6,6 +6,7 @@ import { LoginComponent } from './modules/page/login/login.component';
 import { CadastroComponent } from './modules/page/cadastro/cadastro.component';
 import { ProductService } from './services/product.service';
 import { ChartModule } from 'primeng/chart';
+import { MatTableModule } from '@angular/material/table';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,8 @@ import { ChartModule } from 'primeng/chart';
   imports: [
     RouterOutlet,
     HttpClientModule,
-    ChartModule
+    ChartModule,
+    MatTableModule
   ],
   providers: [
     AuthService,
