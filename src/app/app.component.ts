@@ -7,6 +7,7 @@ import { CadastroComponent } from './modules/page/cadastro/cadastro.component';
 import { ProductService } from './services/product.service';
 import { ChartModule } from 'primeng/chart';
 import { MatTableModule } from '@angular/material/table';
+import { CategoryService } from './services/category.service';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +21,7 @@ import { MatTableModule } from '@angular/material/table';
   providers: [
     AuthService,
     ProductService,
+    CategoryService,
     HttpClient
   ],
   templateUrl: './app.component.html',

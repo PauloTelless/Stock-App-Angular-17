@@ -1,7 +1,6 @@
-<div class="form-class">
-  <h1>Cadastrar produto</h1>
-  <form [formGroup]="createProductForm" (submit)="createProductSubmit()">
-    <mat-form-field>
+<form style="display: flex; flex-direction: column; text-align: center; justify-content: center; align-items: center; height: 100vh;" [formGroup]="createProductForm" (submit)="createProductSubmit()">
+  <h1 style="text-align: center; color: #7A67EE;">Cadastrar produto</h1>
+  <mat-form-field>
       <mat-label class="cadastro-title">Nome do produto</mat-label>
       <input matInput type="text" placeholder="Nome do produto" required autocomplete="off" formControlName="nomeProduto">
     </mat-form-field>
@@ -9,6 +8,15 @@
     <mat-form-field>
       <mat-label>Descrição do produto</mat-label>
       <input matInput type="text" placeholder="Descrição do produto" required autocomplete="off" formControlName="descricaoProduto">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Categoria</mat-label>
+      <mat-select formControlName="categoriaId">
+        @for (category of categoriesData; track category) {
+          <mat-option [value]="category.categoriaId">{{category.nomeCategoria}}</mat-option>
+        }
+      </mat-select>
     </mat-form-field>
 
     <mat-form-field>
@@ -23,4 +31,4 @@
 
     <button type="submit" mat-raised-button  color="primary" (click)="closeModalCreateFormSubmti()">Cadastrar Produto</button>
   </form>
-</div>
+

@@ -3,19 +3,27 @@ import { ToolBarComponent } from '../../shared/components/tool-bar/tool-bar.comp
 import { ProductService } from '../../../services/product.service';
 import { product } from '../../../models/products/product';
 import { ChartModule } from 'primeng/chart';
+import { CategoryService } from '../../../services/category.service';
+import { Category } from '../../../models/category/category';
+import { CategoryComponent } from '../category/category.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   imports: [
     ToolBarComponent,
+    CategoryComponent,
     ChartModule
+  ],
+  providers: [
+    CategoryService
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.sass'
 })
 export class DashboardComponent {
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private caregoryService: CategoryService) {}
+  public categoriesData!: Array<Category>;
 
   basicOptions: any;
   basicData: any;
@@ -23,6 +31,7 @@ export class DashboardComponent {
 
   ngOnInit() {
     this.getAllProducts();
+    this.getAllCategories();
   }
 
   getAllProducts() {
@@ -33,6 +42,14 @@ export class DashboardComponent {
         this.ChartData();
       }
     });
+  }
+
+  getAllCategories(){
+    this.caregoryService.getAllCategory().subscribe({
+      next: (response) => {
+        this.categoriesData = response;
+      }
+    })
   }
 
   ChartData() {
@@ -46,9 +63,7 @@ export class DashboardComponent {
       datasets: [
         {
           label: 'Quantidade',
-          data: this.productsData.map((nameProduct) => nameProduct.quantidadeProduto),
-          backgroundColor: ['rgba(255, 159, 64, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(153, 102, 255, 0.2)'],
-          borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)', 'rgb(54, 162, 235)', 'rgb(153, 102, 255)'],
+          data: this.productsData.map((quantityProduct) => quantityProduct.quantidadeProduto),
           borderWidth: 1
         }
       ]

@@ -32,7 +32,7 @@
     <div class="button-group">
       <ng-container matColumnDef="acoes">
         <th mat-header-cell *matHeaderCellDef> Ações </th>
-        <td mat-cell *matCellDef="let produto"> <button mat-mini-fab color="accent"><mat-icon style="color: #fff;">edit</mat-icon></button><button mat-mini-fab color="warn"><mat-icon>delete</mat-icon></button>
+        <td mat-cell *matCellDef="let produto"> <button mat-mini-fab color="accent" ><mat-icon style="color: #fff;">edit</mat-icon></button><button mat-mini-fab color="warn" (click)="openModalDeleteProduct(produto.produtoId)"><mat-icon>delete</mat-icon></button>
         </td>
         <td mat-cell *matCellDef="let produto"> {{produto.quantidadeProduto}} </td>
       </ng-container>
