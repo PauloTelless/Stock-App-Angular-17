@@ -23,4 +23,8 @@ export class ProductService {
   deleteProduct(productId: string): Observable<product>{
     return this.httpClient.delete<product>(`${this.API_URL}produtos/${productId}`);
   }
+
+  putProduct(productId: string): Observable<product>{
+    return this.httpClient.put<product>(`${this.API_URL}produtos/${productId}`, productId);
+  }
 }

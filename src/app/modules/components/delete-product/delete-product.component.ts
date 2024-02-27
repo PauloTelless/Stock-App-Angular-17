@@ -18,6 +18,7 @@ import { Router } from '@angular/router';
   templateUrl: './delete-product.component.html',
   styleUrl: './delete-product.component.sass'
 })
+
 export class DeleteProductComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: string, private productService: ProductService, private routerService: Router, private dialogService: MatDialog) { }
 
@@ -25,7 +26,7 @@ export class DeleteProductComponent {
     console.log(this.data)
     this.productService.deleteProduct(this.data).subscribe();
     this.dialogService.closeAll();
-    this.routerService.navigate(['/dashboard'])
+    this.routerService.navigate(['dashboard'])
   }
 
   cancelDeleteProduct(){

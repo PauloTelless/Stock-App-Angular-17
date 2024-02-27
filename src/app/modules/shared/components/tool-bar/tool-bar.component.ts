@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
   templateUrl: './tool-bar.component.html',
   styleUrl: './tool-bar.component.sass'
 })
+
 export class ToolBarComponent {
   private routerService = inject(Router)
 
