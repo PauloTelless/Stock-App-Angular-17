@@ -1,6 +1,6 @@
 import { Component, Inject, OnDestroy, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { CategoryService } from '../../../../services/categories/category.service';
+import { CategoryService } from '../../../../../services/categories/category.service';
 import { MatButtonModule } from '@angular/material/button';
 import { Subject, takeUntil } from 'rxjs';
 
@@ -30,11 +30,16 @@ export class DeleteCategoryComponent implements OnDestroy{
         this.destroy$
       )
     ).subscribe(() => console.log(this.data));
-    this.closeModalCategoryDelete();
+   this.recarregarPagina();
+   this.dialogService.closeAll();
   }
 
   closeModalCategoryDelete(){
     this.dialogService.closeAll();
+  }
+
+  recarregarPagina(){
+    window.location.reload();
   }
 
   ngOnDestroy(): void {

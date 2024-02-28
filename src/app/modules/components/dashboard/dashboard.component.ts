@@ -1,10 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnDestroy, inject } from '@angular/core';
 import { ToolBarComponent } from '../../../shared/tool-bar/tool-bar.component';
 import { ProductService } from '../../../services/products/product.service';
 import { Product } from '../../../models/products/product';
 import { ChartModule } from 'primeng/chart';
 import { CategoryService } from '../../../services/categories/category.service';
-import { CategoryComponent } from '../categories/category-table/category.component';
+import { CategoryComponent } from '../categories/page/category-table/category.component';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,9 +21,10 @@ import { CategoryComponent } from '../categories/category-table/category.compone
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.sass'
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnDestroy{
   constructor(){}
 
+  private destroy$ = new Subject<void>;
   private productService = inject(ProductService);
   public productsData!: Array<Product>;
 
@@ -34,7 +36,11 @@ export class DashboardComponent {
   }
 
   getAllProducts() {
-    this.productService.getAllProducts().subscribe({
+    this.productService.getAllProducts().pipe(
+      takeUntil(
+        this.destroy$
+      )
+    ).subscribe({
       next: (response) => {
         this.productsData = response;
         this.ChartData();
@@ -89,5 +95,10 @@ export class DashboardComponent {
         }
       }
     };
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

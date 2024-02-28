@@ -1,17 +1,17 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { ToolBarComponent } from '../../../../shared/tool-bar/tool-bar.component';
+import { ToolBarComponent } from '../../../../../shared/tool-bar/tool-bar.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormField } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
-import { Category } from '../../../../models/category/category';
-import { CategoryService } from '../../../../services/categories/category.service';
+import { Category } from '../../../../../models/category/category';
+import { CategoryService } from '../../../../../services/categories/category.service';
 import { Subject, takeUntil } from 'rxjs';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { CategoryFormComponent } from '../category-form/category-form.component';
-import { DeleteCategoryComponent } from '../delete-category/delete-category.component';
-import { EditCategoryComponent } from '../edit-category/edit-category.component';
+import { CategoryFormComponent } from '../../components/category-form/category-form.component';
+import { DeleteCategoryComponent } from '../../components/delete-category/delete-category.component';
+import { EditCategoryComponent } from '../../components/edit-category/edit-category.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import * as XLSX from 'xlsx';
 
@@ -52,6 +52,9 @@ export class CategoryComponent implements OnInit, OnDestroy{
     ).subscribe({
       next: (response) => {
         this.categoriesData = response;
+      },
+      error: (err) => {
+      console.log(err)
       }
     })
   }

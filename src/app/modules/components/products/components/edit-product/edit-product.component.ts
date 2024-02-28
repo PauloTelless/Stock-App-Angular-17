@@ -1,14 +1,14 @@
 import { Component, Inject, OnInit, inject, OnDestroy } from '@angular/core';
-import { Product } from '../../../../models/products/product';
+import { Product } from '../../../../../models/products/product';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { ProductService } from '../../../../services/products/product.service';
+import { ProductService } from '../../../../../services/products/product.service';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
-import { CategoryService } from '../../../../services/categories/category.service';
-import { Category } from '../../../../models/category/category';
+import { CategoryService } from '../../../../../services/categories/category.service';
+import { Category } from '../../../../../models/category/category';
 import { Subject, takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -67,6 +67,9 @@ export class EditProductComponent implements OnInit, OnDestroy{
           next: (response) => {
           console.log(response)
         this.categoriesData = response;
+      },
+      error: (err) => {
+      console.log(err)
       }
     })
   }
@@ -79,6 +82,9 @@ export class EditProductComponent implements OnInit, OnDestroy{
     ).subscribe({
       next: (response) =>{
         this.productsData = response;
+      },
+      error: (err) => {
+      console.log(err)
       }
     })
   }
@@ -89,10 +95,14 @@ export class EditProductComponent implements OnInit, OnDestroy{
         this.destroy$
       )
     ).subscribe(() => {
-      this.routerService.navigate(['/dashboard'])
+      this.recarregarPagina();
       this.dialogService.closeAll();
     }
     );
+  }
+
+  recarregarPagina(){
+    window.location.reload();
   }
 
   ngOnDestroy(): void {

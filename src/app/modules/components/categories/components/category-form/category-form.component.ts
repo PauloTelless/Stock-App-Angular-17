@@ -1,12 +1,13 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { CategoryService } from '../../../../services/categories/category.service';
-import { Category } from '../../../../models/category/category';
+import { CategoryService } from '../../../../../services/categories/category.service';
+import { Category } from '../../../../../models/category/category';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-category-form',
@@ -25,11 +26,11 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
   styleUrl: './category-form.component.sass'
 })
 
-export class CategoryFormComponent{
+export class CategoryFormComponent implements OnDestroy{
   constructor(){}
 
+  private destroy$ = new Subject<void>;
   private dialogService = inject(MatDialog)
-  private routerService = inject(Router);
   private categoryService = inject(CategoryService);
   private formBuilder = inject(FormBuilder);
 
@@ -39,9 +40,21 @@ export class CategoryFormComponent{
 
   createCategoryFormSubmit(){
     if (this.createCategoryForm.valid && this.createCategoryForm.value) {
-      this.categoryService.postCategory(this.createCategoryForm.value as Category)
-      .subscribe(() => this.routerService.navigate(['/categories']))
+      this.categoryService.postCategory(this.createCategoryForm.value as Category).pipe(
+        takeUntil(
+          this.destroy$
+        )
+      ).subscribe(() => this.recarregarPagina())
       this.dialogService.closeAll();
     }
+  }
+
+  recarregarPagina(){
+    window.location.reload();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

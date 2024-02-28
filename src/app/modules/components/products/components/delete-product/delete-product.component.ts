@@ -1,7 +1,6 @@
-import { ProductService } from '../../../../services/products/product.service';
+import { ProductService } from '../../../../../services/products/product.service';
 import { Component, Inject, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
-
 import { MatButtonModule } from '@angular/material/button'
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
@@ -33,13 +32,18 @@ export class DeleteProductComponent {
       takeUntil(
         this.destroy$
       )
-    ).subscribe();
+    ).subscribe(() => this.routerService.navigate(['/products']));
+
     this.dialogService.closeAll();
-    this.routerService.navigate(['/dashboard'])
+    this.recarregarPagina();
   }
 
   cancelDeleteProduct(){
     this.dialogService.closeAll();
+  }
+
+  recarregarPagina() {
+    window.location.reload();
   }
 
 }

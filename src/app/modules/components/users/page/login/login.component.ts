@@ -1,12 +1,13 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
 import { Router } from '@angular/router';
 import { ReactiveFormsModule, FormsModule, FormBuilder, Validators } from '@angular/forms';
-import { user } from '../../../models/user/user';
-import { AuthService } from '../../../services/auth/auth.service';
+import { user } from '../../../../../models/user/user';
+import { AuthService } from '../../../../../services/auth/auth.service';
+import { Subject, takeUntil } from 'rxjs';
 
 
 @Component({
@@ -23,16 +24,18 @@ import { AuthService } from '../../../services/auth/auth.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.sass'
 })
-export class LoginComponent implements OnInit{
-  constructor(private authService: AuthService){}
+export class LoginComponent implements OnInit, OnDestroy{
+  constructor(){}
+
+  private destroy$ = new Subject<void>;
+  private routerService = inject(Router)
+  private formBuilder = inject(FormBuilder);
+  private authService = inject(AuthService);
+  public usersDatas !: Array<user>;
 
   ngOnInit(): void {
     this.getAllUsers();
   }
-
-  private routerService = inject(Router)
-  private formBuilder = inject(FormBuilder);
-  public usersDatas !: Array<user>;
 
   formLogin = this.formBuilder.group({
     nomeUsuario: ['', Validators.required],
@@ -51,10 +54,13 @@ export class LoginComponent implements OnInit{
   }
 
   getAllUsers() {
-    this.authService.getAllUsers().subscribe({
+    this.authService.getAllUsers().pipe(
+      takeUntil(
+        this.destroy$
+      )
+    ).subscribe({
       next: (response => {
         this.usersDatas = response
-        console.log(this.usersDatas)
       })
     })
   }
@@ -63,4 +69,8 @@ export class LoginComponent implements OnInit{
     this.routerService.navigate(['/cadastro'])
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next()
+    this.destroy$.complete()
+  }
 }

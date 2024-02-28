@@ -6,6 +6,7 @@ import { ProductService } from './services/products/product.service';
 import { ChartModule } from 'primeng/chart';
 import { MatTableModule } from '@angular/material/table';
 import { CategoryService } from './services/categories/category.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,7 @@ import { CategoryService } from './services/categories/category.service';
     ChartModule,
     HttpClientModule,
     MatTableModule,
-    RouterOutlet,
+    RouterOutlet
   ],
   providers: [
     AuthService,

@@ -1,18 +1,18 @@
-import { Product } from '../../../../models/products/product';
+import { Product } from '../../../../../models/products/product';
 import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
-import { ToolBarComponent } from '../../../../shared/tool-bar/tool-bar.component';
+import { ToolBarComponent } from '../../../../../shared/tool-bar/tool-bar.component';
 import { TableModule } from 'primeng/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule} from '@angular/material/table';
-import { ProductService } from '../../../../services/products/product.service';
+import { ProductService } from '../../../../../services/products/product.service';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog'
-import { ProductFormComponent } from '../product-form/product-form.component';
-import { DeleteProductComponent } from '../delete-product/delete-product.component';
-import { EditProductComponent } from '../edit-product/edit-product.component';
+import { ProductFormComponent } from '../../components/product-form/product-form.component';
+import { DeleteProductComponent } from '../../components/delete-product/delete-product.component';
+import { EditProductComponent } from '../../components/edit-product/edit-product.component';
 import { Subject, takeUntil } from 'rxjs';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import * as XLSX from 'xlsx';
 
@@ -37,8 +37,9 @@ import * as XLSX from 'xlsx';
 export class ProductComponent implements OnInit, OnDestroy{
   constructor(){}
 
+  private onDeleteSuccess: Subject<void> = new Subject<void>();
   private destroy$ = new Subject<void>;
-  public productDatas!: Array<Product>
+  public productDatas!: Array<Product>;
   private dialogRef = inject(MatDialog);
   private productService = inject(ProductService);
   private fileNameExcel = 'produtos.xlsx';
@@ -55,6 +56,9 @@ export class ProductComponent implements OnInit, OnDestroy{
     ).subscribe({
       next: (response) => {
         this.productDatas = response;
+      },
+      error: (err) => {
+      console.log(err)
       }
     });
   };
@@ -82,10 +86,6 @@ export class ProductComponent implements OnInit, OnDestroy{
     })
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
 
   exportToExcel(){
     let produtos = document.getElementById('excel-table');
@@ -99,6 +99,9 @@ export class ProductComponent implements OnInit, OnDestroy{
 
   displayedColumns: string[] = ['codigo', 'nome', 'descricao', 'quantidade', 'preco', 'acoes'];
 
-
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 }
 

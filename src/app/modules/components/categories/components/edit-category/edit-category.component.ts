@@ -1,11 +1,11 @@
-import { Component, Inject, OnDestroy, OnInit, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, Inject, OnDestroy, inject } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { CategoryService } from '../../../../services/categories/category.service';
-import { Category } from '../../../../models/category/category';
+import { CategoryService } from '../../../../../services/categories/category.service';
+import { Category } from '../../../../../models/category/category';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -14,6 +14,7 @@ import { Subject, takeUntil } from 'rxjs';
   imports: [
     MatButtonModule,
     MatFormFieldModule,
+    MatDialogModule,
     MatInputModule,
     ReactiveFormsModule
   ],
@@ -26,11 +27,12 @@ import { Subject, takeUntil } from 'rxjs';
 export class EditCategoryComponent implements OnDestroy{
   constructor(@Inject(MAT_DIALOG_DATA) public data:any ){}
 
+  public categoriaId = this.data.categoriaId
+  public category = this.data;
   private destroy$ = new Subject<void>;
   private categoryService = inject(CategoryService);
   private formBuilder = inject(FormBuilder);
-  public category = this.data;
-  public categoriaId = this.data.categoriaId
+  private dialogService = inject(MatDialog)
 
   editCategoryForm = this.formBuilder.group({
     nomeCategoria: this.category.categoria.nomeCategoria
@@ -42,10 +44,18 @@ export class EditCategoryComponent implements OnDestroy{
         this.destroy$
       )
     ).subscribe({
-      next: (response) => {
-        console.log(response)
+      next: () => {
+        this.dialogService.closeAll();
+        this.recarregarPagina();
+      },
+      error: (err) => {
+      console.log(err)
       }
     })
+  }
+
+  recarregarPagina(){
+    window.location.reload();
   }
 
   ngOnDestroy(): void {

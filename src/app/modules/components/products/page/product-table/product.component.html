@@ -26,12 +26,12 @@
 
     <ng-container matColumnDef="preco">
       <th mat-header-cell *matHeaderCellDef> Preço </th>
-      <td mat-cell *matCellDef="let produto"> {{produto.precoProduto }} </td>
+      <td mat-cell *matCellDef="let produto"> R$ {{produto.precoProduto }} </td>
     </ng-container>
 
     <ng-container matColumnDef="quantidade">
       <th mat-header-cell *matHeaderCellDef> Quantidade </th>
-      <td mat-cell *matCellDef="let produto"> {{produto.quantidadeProduto}} </td>
+      <td mat-cell *matCellDef="let produto"> {{produto.quantidadeProduto}} unidades</td>
     </ng-container>
 
     <div class="button-group" id="button">
