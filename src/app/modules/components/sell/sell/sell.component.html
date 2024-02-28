@@ -1,0 +1,63 @@
+<app-tool-bar></app-tool-bar>
+<div class="table-class">
+  <h1 style="text-align: center; color: #7A67EE;">Vender produto</h1>
+  <table mat-table [dataSource]="productDatas" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="codigo">
+      <th mat-header-cell *matHeaderCellDef> Código </th>
+      <td mat-cell *matCellDef="let produto"> {{produto.produtoId.length > 7 ?  produto.produtoId.substring(0, 7) + '...' : produto.produtoId }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="nome">
+      <th mat-header-cell *matHeaderCellDef> Nome </th>
+      <td mat-cell *matCellDef="let produto"  [matTooltip]="produto.nomeProduto"> {{produto.nomeProduto}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="descricao">
+      <th mat-header-cell *matHeaderCellDef> Descrição </th>
+      <td mat-cell *matCellDef="let produto"> {{produto.descricaoProduto}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="preco">
+      <th mat-header-cell *matHeaderCellDef> Preço </th>
+      <td mat-cell *matCellDef="let produto"> R${{produto.precoProduto}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="quantidade">
+      <th mat-header-cell *matHeaderCellDef> Quantidade </th>
+      <td mat-cell *matCellDef="let produto"> {{produto.quantidadeProduto}} </td>
+    </ng-container>
+
+    <div class="button-group">
+      <ng-container matColumnDef="acoes">
+        <th mat-header-cell  *matHeaderCellDef> Ações </th>
+        <td mat-cell *matCellDef="let produto">
+          @if (produto.quantidadeProduto != '0') {
+            <button mat-mini-fab style="background-color: greenyellow;" (click)="openModalSellProduct(produto)"><mat-icon style="color: #fff;">attach_money</mat-icon></button>
+          }
+          @else {
+            <button mat-mini-fab disabled  (click)="openModalSellProduct(produto)"><mat-icon style="color: #fff;">attach_money</mat-icon></button>
+          }
+
+        </td>
+        <td mat-cell *matCellDef="let produto"> {{produto.quantidadeProduto}} </td>
+      </ng-container>
+    </div>
+
+    <ng-container matColumnDef="disponivel">
+      <th mat-header-cell *matHeaderCellDef> Disponível ? </th>
+
+      <td mat-cell *matCellDef="let produto">
+      @if (produto.quantidadeProduto != '0') {
+        Sim
+      } @else {
+
+        Não
+      }
+    </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

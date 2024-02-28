@@ -7,15 +7,14 @@ import { ChartModule } from 'primeng/chart';
 import { MatTableModule } from '@angular/material/table';
 import { CategoryService } from './services/categories/category.service';
 
-
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    RouterOutlet,
-    HttpClientModule,
     ChartModule,
-    MatTableModule
+    HttpClientModule,
+    MatTableModule,
+    RouterOutlet,
   ],
   providers: [
     AuthService,
@@ -23,7 +22,7 @@ import { CategoryService } from './services/categories/category.service';
     CategoryService,
     HttpClient
   ],
-  host: {ngSkipHydration: 'true'},
+  host: { ngSkipHydration: 'true' },
   templateUrl: './app.component.html',
   styleUrl: './app.component.sass'
 })

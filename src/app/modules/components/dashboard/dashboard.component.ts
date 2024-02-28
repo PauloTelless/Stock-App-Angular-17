@@ -1,11 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { ToolBarComponent } from '../../shared/components/tool-bar/tool-bar.component';
+import { ToolBarComponent } from '../../../shared/tool-bar/tool-bar.component';
 import { ProductService } from '../../../services/products/product.service';
-import { product } from '../../../models/products/product';
+import { Product } from '../../../models/products/product';
 import { ChartModule } from 'primeng/chart';
 import { CategoryService } from '../../../services/categories/category.service';
-import { Category } from '../../../models/category/category';
-import { CategoryComponent } from '../category/category.component';
+import { CategoryComponent } from '../categories/category-table/category.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,8 +24,7 @@ export class DashboardComponent {
   constructor(){}
 
   private productService = inject(ProductService);
-  public categoriesData!: Array<Category>;
-  public productsData!: Array<product>;
+  public productsData!: Array<Product>;
 
   basicOptions: any;
   basicData: any;

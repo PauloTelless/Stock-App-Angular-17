@@ -1,0 +1,12 @@
+
+
+<form style="display: flex; flex-direction: column; text-align: center; justify-content: center; align-items: center; height: 100vh;" [formGroup]="editProductForm" (submit)="editProductFormSubmit()">
+  <h1 style="color: #7A67EE;">Quantidade disponível: {{quantidadeProduto}}</h1>
+  <h2 style="color: #7A67EE;">Produto: {{nomeProduto}}</h2>
+  <mat-form-field>
+      <mat-label>Vender</mat-label>
+      <input matInput type="text" placeholder="Digite a quantidade" formControlName="quantidadeProduto" required>
+    </mat-form-field>
+    <button type="submit" mat-raised-button color="primary">Vender Produto</button>
+</form>
+

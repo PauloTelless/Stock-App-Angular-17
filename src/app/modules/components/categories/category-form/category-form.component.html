@@ -1,0 +1,10 @@
+<form [formGroup]="createCategoryForm" (submit)="createCategoryFormSubmit()">
+  <h1 style="display: flex; justify-content: center; color: #7A67EE;" >Adicionar categoria</h1>
+
+  <mat-form-field>
+    <mat-label>Nome da categoria</mat-label>
+    <input matInput type="text" placeholder="Digite o nome" required autocomplete="off" formControlName="nomeCategoria">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit">Cadastrar categoria</button>
+</form>

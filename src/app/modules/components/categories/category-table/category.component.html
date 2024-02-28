@@ -1,0 +1,33 @@
+<app-tool-bar></app-tool-bar>
+<div class="table-class">
+
+  <button mat-raised-button color="primary" (click)="openModalCategoryForm()"><mat-icon>add</mat-icon>
+    Adicionar categoria
+  </button>
+
+  <button style="margin-left: 2%;" mat-raised-button color="primary" (click)="exportToExcel()"><mat-icon>download</mat-icon>
+    Baixar relação
+  </button>
+
+  <table mat-table [dataSource]="categoriesData" class="mat-elevation-z8" id="table-excel">
+
+    <ng-container matColumnDef="codigo">
+      <th mat-header-cell *matHeaderCellDef> Código </th>
+      <td mat-cell *matCellDef="let categoria">{{categoria.categoriaId}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="nome">
+      <th mat-header-cell *matHeaderCellDef > Nome </th>
+      <td mat-cell *matCellDef="let categoria" [matTooltip]="categoria.nomeCategoria"> {{categoria.nomeCategoria.length> 15 ? categoria.nomeCategoria.substring(0, 15) + '...': categoria.nomeCategoria }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="acoes" class="button-group">
+      <th mat-header-cell *matHeaderCellDef> Ações </th>
+      <td mat-cell *matCellDef="let categoria"><button style="margin-top: 1%;" mat-mini-fab color="accent" (click)="openModalEditCategory(categoria.categoriaId, categoria)"><mat-icon style="color: #fff;">edit</mat-icon> </button> <button mat-mini-fab color="warn" (click)="openModalDeleteCategory(categoria.categoriaId)"><mat-icon>delete</mat-icon></button></td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+</div>

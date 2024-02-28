@@ -1,0 +1,9 @@
+<form [formGroup]="editCategoryForm" (submit)="putCategorySubmit()">
+  <h1 style="color: #7A67EE;">Editando a categoria: {{category.categoria.nomeCategoria}}</h1>
+  <mat-form-field>
+    <mat-label>Nome da categoria</mat-label>
+    <input type="text" matInput placeholder="Digite o nome" autocomplete="off" formControlName="nomeCategoria" required>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit">Editar</button>
+</form>
