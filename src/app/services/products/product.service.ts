@@ -1,8 +1,8 @@
+import { product } from '../../models/products/product';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { product } from '../models/products/product';
-import { enviroment } from '../environments/environments';
+import { enviroment } from '../../environments/environments';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +24,7 @@ export class ProductService {
     return this.httpClient.delete<product>(`${this.API_URL}produtos/${productId}`);
   }
 
-  putProduct(productId: string): Observable<product>{
-    return this.httpClient.put<product>(`${this.API_URL}produtos/${productId}`, productId);
+  putProduct(productId: string, produto: product): Observable<product>{
+    return this.httpClient.put<product>(`${this.API_URL}produtos/${productId}`, produto);
   }
 }

@@ -1,16 +1,12 @@
 import { Component, OnInit, inject } from '@angular/core';
-
 import { MatCardModule } from '@angular/material/card';
-
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input'
-
 import { MatButtonModule } from '@angular/material/button'
 import { Router } from '@angular/router';
-
 import { ReactiveFormsModule, FormsModule, FormBuilder, Validators } from '@angular/forms';
 import { user } from '../../../models/user/user';
-import { AuthService } from '../../../services/auth.service';
+import { AuthService } from '../../../services/auth/auth.service';
 
 
 @Component({
@@ -34,12 +30,9 @@ export class LoginComponent implements OnInit{
     this.getAllUsers();
   }
 
-
   private routerService = inject(Router)
   private formBuilder = inject(FormBuilder);
-  private user !: user;
   public usersDatas !: Array<user>;
-
 
   formLogin = this.formBuilder.group({
     nomeUsuario: ['', Validators.required],
@@ -49,14 +42,13 @@ export class LoginComponent implements OnInit{
   formLoginSubmit() {
     if (this.formLogin.value && this.formLogin.valid && this.usersDatas) {
       const nomeUsuario = this.formLogin.value.nomeUsuario;
-      const userExists = this.usersDatas.map(userData => userData.nomeUsuario === nomeUsuario);
+      const userExists = this.usersDatas.some(userData => userData.nomeUsuario === nomeUsuario);
 
       if (userExists) {
         this.routerService.navigate(['/dashboard']);
       }
     }
   }
-
 
   getAllUsers() {
     this.authService.getAllUsers().subscribe({
@@ -71,7 +63,4 @@ export class LoginComponent implements OnInit{
     this.routerService.navigate(['/cadastro'])
   }
 
-  handSubmitLogin(){
-
-  }
 }

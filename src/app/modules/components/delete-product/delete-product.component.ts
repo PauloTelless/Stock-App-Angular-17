@@ -1,9 +1,10 @@
-import { ProductService } from './../../../services/product.service';
-import { Component, Inject } from '@angular/core';
+import { ProductService } from '../../../services/products/product.service';
+import { Component, Inject, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 import { MatButtonModule } from '@angular/material/button'
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-delete-product',
@@ -20,13 +21,21 @@ import { Router } from '@angular/router';
 })
 
 export class DeleteProductComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: string, private productService: ProductService, private routerService: Router, private dialogService: MatDialog) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: string) { }
+
+  private routerService = inject(Router);
+  private dialogService = inject(MatDialog);
+  private productService = inject(ProductService);
+  private destroy$ = new Subject<void>;
 
   deleteProduct(){
-    console.log(this.data)
-    this.productService.deleteProduct(this.data).subscribe();
+    this.productService.deleteProduct(this.data).pipe(
+      takeUntil(
+        this.destroy$
+      )
+    ).subscribe();
     this.dialogService.closeAll();
-    this.routerService.navigate(['dashboard'])
+    this.routerService.navigate(['/dashboard'])
   }
 
   cancelDeleteProduct(){

@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ToolBarComponent } from '../../shared/components/tool-bar/tool-bar.component';
-import { ProductService } from '../../../services/product.service';
+import { ProductService } from '../../../services/products/product.service';
 import { product } from '../../../models/products/product';
 import { ChartModule } from 'primeng/chart';
-import { CategoryService } from '../../../services/category.service';
+import { CategoryService } from '../../../services/categories/category.service';
 import { Category } from '../../../models/category/category';
 import { CategoryComponent } from '../category/category.component';
 
@@ -22,34 +22,26 @@ import { CategoryComponent } from '../category/category.component';
   styleUrl: './dashboard.component.sass'
 })
 export class DashboardComponent {
-  constructor(private productService: ProductService, private caregoryService: CategoryService) {}
+  constructor(){}
+
+  private productService = inject(ProductService);
   public categoriesData!: Array<Category>;
+  public productsData!: Array<product>;
 
   basicOptions: any;
   basicData: any;
-  public productsData!: Array<product>;
 
   ngOnInit() {
     this.getAllProducts();
-    this.getAllCategories();
   }
 
   getAllProducts() {
     this.productService.getAllProducts().subscribe({
       next: (response) => {
-        console.log(response);
         this.productsData = response;
         this.ChartData();
       }
     });
-  }
-
-  getAllCategories(){
-    this.caregoryService.getAllCategory().subscribe({
-      next: (response) => {
-        this.categoriesData = response;
-      }
-    })
   }
 
   ChartData() {

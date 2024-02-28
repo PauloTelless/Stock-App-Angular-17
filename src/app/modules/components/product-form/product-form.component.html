@@ -12,7 +12,7 @@
 
     <mat-form-field>
       <mat-label>Categoria</mat-label>
-      <mat-select formControlName="categoriaId">
+       <mat-select formControlName="categoriaId" required>
         @for (category of categoriesData; track category) {
           <mat-option [value]="category.categoriaId">{{category.nomeCategoria}}</mat-option>
         }

@@ -1,12 +1,12 @@
 import { resolve } from 'node:path';
 import { env } from 'process';
-import { enviroment } from './../environments/environments';
+import { enviroment } from '../../environments/environments';
 import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { user } from '../models/user/user';
-import { PostUser } from '../models/user/postUser';
+import { user } from '../../models/user/user';
+import { PostUser } from '../../models/user/postUser';
 
 @Injectable({
   providedIn: 'root'

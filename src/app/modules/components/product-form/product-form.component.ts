@@ -4,11 +4,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ProductService } from '../../../services/product.service';
+import { ProductService } from '../../../services/products/product.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
-import { CategoryService } from '../../../services/category.service';
+import { CategoryService } from '../../../services/categories/category.service';
 import { Category } from '../../../models/category/category';
 
 @Component({
@@ -31,9 +31,12 @@ import { Category } from '../../../models/category/category';
 })
 
 export class ProductFormComponent implements OnInit{
+  constructor(){}
+
   ngOnInit(): void {
     this.getAllCategories();
   }
+
   private dialogService = inject(MatDialog);
   private routerService = inject(Router);
   private productService = inject(ProductService);
