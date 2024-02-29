@@ -55,7 +55,11 @@ export class ProductFormComponent implements OnInit, OnDestroy{
 
   createProductSubmit(){
     if (this.createProductForm.valid && this.createProductForm.value) {
-      this.productService.postProduct(this.createProductForm.value as Product).subscribe({
+      this.productService.postProduct(this.createProductForm.value as Product).pipe(
+        takeUntil(
+          this.destroy$
+        )
+      ).subscribe({
         next: () => {
           this.recarregarPagina();
         },
