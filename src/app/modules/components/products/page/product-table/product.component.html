@@ -34,10 +34,12 @@
       <td mat-cell *matCellDef="let produto"> {{produto.quantidadeProduto}} unidades</td>
     </ng-container>
 
-    <div class="button-group" id="button">
+    <div class="button-group">
       <ng-container matColumnDef="acoes">
         <th mat-header-cell *matHeaderCellDef> Ações </th>
-        <td mat-cell *matCellDef="let produto"> <button mat-mini-fab color="accent" (click)="openModalEditProduct(produto.produtoId, produto)" ><mat-icon style="color: #fff;">edit</mat-icon></button><button mat-mini-fab color="warn" (click)="openModalDeleteProduct(produto.produtoId, produto)"><mat-icon>delete</mat-icon></button>
+        <td mat-cell *matCellDef="let produto">
+          <button mat-mini-fab color="accent" (click)="openModalEditProduct(produto.produtoId, produto)"><mat-icon style="color: #fff;">edit</mat-icon></button>
+          <button mat-mini-fab color="warn" (click)="openModalDeleteProduct(produto.produtoId, produto)"><mat-icon>delete</mat-icon></button>
         </td>
         <td mat-cell *matCellDef="let produto"> {{produto.quantidadeProduto}} </td>
       </ng-container>

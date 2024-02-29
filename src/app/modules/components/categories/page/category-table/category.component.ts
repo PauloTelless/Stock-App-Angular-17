@@ -14,7 +14,6 @@ import { DeleteCategoryComponent } from '../../components/delete-category/delete
 import { EditCategoryComponent } from '../../components/edit-category/edit-category.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import * as XLSX from 'xlsx';
-import { Product } from '../../../../../models/products/product';
 import { CategoryProducts } from '../../../../../models/category/categoryProducts';
 
 @Component({

@@ -10,6 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { CategoryService } from '../../../../../services/categories/category.service';
 import { Category } from '../../../../../models/category/category';
 import { Subject, takeUntil } from 'rxjs';
+import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-edit-component',
@@ -20,7 +21,8 @@ import { Subject, takeUntil } from 'rxjs';
     MatInputModule,
     ReactiveFormsModule,
     MatDialogModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTooltip
   ],
   providers:[
     CategoryService,

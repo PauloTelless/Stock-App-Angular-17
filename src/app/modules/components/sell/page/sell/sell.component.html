@@ -33,10 +33,10 @@
         <th mat-header-cell  *matHeaderCellDef> Ações </th>
         <td mat-cell *matCellDef="let produto">
           @if (produto.quantidadeProduto != '0') {
-            <button mat-mini-fab style="background-color: greenyellow;" (click)="openModalSellProduct(produto)"><mat-icon style="color: #fff;">attach_money</mat-icon></button>
+            <button mat-raised-button style="background-color: greenyellow; color: #fff;" (click)="openModalSellProduct(produto)"><mat-icon style="color: #fff;">storefront</mat-icon>Vender</button>
           }
           @else {
-            <button mat-mini-fab disabled  (click)="openModalSellProduct(produto)"><mat-icon style="color: #fff;">attach_money</mat-icon></button>
+            <button mat-raised-button disabled (click)="openModalSellProduct(produto)"><mat-icon style="color: #fff;">storefront</mat-icon>Vender</button>
           }
 
         </td>

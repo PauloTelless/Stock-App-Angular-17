@@ -1,15 +1,15 @@
 import { ProductService } from '../../../../../services/products/product.service';
-import { Component, Inject, OnDestroy, inject, numberAttribute } from '@angular/core';
+import { Component, Inject, OnDestroy, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Product } from '../../../../../models/products/product';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import {  MatFormFieldModule } from '@angular/material/form-field';
-import {  MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
-import { MatButton, MatButtonModule } from '@angular/material/button';
-import { Router } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 import { Subject, takeUntil } from 'rxjs';
-import { error } from 'console';
+import { MatTooltip } from '@angular/material/tooltip';
+
 
 @Component({
   selector: 'app-sell-product',
@@ -20,7 +20,8 @@ import { error } from 'console';
     ReactiveFormsModule,
     MatButtonModule,
     MatFormFieldModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTooltip
   ],
   providers:[
     ProductService

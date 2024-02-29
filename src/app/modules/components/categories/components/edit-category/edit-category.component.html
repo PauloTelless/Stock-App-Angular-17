@@ -1,5 +1,5 @@
 <form [formGroup]="editCategoryForm" (submit)="putCategorySubmit()">
-  <h1 style="color: #7A67EE;">Editando a categoria: {{category.categoria.nomeCategoria.length > 15 ? category.categoria.nomeCategoria.substring(0, 15) + '...': category.categoria.nomeCategoria }}</h1>
+  <h1 style="color: #7A67EE;" [matTooltip]="category.categoria.nomeCategoria">Editando a categoria: {{category.categoria.nomeCategoria.length > 15 ? category.categoria.nomeCategoria.substring(0, 15) + '...': category.categoria.nomeCategoria }}</h1>
   <mat-form-field>
     <mat-label>Nome da categoria</mat-label>
     <input type="text" matInput placeholder="Digite o nome" autocomplete="off" formControlName="nomeCategoria" required>

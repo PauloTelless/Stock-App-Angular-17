@@ -3,13 +3,15 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/d
 import { CategoryService } from '../../../../../services/categories/category.service';
 import { MatButtonModule } from '@angular/material/button';
 import { Subject, takeUntil } from 'rxjs';
+import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-delete-category',
   standalone: true,
   imports: [
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTooltip
   ],
   providers:[
     CategoryService

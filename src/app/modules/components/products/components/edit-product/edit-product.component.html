@@ -1,5 +1,5 @@
 <form style="display: flex; flex-direction: column; text-align: center; justify-content: center; align-items: center; height: 100vh;" [formGroup]="editProductForm" (submit)="putProduct()">
-  <h2 style="text-align: center; color: #7A67EE;">Editando produto: {{produto.nomeProduto}}</h2>
+  <h2 style="text-align: center; color: #7A67EE;" [matTooltip]="produto.nomeProduto">Editando produto: {{produto.nomeProduto.length > 20 ? produto.nomeProduto.substring(0, 20) + '...': produto.nomeProduto  }}</h2>
   <mat-form-field>
       <mat-label class="cadastro-title">Nome do produto</mat-label>
       <input matInput type="text" placeholder="Nome do produto" required autocomplete="off" formControlName="nomeProduto" required>
