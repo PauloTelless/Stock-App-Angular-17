@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Category } from '../../models/category/category';
 import { enviroment } from '../../environments/environments';
+import { CategoryProducts } from '../../models/category/categoryProducts';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,10 @@ export class CategoryService {
 
   getAllCategory(): Observable<Array<Category>>{
     return this.httpClient.get<Array<Category>>(`${this.API_URL}categorias`);
+  }
+
+  getAllCategoriesProducts(): Observable<Array<CategoryProducts>>{
+    return this.httpClient.get<Array<CategoryProducts>>(`${this.API_URL}categoriasprodutos`);
   }
 
   postCategory(category: Category): Observable<Category>{

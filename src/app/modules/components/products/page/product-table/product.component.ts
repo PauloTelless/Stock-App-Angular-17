@@ -1,5 +1,5 @@
 import { Product } from '../../../../../models/products/product';
-import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 import { ToolBarComponent } from '../../../../../shared/tool-bar/tool-bar.component';
 import { TableModule } from 'primeng/table';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,6 +13,8 @@ import { EditProductComponent } from '../../components/edit-product/edit-product
 import { Subject, takeUntil } from 'rxjs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatPaginator, MatPaginatorModule, PageEvent} from '@angular/material/paginator';
+import { PaginatorModule } from 'primeng/paginator';
 
 import * as XLSX from 'xlsx';
 
@@ -28,21 +30,24 @@ import * as XLSX from 'xlsx';
     MatButtonModule,
     MatDialogModule,
     MatTooltipModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatPaginatorModule,
+    PaginatorModule
   ],
   templateUrl: './product.component.html',
   styleUrl: './product.component.sass'
 })
 
-export class ProductComponent implements OnInit, OnDestroy{
+export class ProductComponent implements  OnInit, OnDestroy{
   constructor(){}
 
-  private onDeleteSuccess: Subject<void> = new Subject<void>();
   private destroy$ = new Subject<void>;
   public productDatas!: Array<Product>;
   private dialogRef = inject(MatDialog);
   private productService = inject(ProductService);
   private fileNameExcel = 'produtos.xlsx';
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngOnInit(): void {
     this.getAllProducts();
@@ -70,11 +75,11 @@ export class ProductComponent implements OnInit, OnDestroy{
     })
   }
 
-  openModalDeleteProduct(produtoId: string): void{
+  openModalDeleteProduct(produtoId: string, produto: Product): void{
     this.dialogRef.open(DeleteProductComponent, {
       width: '500px',
       height: '400px',
-      data: produtoId
+      data: {produtoId, produto}
     })
   }
 

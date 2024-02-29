@@ -14,6 +14,8 @@ import { DeleteCategoryComponent } from '../../components/delete-category/delete
 import { EditCategoryComponent } from '../../components/edit-category/edit-category.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import * as XLSX from 'xlsx';
+import { Product } from '../../../../../models/products/product';
+import { CategoryProducts } from '../../../../../models/category/categoryProducts';
 
 @Component({
   selector: 'app-category',
@@ -36,8 +38,10 @@ export class CategoryComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     this.getAllCategories();
+    this.getAllCategoriesProducts();
   }
 
+  public categoriesProdutos!: Array<CategoryProducts>
   private dialogService = inject(MatDialog);
   private categoryService = inject(CategoryService);
   private destroy$ = new Subject<void>;
@@ -74,16 +78,24 @@ export class CategoryComponent implements OnInit, OnDestroy{
     })
   }
 
-  openModalDeleteCategory(categoriaId: string){
+  openModalDeleteCategory(categoriaId: string, categoria: Category){
     this.dialogService.open(DeleteCategoryComponent,{
       width: '500px',
       height: '400px',
-      data: categoriaId
+      data: {categoriaId, categoria}
+    })
+  }
+
+  getAllCategoriesProducts(){
+    this.categoryService.getAllCategoriesProducts().subscribe({
+      next: (response => {
+        this.categoriesProdutos = response;
+        console.log(response)
+      })
     })
   }
 
   exportToExcel(){
-
     let categorias = document.getElementById('table-excel');
 
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(categorias);

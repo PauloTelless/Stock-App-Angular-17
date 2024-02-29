@@ -10,7 +10,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { CategoryService } from '../../../../../services/categories/category.service';
 import { Category } from '../../../../../models/category/category';
 import { Subject, takeUntil } from 'rxjs';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-component',
@@ -42,7 +41,6 @@ export class EditProductComponent implements OnInit, OnDestroy{
   private productService = inject(ProductService);
   private categoriaService = inject(CategoryService);
   private formBuilder = inject(FormBuilder);
-  private routerService = inject(Router);
   private dialogService = inject(MatDialog);
 
   ngOnInit(): void {

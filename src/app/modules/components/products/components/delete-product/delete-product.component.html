@@ -1,5 +1,5 @@
 <div class="control-delete">
-  <h1 style="color: #7A67EE;">Deseja excluir o produto ?</h1>
+  <h1 style="color: #7A67EE;" [matTooltip]="data.produto.nomeProduto">Deseja excluir o aparelho {{data.produto.nomeProduto.length > 9 ? data.produto.nomeProduto.substring(0, 9) + '...':  data.produto.nomeProduto}} ?</h1>
   <button mat-raised-button color="warn" (click)="deleteProduct()">Sim</button>
   <button mat-raised-button color="primary" (click)="cancelDeleteProduct()">Não</button>
 </div>

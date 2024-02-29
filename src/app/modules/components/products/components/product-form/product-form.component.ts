@@ -6,7 +6,6 @@ import { MatInputModule } from '@angular/material/input';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProductService } from '../../../../../services/products/product.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
 import { CategoryService } from '../../../../../services/categories/category.service';
 import { Category } from '../../../../../models/category/category';

@@ -1,16 +1,18 @@
 import { ProductService } from '../../../../../services/products/product.service';
-import { Component, Inject, inject } from '@angular/core';
+import { Component, Inject, inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button'
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
+import { MatTooltip } from '@angular/material/tooltip'
 
 @Component({
   selector: 'app-delete-product',
   standalone: true,
   imports: [
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTooltip
   ],
   providers: [
     ProductService
@@ -19,8 +21,11 @@ import { Subject, takeUntil } from 'rxjs';
   styleUrl: './delete-product.component.sass'
 })
 
-export class DeleteProductComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: string) { }
+export class DeleteProductComponent implements OnInit{
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
+  ngOnInit(): void {
+
+  }
 
   private routerService = inject(Router);
   private dialogService = inject(MatDialog);
@@ -28,7 +33,7 @@ export class DeleteProductComponent {
   private destroy$ = new Subject<void>;
 
   deleteProduct(){
-    this.productService.deleteProduct(this.data).pipe(
+    this.productService.deleteProduct(this.data.produtoId).pipe(
       takeUntil(
         this.destroy$
       )
