@@ -1,10 +1,10 @@
 import { Component, OnDestroy, inject } from '@angular/core';
-import { ToolBarComponent } from '../../../shared/tool-bar/tool-bar.component';
-import { ProductService } from '../../../services/products/product.service';
-import { Product } from '../../../models/products/product';
+import { ToolBarComponent } from '../../../../shared/tool-bar/tool-bar.component';
+import { ProductService } from '../../../../services/products/product.service';
+import { Product } from '../../../../models/products/product';
 import { ChartModule } from 'primeng/chart';
-import { CategoryService } from '../../../services/categories/category.service';
-import { CategoryComponent } from '../categories/page/category-table/category.component';
+import { CategoryService } from '../../../../services/categories/category.service';
+import { CategoryComponent } from '../../categories/page/category-table/category.component';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
