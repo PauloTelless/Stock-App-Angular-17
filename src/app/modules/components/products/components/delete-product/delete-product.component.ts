@@ -1,6 +1,6 @@
 import { ProductService } from '../../../../../services/products/product.service';
 import { Component, Inject, inject, OnDestroy, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button'
 import { Subject, takeUntil } from 'rxjs';
 import { MatTooltip } from '@angular/material/tooltip'
@@ -23,30 +23,30 @@ import { MatTooltip } from '@angular/material/tooltip'
 export class DeleteProductComponent implements OnDestroy{
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
 
-  private dialogService = inject(MatDialog);
+  private dialogService = inject(MatDialogRef);
   private productService = inject(ProductService);
   private destroy$ = new Subject<void>;
 
-  deleteProduct(){
+  deleteProduct(): void{
     this.productService.deleteProduct(this.data.produtoId).pipe(
       takeUntil(
         this.destroy$
         )
         ).subscribe();
 
-        this.dialogService.closeAll();
+        this.dialogService.close();
         this.recarregarPagina();
       }
 
-      cancelDeleteProduct(){
-        this.dialogService.closeAll();
+      cancelDeleteProduct(): void{
+        this.dialogService.close();
       }
 
-      recarregarPagina() {
+      recarregarPagina(): void{
         window.location.reload();
       }
 
-      ngOnDestroy(): void {
+      ngOnDestroy(): void{
         this.destroy$.next();
         this.destroy$.complete();
       }

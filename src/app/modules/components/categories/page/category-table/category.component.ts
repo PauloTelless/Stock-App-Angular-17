@@ -14,8 +14,9 @@ import { DeleteCategoryComponent } from '../../components/delete-category/delete
 import { EditCategoryComponent } from '../../components/edit-category/edit-category.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CategoryProducts } from '../../../../../models/category/categoryProducts';
-import * as XLSX from 'xlsx';
 import { ProductService } from '../../../../../services/products/product.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-category',
@@ -28,7 +29,8 @@ import { ProductService } from '../../../../../services/products/product.service
     MatIconModule,
     MatTableModule,
     MatDialogModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatProgressSpinnerModule
   ],
   templateUrl: './category.component.html',
   styleUrl: './category.component.sass'
@@ -49,7 +51,7 @@ export class CategoryComponent implements OnInit, OnDestroy{
   private categoryService = inject(CategoryService);
   private fileNameExcel = 'categorias.xlsx'
 
-  getAllCategories(){
+  getAllCategories(): void{
     this.categoryService.getAllCategory().pipe(
       takeUntil(
         this.destroy$
@@ -64,18 +66,18 @@ export class CategoryComponent implements OnInit, OnDestroy{
     })
   }
 
-  getAllProducts(){
+  getAllProducts(): void{
     this.productService.getAllProducts().subscribe();
   }
 
-  openModalCategoryForm(){
+  openModalCategoryForm(): void{
     this.dialogService.open(CategoryFormComponent, {
       width: '400px',
       height: '300px'
     })
   }
 
-  openModalEditCategory(categoriaId: string, categoria: Category){
+  openModalEditCategory(categoriaId: string, categoria: Category): void{
     this.dialogService.open(EditCategoryComponent, {
       width: '400px',
       height: '300px',
@@ -83,7 +85,7 @@ export class CategoryComponent implements OnInit, OnDestroy{
     })
   }
 
-  openModalDeleteCategory(categoriaId: string, categoria: Category){
+  openModalDeleteCategory(categoriaId: string, categoria: Category): void{
     this.dialogService.open(DeleteCategoryComponent,{
       width: '500px',
       height: '400px',
@@ -91,7 +93,7 @@ export class CategoryComponent implements OnInit, OnDestroy{
     })
   }
 
-  getAllCategoriesProducts(){
+  getAllCategoriesProducts(): void{
     this.categoryService.getAllCategoriesProducts().subscribe({
       next: (response => {
         this.categoriesProdutos = response;
@@ -99,7 +101,7 @@ export class CategoryComponent implements OnInit, OnDestroy{
     })
   }
 
-  exportToExcel(){
+  exportToExcel(): void{
     let categorias = document.getElementById('table-excel');
 
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(categorias);

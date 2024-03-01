@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit, inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { CategoryService } from '../../../../../services/categories/category.service';
 import { MatButtonModule } from '@angular/material/button';
 import { Subject, takeUntil } from 'rxjs';
@@ -31,29 +31,29 @@ export class DeleteCategoryComponent implements OnInit,OnDestroy{
   private productService = inject(ProductService);
   private destroy$ = new Subject<void>;
   private categorieService = inject(CategoryService);
-  private dialogService = inject(MatDialog)
+  private dialogService = inject(MatDialogRef)
 
-  deleteCategory(){
+  deleteCategory(): void{
     this.categorieService.deleteCategory(this.data.categoria.categoriaId).pipe(
       takeUntil(
         this.destroy$
       )
     ).subscribe(() => this.deleteProdutoToo());
    this.recarregarPagina();
-   this.dialogService.closeAll();
+   this.dialogService.close();
   }
 
-  deleteProdutoToo(){
+  deleteProdutoToo(): void{
     this.productService.deleteProduct(this.data.categoria.produtos.produtoId);
     console.log('data', this.data)
     console.log(this.data.categoria.produtos.produtoId)
   }
 
-  closeModalCategoryDelete(){
-    this.dialogService.closeAll();
+  closeModalCategoryDelete(): void{
+    this.dialogService.close();
   }
 
-  recarregarPagina(){
+  recarregarPagina(): void{
     window.location.reload();
   }
 

@@ -1,6 +1,6 @@
 import { ProductService } from '../../../../../services/products/product.service';
 import { Component, Inject, OnDestroy, inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { Product } from '../../../../../models/products/product';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -34,11 +34,12 @@ export class SellProductComponent implements OnDestroy {
   constructor(@Inject(MAT_DIALOG_DATA) public data: Product) {}
 
   private formBuilder = inject(FormBuilder);
+  private dialogService = inject(MatDialog);
+  private dialogRef = inject(MatDialogRef);
+  private productService = inject(ProductService);
   public nomeProduto = this.data.nomeProduto;
   public quantidadeProduto = this.data.quantidadeProduto;
-  private productService = inject(ProductService);
   private destroy$ = new Subject<void>();
-  private dialogService = inject(MatDialog);
 
   sellProductForm = this.formBuilder.group({
     nomeProduto: this.nomeProduto,
@@ -65,7 +66,7 @@ export class SellProductComponent implements OnDestroy {
       ).subscribe();
 
       this.recarregarPagina();
-      this.dialogService.closeAll();
+      this.dialogRef.close();
     }
   }
 

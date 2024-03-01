@@ -5,8 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CategoryService } from '../../../../../services/categories/category.service';
 import { Category } from '../../../../../models/category/category';
-import { Router } from '@angular/router';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -30,7 +29,7 @@ export class CategoryFormComponent implements OnDestroy{
   constructor(){}
 
   private destroy$ = new Subject<void>;
-  private dialogService = inject(MatDialog)
+  private dialogService = inject(MatDialogRef)
   private categoryService = inject(CategoryService);
   private formBuilder = inject(FormBuilder);
 
@@ -38,18 +37,19 @@ export class CategoryFormComponent implements OnDestroy{
     nomeCategoria: ['', Validators.required]
   })
 
-  createCategoryFormSubmit(){
+  createCategoryFormSubmit(): void{
     if (this.createCategoryForm.valid && this.createCategoryForm.value) {
       this.categoryService.postCategory(this.createCategoryForm.value as Category).pipe(
         takeUntil(
           this.destroy$
         )
-      ).subscribe(() => this.recarregarPagina())
-      this.dialogService.closeAll();
+      ).subscribe();
+      this.recarregarPagina();
+      this.dialogService.close();
     }
   }
 
-  recarregarPagina(){
+  recarregarPagina(): void{
     window.location.reload();
   }
 

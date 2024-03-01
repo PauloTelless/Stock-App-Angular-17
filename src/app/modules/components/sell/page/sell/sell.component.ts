@@ -32,11 +32,11 @@ export class SellComponent implements OnInit, OnDestroy{
   }
 
   private dialogService = inject(MatDialog);
-  private destroy$ = new Subject<void>
   private productService = inject(ProductService);
+  private destroy$ = new Subject<void>
   public productDatas!: Array<Product>;
 
-  getAllProducts(){
+  getAllProducts(): void{
     this.productService.getAllProducts().pipe(
       takeUntil(
         this.destroy$
@@ -48,7 +48,7 @@ export class SellComponent implements OnInit, OnDestroy{
     })
   }
 
-  openModalSellProduct(produto: Product){
+  openModalSellProduct(produto: Product): void{
     this.dialogService.open(SellProductComponent,{
       width: '500px',
       height: '600px',

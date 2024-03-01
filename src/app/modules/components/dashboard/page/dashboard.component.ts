@@ -31,11 +31,11 @@ export class DashboardComponent implements OnDestroy{
   basicOptions: any;
   basicData: any;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getAllProducts();
   }
 
-  getAllProducts() {
+  getAllProducts(): void {
     this.productService.getAllProducts().pipe(
       takeUntil(
         this.destroy$
@@ -48,7 +48,7 @@ export class DashboardComponent implements OnDestroy{
     });
   }
 
-  ChartData() {
+  ChartData(): void{
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
     const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');

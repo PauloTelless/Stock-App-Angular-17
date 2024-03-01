@@ -1,6 +1,6 @@
 <app-tool-bar></app-tool-bar>
 <div class="table-class">
-  @if (categoryDatas.length == 0) {
+  @if (!categoryDatas) {
     <button matTooltip="É preciso ter, pelo menos, uma categoria registrada." mat-raised-button color="warn"><mat-icon>warning</mat-icon>
       Adicionar produto
     </button>
@@ -13,15 +13,9 @@
       Adicionar produto
     </button>
 
-   @if (productDatas.length == 0) {
-    <button matTooltip="Sem dados." mat-raised-button color="warn" style="margin-left: 2%;"><mat-icon class="icon">download</mat-icon>
+    <button mat-raised-button color="primary" style="margin-left: 2%;" (click)="exportToExcel()"><mat-icon class="icon">download</mat-icon>
       Baixar relação
-     </button>
-    } @else {
-      <button mat-raised-button color="primary" style="margin-left: 2%;" (click)="exportToExcel()"><mat-icon class="icon">download</mat-icon>
-        Baixar relação
-       </button>
-    }
+    </button>
   }
 
   <table mat-table [dataSource]="productDatas" class="mat-elevation-z8" id="excel-table">

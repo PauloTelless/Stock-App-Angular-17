@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ProductService } from '../../../../../services/products/product.service';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { CategoryService } from '../../../../../services/categories/category.service';
 import { Category } from '../../../../../models/category/category';
@@ -43,7 +43,7 @@ export class EditProductComponent implements OnInit, OnDestroy{
   private productService = inject(ProductService);
   private categoriaService = inject(CategoryService);
   private formBuilder = inject(FormBuilder);
-  private dialogService = inject(MatDialog);
+  private dialogService = inject(MatDialogRef);
 
   ngOnInit(): void {
     this.getAllCategories();
@@ -96,12 +96,12 @@ export class EditProductComponent implements OnInit, OnDestroy{
       )
     ).subscribe(() => {
       this.recarregarPagina();
-      this.dialogService.closeAll();
+      this.dialogService.close();
     }
     );
   }
 
-  recarregarPagina(){
+  recarregarPagina(): void{
     window.location.reload();
   }
 

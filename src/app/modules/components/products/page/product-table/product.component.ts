@@ -1,5 +1,5 @@
 import { Product } from '../../../../../models/products/product';
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { ToolBarComponent } from '../../../../../shared/tool-bar/tool-bar.component';
 import { TableModule } from 'primeng/table';
 import { MatButtonModule } from '@angular/material/button';
@@ -61,12 +61,6 @@ export class ProductComponent implements  OnInit, OnDestroy{
     ).subscribe({
       next: (response) => {
         this.productDatas = response;
-        this.productDatas.forEach(product => {
-          const category = this.categoryDatas.find(category => category.categoriaId === product.categoriaId);
-          if (category) {
-            product.categoriaName = category.nomeCategoria;
-          }
-        });
       },
       error: (err) => {
       console.log(err);
@@ -112,11 +106,11 @@ export class ProductComponent implements  OnInit, OnDestroy{
   exportToExcel(): void{
     let produtos = document.getElementById('excel-table');
 
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(produtos);
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    const workSheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(produtos);
+    const workBook: XLSX.WorkBook = XLSX.utils.book_new();
 
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
-    XLSX.writeFile(wb, this.fileNameExcel);
+    XLSX.utils.book_append_sheet(workBook, workSheet, 'Relatório');
+    XLSX.writeFile(workBook, this.fileNameExcel);
   }
 
   displayedColumns: string[] = ['codigo', 'nome', 'descricao', 'quantidade', 'preco', 'acoes'];

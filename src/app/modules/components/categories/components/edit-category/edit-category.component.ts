@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CategoryService } from '../../../../../services/categories/category.service';
@@ -34,7 +34,7 @@ export class EditCategoryComponent implements OnDestroy{
   private destroy$ = new Subject<void>;
   private categoryService = inject(CategoryService);
   private formBuilder = inject(FormBuilder);
-  private dialogService = inject(MatDialog)
+  private dialogService = inject(MatDialogRef)
 
   editCategoryForm = this.formBuilder.group({
     nomeCategoria: this.category.categoria.nomeCategoria
@@ -47,7 +47,7 @@ export class EditCategoryComponent implements OnDestroy{
       )
     ).subscribe({
       next: () => {
-        this.dialogService.closeAll();
+        this.dialogService.close();
         this.recarregarPagina();
       },
       error: (err) => {
@@ -56,7 +56,7 @@ export class EditCategoryComponent implements OnDestroy{
     })
   }
 
-  recarregarPagina(){
+  recarregarPagina(): void{
     window.location.reload();
   }
 
