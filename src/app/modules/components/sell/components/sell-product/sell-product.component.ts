@@ -10,7 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { Subject, takeUntil } from 'rxjs';
 import { MatTooltip } from '@angular/material/tooltip';
 import { ErrorComponent } from './error/error.component';
-import { SuccessComponent } from '../success/success.component';
+import { SuccessComponent } from './success/success.component';
 
 
 @Component({

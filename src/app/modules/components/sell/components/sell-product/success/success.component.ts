@@ -4,7 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-success',
+  selector: 'app-success-sell',
   standalone: true,
   imports: [
     MatIconModule,

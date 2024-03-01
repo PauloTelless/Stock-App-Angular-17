@@ -13,7 +13,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { SuccessComponent } from './success/success.component';
 
 @Component({
-  selector: 'app-product-form',
+  selector: 'app-success-produto-form',
   standalone: true,
   imports: [
     MatFormFieldModule,
