@@ -1,8 +1,9 @@
 import { Product } from '../../models/products/product';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { APP_ID, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { enviroment } from '../../environments/environments';
+import { Category } from '../../models/category/category';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,10 @@ export class ProductService {
 
   postProduct(product: Product): Observable<Product> {
     return this.httpClient.post<Product>(`${this.API_URL}produtos`, product);
+  }
+
+  deleteAllProductsCategory(): Observable<Category>{
+    return this.httpClient.get<Category>(`${this.API_URL}categorias/categoriaId/`);
   }
 
   deleteProduct(productId: string): Observable<Product>{

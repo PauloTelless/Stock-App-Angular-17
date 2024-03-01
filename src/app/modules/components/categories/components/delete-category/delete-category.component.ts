@@ -4,6 +4,7 @@ import { CategoryService } from '../../../../../services/categories/category.ser
 import { MatButtonModule } from '@angular/material/button';
 import { Subject, takeUntil } from 'rxjs';
 import { MatTooltip } from '@angular/material/tooltip';
+import { ProductService } from '../../../../../services/products/product.service';
 
 @Component({
   selector: 'app-delete-category',
@@ -14,7 +15,8 @@ import { MatTooltip } from '@angular/material/tooltip';
     MatTooltip
   ],
   providers:[
-    CategoryService
+    CategoryService,
+    ProductService
   ],
   templateUrl: './delete-category.component.html',
   styleUrl: './delete-category.component.sass'
@@ -26,6 +28,7 @@ export class DeleteCategoryComponent implements OnInit,OnDestroy{
     console.log(this.data)
   }
 
+  private productService = inject(ProductService);
   private destroy$ = new Subject<void>;
   private categorieService = inject(CategoryService);
   private dialogService = inject(MatDialog)
@@ -35,9 +38,15 @@ export class DeleteCategoryComponent implements OnInit,OnDestroy{
       takeUntil(
         this.destroy$
       )
-    ).subscribe(() => console.log(this.data));
+    ).subscribe(() => this.deleteProdutoToo());
    this.recarregarPagina();
    this.dialogService.closeAll();
+  }
+
+  deleteProdutoToo(){
+    this.productService.deleteProduct(this.data.categoria.produtos.produtoId);
+    console.log('data', this.data)
+    console.log(this.data.categoria.produtos.produtoId)
   }
 
   closeModalCategoryDelete(){

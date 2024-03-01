@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { Subject, takeUntil } from 'rxjs';
 import { MatTooltip } from '@angular/material/tooltip';
+import { ErrorComponent } from './error/error.component';
 
 
 @Component({
@@ -47,19 +48,28 @@ export class SellProductComponent implements OnDestroy {
     quantidadeProduto: ['', Validators.required]
   });
 
-  sellProductFormSubmit() {
-    const quantidadeAtual: number = parseInt(this.data.quantidadeProduto ?? '0', 10) - parseInt(this.sellProductForm.value.quantidadeProduto ?? '0', 10);
-    this.sellProductForm.value.quantidadeProduto = quantidadeAtual.toString();
-    console.log(this.sellProductForm.value.quantidadeProduto);
-    this.productService.putProduct(this.data.produtoId, this.sellProductForm.value as Product).pipe(
-      takeUntil(this.destroy$)
-    ).subscribe();
+  sellProductFormSubmit(): void {
+    const quantidadeProduto = parseInt(this.data.quantidadeProduto ?? '0', 10) ;
+    if (parseInt(this.sellProductForm.value.quantidadeProduto ?? '0', 10) > quantidadeProduto || parseInt(this.sellProductForm.value.quantidadeProduto ?? '0', 10) < 0 || !parseInt(this.sellProductForm.value.quantidadeProduto ?? '0', 10)) {
+      this.dialogService.open(ErrorComponent, {
+        width: '300px',
+        height: '300px',
+        data: this.data
+      })
+    } else {
+      const quantidadeAtual: number = parseInt(this.data.quantidadeProduto ?? '0', 10) - parseInt(this.sellProductForm.value.quantidadeProduto ?? '0', 10);
+      this.sellProductForm.value.quantidadeProduto = quantidadeAtual.toString();
+      console.log(this.sellProductForm.value.quantidadeProduto);
+      this.productService.putProduct(this.data.produtoId, this.sellProductForm.value as Product).pipe(
+        takeUntil(this.destroy$)
+      ).subscribe();
 
-    this.recarrecarPagina();
-    this.dialogService.closeAll();
+      this.recarregarPagina();
+      this.dialogService.closeAll();
+    }
   }
 
-  recarrecarPagina(){
+  recarregarPagina(): void{
     window.location.reload();
   }
 

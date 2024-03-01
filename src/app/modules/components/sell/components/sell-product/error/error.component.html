@@ -1,0 +1,11 @@
+<div class="erro-message">
+  <span><mat-icon color="warn">error</mat-icon></span>
+  <h3>Quantidade disponível no estoque: {{quantidadeProduto}}</h3>
+  <span>Possíveis erros*</span>
+  <ul>
+    <li>Pedido maior que o disponível.</li>
+    <li>Pedido menor que o disponível.</li>
+    <li>Pedido solicitado inválido.</li>
+  </ul>
+  <button mat-raised-button color="primary" (click)="closeModalError()"><mat-icon>replay</mat-icon>Refazer</button>
+</div>

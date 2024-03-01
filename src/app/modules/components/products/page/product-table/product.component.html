@@ -1,12 +1,29 @@
 <app-tool-bar></app-tool-bar>
 <div class="table-class">
-  <button mat-raised-button color="primary" (click)="openModalProductForm()"><mat-icon>add</mat-icon>
-    Adicionar produto
-  </button>
+  @if (categoryDatas.length == 0) {
+    <button matTooltip="É preciso ter, pelo menos, uma categoria registrada." mat-raised-button color="warn"><mat-icon>warning</mat-icon>
+      Adicionar produto
+    </button>
 
-  <button mat-raised-button color="primary" style="margin-left: 2%;" (click)="exportToExcel()"><mat-icon class="icon">download</mat-icon>
-   Baixar relação
-  </button>
+    <button matTooltip="Sem dados." mat-raised-button color="warn" style="margin-left: 2%;"><mat-icon class="icon">file_download_off</mat-icon>
+     Baixar relação
+    </button>
+  } @else {
+    <button mat-raised-button color="primary" (click)="openModalProductForm()"><mat-icon>add</mat-icon>
+      Adicionar produto
+    </button>
+
+   @if (productDatas.length == 0) {
+    <button matTooltip="Sem dados." mat-raised-button color="warn" style="margin-left: 2%;"><mat-icon class="icon">download</mat-icon>
+      Baixar relação
+     </button>
+    } @else {
+      <button mat-raised-button color="primary" style="margin-left: 2%;" (click)="exportToExcel()"><mat-icon class="icon">download</mat-icon>
+        Baixar relação
+       </button>
+    }
+  }
+
   <table mat-table [dataSource]="productDatas" class="mat-elevation-z8" id="excel-table">
 
     <ng-container matColumnDef="codigo" id="codigo">

@@ -13,8 +13,9 @@ import { CategoryFormComponent } from '../../components/category-form/category-f
 import { DeleteCategoryComponent } from '../../components/delete-category/delete-category.component';
 import { EditCategoryComponent } from '../../components/edit-category/edit-category.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import * as XLSX from 'xlsx';
 import { CategoryProducts } from '../../../../../models/category/categoryProducts';
+import * as XLSX from 'xlsx';
+import { ProductService } from '../../../../../services/products/product.service';
 
 @Component({
   selector: 'app-category',
@@ -37,14 +38,15 @@ export class CategoryComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     this.getAllCategories();
-    this.getAllCategoriesProducts();
+    this.getAllProducts();
   }
 
+  private productService = inject(ProductService);
   public categoriesProdutos!: Array<CategoryProducts>
+  public categoriesData!: Array<Category>
+  private destroy$ = new Subject<void>;
   private dialogService = inject(MatDialog);
   private categoryService = inject(CategoryService);
-  private destroy$ = new Subject<void>;
-  public categoriesData!: Array<Category>
   private fileNameExcel = 'categorias.xlsx'
 
   getAllCategories(){
@@ -60,6 +62,10 @@ export class CategoryComponent implements OnInit, OnDestroy{
       console.log(err)
       }
     })
+  }
+
+  getAllProducts(){
+    this.productService.getAllProducts().subscribe();
   }
 
   openModalCategoryForm(){
@@ -89,7 +95,6 @@ export class CategoryComponent implements OnInit, OnDestroy{
     this.categoryService.getAllCategoriesProducts().subscribe({
       next: (response => {
         this.categoriesProdutos = response;
-        console.log(response)
       })
     })
   }

@@ -5,9 +5,15 @@
     Adicionar categoria
   </button>
 
-  <button style="margin-left: 2%;" mat-raised-button color="primary" (click)="exportToExcel()"><mat-icon>download</mat-icon>
-    Baixar relação
-  </button>
+  @if(categoriesData.length == 0){
+    <button matTooltip="Sem dados." style="margin-left: 2%;" mat-raised-button color="warn"><mat-icon>file_download_off</mat-icon>
+      Baixar relação
+    </button>
+  } @else {
+    <button matTooltip="Sem dados." style="margin-left: 2%;" mat-raised-button color="primary" (click)="exportToExcel()"><mat-icon>download</mat-icon>
+      Baixar relação
+    </button>
+  }
 
   <table mat-table [dataSource]="categoriesData" class="mat-elevation-z8" id="table-excel">
 

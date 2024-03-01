@@ -13,9 +13,9 @@ import { EditProductComponent } from '../../components/edit-product/edit-product
 import { Subject, takeUntil } from 'rxjs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import {MatPaginator, MatPaginatorModule, PageEvent} from '@angular/material/paginator';
 import { PaginatorModule } from 'primeng/paginator';
-
+import { CategoryService } from '../../../../../services/categories/category.service';
+import { Category } from '../../../../../models/category/category';
 import * as XLSX from 'xlsx';
 
 @Component({
@@ -31,7 +31,6 @@ import * as XLSX from 'xlsx';
     MatDialogModule,
     MatTooltipModule,
     MatProgressSpinnerModule,
-    MatPaginatorModule,
     PaginatorModule
   ],
   templateUrl: './product.component.html',
@@ -42,14 +41,15 @@ export class ProductComponent implements  OnInit, OnDestroy{
   constructor(){}
 
   private destroy$ = new Subject<void>;
-  public productDatas!: Array<Product>;
-  private dialogRef = inject(MatDialog);
+  private categoryService = inject(CategoryService);
   private productService = inject(ProductService);
+  private dialogRef = inject(MatDialog);
+  public productDatas!: Array<Product>;
+  public categoryDatas!: Array<Category>;
   private fileNameExcel = 'produtos.xlsx';
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-
   ngOnInit(): void {
+    this.getAllCategories();
     this.getAllProducts();
   }
 
@@ -61,12 +61,30 @@ export class ProductComponent implements  OnInit, OnDestroy{
     ).subscribe({
       next: (response) => {
         this.productDatas = response;
+        this.productDatas.forEach(product => {
+          const category = this.categoryDatas.find(category => category.categoriaId === product.categoriaId);
+          if (category) {
+            product.categoriaName = category.nomeCategoria;
+          }
+        });
       },
       error: (err) => {
-      console.log(err)
+      console.log(err);
       }
     });
   };
+
+  getAllCategories(): void{
+    this.categoryService.getAllCategory().pipe(
+      takeUntil(
+        this.destroy$
+      )
+    ).subscribe({
+      next: (response) => {
+        this.categoryDatas = response;
+      }
+    })
+  }
 
   openModalProductForm(): void{
     this.dialogRef.open(ProductFormComponent, {
@@ -91,8 +109,7 @@ export class ProductComponent implements  OnInit, OnDestroy{
     })
   }
 
-
-  exportToExcel(){
+  exportToExcel(): void{
     let produtos = document.getElementById('excel-table');
 
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(produtos);
@@ -109,4 +126,3 @@ export class ProductComponent implements  OnInit, OnDestroy{
     this.destroy$.complete();
   }
 }
-
