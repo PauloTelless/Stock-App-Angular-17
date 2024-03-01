@@ -16,7 +16,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { PaginatorModule } from 'primeng/paginator';
 import { CategoryService } from '../../../../../services/categories/category.service';
 import { Category } from '../../../../../models/category/category';
+import { CommonModule } from '@angular/common';
 import * as XLSX from 'xlsx';
+import { ProductsCategories } from '../../../../../models/products/productsCategories';
 
 @Component({
   selector: 'app-product',
@@ -31,7 +33,8 @@ import * as XLSX from 'xlsx';
     MatDialogModule,
     MatTooltipModule,
     MatProgressSpinnerModule,
-    PaginatorModule
+    PaginatorModule,
+    CommonModule
   ],
   templateUrl: './product.component.html',
   styleUrl: './product.component.sass'
@@ -44,7 +47,10 @@ export class ProductComponent implements  OnInit, OnDestroy{
   private categoryService = inject(CategoryService);
   private productService = inject(ProductService);
   private dialogRef = inject(MatDialog);
+  public categoryDataResponse!: boolean;
+  public productsDataResponse!: boolean;
   public productDatas!: Array<Product>;
+  public productDatasCategories!: Array<ProductsCategories>;
   public categoryDatas!: Array<Category>;
   private fileNameExcel = 'produtos.xlsx';
 
@@ -61,6 +67,9 @@ export class ProductComponent implements  OnInit, OnDestroy{
     ).subscribe({
       next: (response) => {
         this.productDatas = response;
+        if (this.productDatas.length == 0) {
+          this.productsDataResponse = false;
+        }
       },
       error: (err) => {
       console.log(err);
@@ -76,6 +85,9 @@ export class ProductComponent implements  OnInit, OnDestroy{
     ).subscribe({
       next: (response) => {
         this.categoryDatas = response;
+        if (this.categoryDatas.length == 0) {
+          this.categoryDataResponse = false
+        }
       }
     })
   }

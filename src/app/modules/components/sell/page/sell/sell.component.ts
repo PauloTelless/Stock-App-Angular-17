@@ -33,6 +33,7 @@ export class SellComponent implements OnInit, OnDestroy{
 
   private dialogService = inject(MatDialog);
   private productService = inject(ProductService);
+  public productDataResponse!: boolean;
   private destroy$ = new Subject<void>
   public productDatas!: Array<Product>;
 
@@ -44,6 +45,9 @@ export class SellComponent implements OnInit, OnDestroy{
     ).subscribe({
       next: (response) => {
         this.productDatas = response;
+        if (this.productDatas.length == 0) {
+          this.productDataResponse = false;
+        }
       }
     })
   }

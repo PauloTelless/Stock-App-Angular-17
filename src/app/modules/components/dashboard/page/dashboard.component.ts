@@ -6,6 +6,7 @@ import { ChartModule } from 'primeng/chart';
 import { CategoryService } from '../../../../services/categories/category.service';
 import { CategoryComponent } from '../../categories/page/category-table/category.component';
 import { Subject, takeUntil } from 'rxjs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +14,8 @@ import { Subject, takeUntil } from 'rxjs';
   imports: [
     ToolBarComponent,
     CategoryComponent,
-    ChartModule
+    ChartModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     CategoryService
@@ -24,6 +26,7 @@ import { Subject, takeUntil } from 'rxjs';
 export class DashboardComponent implements OnDestroy{
   constructor(){}
 
+  public productDataResponse!: boolean;
   private destroy$ = new Subject<void>;
   private productService = inject(ProductService);
   public productsData!: Array<Product>;
@@ -43,7 +46,12 @@ export class DashboardComponent implements OnDestroy{
     ).subscribe({
       next: (response) => {
         this.productsData = response;
-        this.ChartData();
+        if (this.productsData.length == 0) {
+          this.productDataResponse = false;
+        }
+        else{
+          this.ChartData();
+        }
       }
     });
   }

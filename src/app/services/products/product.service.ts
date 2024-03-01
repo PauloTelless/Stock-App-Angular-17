@@ -4,6 +4,7 @@ import { APP_ID, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { enviroment } from '../../environments/environments';
 import { Category } from '../../models/category/category';
+import { ProductsCategories } from '../../models/products/productsCategories';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,10 @@ export class ProductService {
 
   getAllProducts(): Observable<Array<Product>>{
     return this.httpClient.get<Array<Product>>(`${this.API_URL}produtos`);
+  }
+
+  getAllProductsCategories(): Observable<Array<ProductsCategories>>{
+    return this.httpClient.get<Array<ProductsCategories>>(`${this.API_URL}categoriasprodutos`);
   }
 
   postProduct(product: Product): Observable<Product> {

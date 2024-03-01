@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { Subject, takeUntil } from 'rxjs';
 import { MatTooltip } from '@angular/material/tooltip';
 import { ErrorComponent } from './error/error.component';
+import { SuccessComponent } from '../success/success.component';
 
 
 @Component({
@@ -65,7 +66,10 @@ export class SellProductComponent implements OnDestroy {
         takeUntil(this.destroy$)
       ).subscribe();
 
-      this.recarregarPagina();
+      this.dialogService.open(SuccessComponent, {
+        width: '300px',
+        height: '300px'
+      });
       this.dialogRef.close();
     }
   }

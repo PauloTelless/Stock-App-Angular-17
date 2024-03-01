@@ -45,7 +45,8 @@ export class CategoryComponent implements OnInit, OnDestroy{
 
   private productService = inject(ProductService);
   public categoriesProdutos!: Array<CategoryProducts>
-  public categoriesData!: Array<Category>
+  public categoriesData!: Array<Category>;
+  public categoryDataResponse!: boolean;
   private destroy$ = new Subject<void>;
   private dialogService = inject(MatDialog);
   private categoryService = inject(CategoryService);
@@ -59,6 +60,9 @@ export class CategoryComponent implements OnInit, OnDestroy{
     ).subscribe({
       next: (response) => {
         this.categoriesData = response;
+        if (this.categoriesData.length == 0) {
+          this.categoryDataResponse = false
+        }
       },
       error: (err) => {
       console.log(err)
