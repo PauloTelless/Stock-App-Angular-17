@@ -11,6 +11,7 @@ import { CategoryService } from '../../../../../services/categories/category.ser
 import { Category } from '../../../../../models/category/category';
 import { Subject, takeUntil } from 'rxjs';
 import { MatTooltip } from '@angular/material/tooltip';
+import { SuccessComponent } from './success/success.component';
 
 @Component({
   selector: 'app-edit-component',
@@ -43,7 +44,8 @@ export class EditProductComponent implements OnInit, OnDestroy{
   private productService = inject(ProductService);
   private categoriaService = inject(CategoryService);
   private formBuilder = inject(FormBuilder);
-  private dialogService = inject(MatDialogRef);
+  private dialogService = inject(MatDialog);
+  private dialogRef = inject(MatDialogRef);
 
   ngOnInit(): void {
     this.getAllCategories();
@@ -64,9 +66,7 @@ export class EditProductComponent implements OnInit, OnDestroy{
         this.destroy$
         )
         ).subscribe({
-          next: (response) => {
-          console.log(response)
-        this.categoriesData = response;
+          next: () => {
       },
       error: (err) => {
       console.log(err)
@@ -95,14 +95,13 @@ export class EditProductComponent implements OnInit, OnDestroy{
         this.destroy$
       )
     ).subscribe(() => {
-      this.recarregarPagina();
-      this.dialogService.close();
+      this.dialogRef.close();
+      this.dialogService.open(SuccessComponent, {
+        width: '300px',
+        height: '300px'
+      })
     }
     );
-  }
-
-  recarregarPagina(): void{
-    window.location.reload();
   }
 
   ngOnDestroy(): void {

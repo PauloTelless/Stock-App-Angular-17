@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { Subject, takeUntil } from 'rxjs';
 import { MatTooltip } from '@angular/material/tooltip';
 import { ProductService } from '../../../../../services/products/product.service';
+import { SuccessComponent } from './success/success.component';
 
 @Component({
   selector: 'app-delete-category',
@@ -28,33 +29,26 @@ export class DeleteCategoryComponent implements OnInit,OnDestroy{
     console.log(this.data)
   }
 
-  private productService = inject(ProductService);
   private destroy$ = new Subject<void>;
   private categorieService = inject(CategoryService);
-  private dialogService = inject(MatDialogRef)
+  private dialogService = inject(MatDialog)
+  private dialogRef = inject(MatDialogRef)
 
   deleteCategory(): void{
     this.categorieService.deleteCategory(this.data.categoria.categoriaId).pipe(
       takeUntil(
         this.destroy$
       )
-    ).subscribe(() => this.deleteProdutoToo());
-   this.recarregarPagina();
-   this.dialogService.close();
-  }
-
-  deleteProdutoToo(): void{
-    this.productService.deleteProduct(this.data.categoria.produtos.produtoId);
-    console.log('data', this.data)
-    console.log(this.data.categoria.produtos.produtoId)
+    ).subscribe();
+    this.dialogRef.close();
+    this.dialogService.open(SuccessComponent, {
+      width: '300px',
+      height: '300px'
+    })
   }
 
   closeModalCategoryDelete(): void{
-    this.dialogService.close();
-  }
-
-  recarregarPagina(): void{
-    window.location.reload();
+    this.dialogRef.close();
   }
 
   ngOnDestroy(): void {

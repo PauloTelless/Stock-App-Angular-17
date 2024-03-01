@@ -5,11 +5,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProductService } from '../../../../../services/products/product.service';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { CategoryService } from '../../../../../services/categories/category.service';
 import { Category } from '../../../../../models/category/category';
 import { Subject, takeUntil } from 'rxjs';
+import { SuccessComponent } from './success/success.component';
 
 @Component({
   selector: 'app-product-form',
@@ -38,7 +39,8 @@ export class ProductFormComponent implements OnInit, OnDestroy{
   }
 
   private destroy$ = new Subject<void>;
-  private dialogService = inject(MatDialogRef);
+  private dialogRef = inject(MatDialogRef);
+  private dialogService = inject(MatDialog);
   private productService = inject(ProductService);
   private formBuilderService = inject(FormBuilder);
   private categoriaService = inject(CategoryService);
@@ -61,8 +63,11 @@ export class ProductFormComponent implements OnInit, OnDestroy{
         )
       ).subscribe({
         next: () => {
-          this.closeModalCreateFormSubmit();
-          this.recarregarPagina();
+          this.dialogRef.close();
+          this.dialogService.open(SuccessComponent, {
+            width: '300px',
+            height: '300px'
+          })
         },
         error: (err) => {
         console.log(err)
@@ -91,7 +96,7 @@ export class ProductFormComponent implements OnInit, OnDestroy{
   }
 
   closeModalCreateFormSubmit(): void{
-    this.dialogService.close();
+    this.dialogRef.close();
   };
 
   ngOnDestroy(): void {

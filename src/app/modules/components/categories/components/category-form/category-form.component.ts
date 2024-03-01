@@ -5,8 +5,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CategoryService } from '../../../../../services/categories/category.service';
 import { Category } from '../../../../../models/category/category';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { Subject, takeUntil } from 'rxjs';
+import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { Subject, takeUntil, Observable } from 'rxjs';
+import { SuccessComponent } from './success/success.component';
 
 @Component({
   selector: 'app-category-form',
@@ -29,7 +30,8 @@ export class CategoryFormComponent implements OnDestroy{
   constructor(){}
 
   private destroy$ = new Subject<void>;
-  private dialogService = inject(MatDialogRef)
+  private dialogRef = inject(MatDialogRef);
+  private dialogService = inject(MatDialog);
   private categoryService = inject(CategoryService);
   private formBuilder = inject(FormBuilder);
 
@@ -44,13 +46,14 @@ export class CategoryFormComponent implements OnDestroy{
           this.destroy$
         )
       ).subscribe();
-      this.recarregarPagina();
-      this.dialogService.close();
+      this.dialogRef.close();
+      this.dialogService.open(
+        SuccessComponent, {
+          width: '300px',
+          height: '300px'
+        }
+      )
     }
-  }
-
-  recarregarPagina(): void{
-    window.location.reload();
   }
 
   ngOnDestroy(): void {
