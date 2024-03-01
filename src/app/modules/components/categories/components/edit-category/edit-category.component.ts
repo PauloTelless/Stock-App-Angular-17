@@ -8,6 +8,7 @@ import { CategoryService } from '../../../../../services/categories/category.ser
 import { Category } from '../../../../../models/category/category';
 import { Subject, takeUntil } from 'rxjs';
 import { MatTooltip } from '@angular/material/tooltip'
+import { SuccessComponent } from './success/success.component';
 
 @Component({
   selector: 'app-edit-category',
@@ -34,7 +35,8 @@ export class EditCategoryComponent implements OnDestroy{
   private destroy$ = new Subject<void>;
   private categoryService = inject(CategoryService);
   private formBuilder = inject(FormBuilder);
-  private dialogService = inject(MatDialogRef)
+  private dialogService = inject(MatDialog)
+  private dialogRef = inject(MatDialogRef)
 
   editCategoryForm = this.formBuilder.group({
     nomeCategoria: this.category.categoria.nomeCategoria
@@ -47,17 +49,16 @@ export class EditCategoryComponent implements OnDestroy{
       )
     ).subscribe({
       next: () => {
-        this.dialogService.close();
-        this.recarregarPagina();
+        this.dialogRef.close();
+        this.dialogService.open(SuccessComponent, {
+          width: '300px',
+          height: '300px'
+        })
       },
       error: (err) => {
       console.log(err)
       }
     })
-  }
-
-  recarregarPagina(): void{
-    window.location.reload();
   }
 
   ngOnDestroy(): void {
