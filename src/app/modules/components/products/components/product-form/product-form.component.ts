@@ -11,6 +11,7 @@ import { CategoryService } from '../../../../../services/categories/category.ser
 import { Category } from '../../../../../models/category/category';
 import { Subject, takeUntil } from 'rxjs';
 import { SuccessComponent } from './success/success.component';
+import { ErrorComponent } from './error/error.component';
 
 @Component({
   selector: 'app-success-produto-form',
@@ -57,23 +58,34 @@ export class ProductFormComponent implements OnInit, OnDestroy{
 
   createProductSubmit(): void{
     if (this.createProductForm.valid && this.createProductForm.value) {
-      this.productService.postProduct(this.createProductForm.value as Product).pipe(
-        takeUntil(
-          this.destroy$
-        )
-      ).subscribe({
-        next: () => {
-          this.dialogRef.close();
-          this.dialogService.open(SuccessComponent, {
-            width: '300px',
-            height: '300px'
-          })
-        },
-        error: (err) => {
-        console.log(err)
-        }
-      });
-    };
+      if (!parseInt(this.createProductForm.value.quantidadeProduto ?? '0', 0)) {
+        console.log('errado')
+        this.dialogService.open(ErrorComponent, {
+          width: '300px',
+          height: '300px',
+          data: this.createProductForm.value.quantidadeProduto
+        });
+      } if(parseInt(this.createProductForm.value.quantidadeProduto ?? '0', 0)) {
+        this.productService.postProduct(this.createProductForm.value as Product).pipe(
+          takeUntil(
+            this.destroy$
+          )
+        ).subscribe({
+          next: () => {
+            this.dialogRef.close();
+            this.dialogService.open(SuccessComponent, {
+              width: '300px',
+              height: '300px'
+            })
+          },
+          error: (err) => {
+          console.log(err)
+          }
+        });
+      };
+      }
+
+
   };
 
   getAllCategories(): void{
