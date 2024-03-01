@@ -16,8 +16,6 @@ import { MatButtonModule } from '@angular/material/button'
 })
 export class ErrorComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: Product){}
-
-  public quantidadeProduto = parseInt(this.data.quantidadeProduto ?? '0', 0)
   private dialogService = inject(MatDialogRef);
 
   closeModalError(){

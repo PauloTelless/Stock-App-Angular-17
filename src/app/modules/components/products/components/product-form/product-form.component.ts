@@ -40,12 +40,12 @@ export class ProductFormComponent implements OnInit, OnDestroy{
   }
 
   private destroy$ = new Subject<void>;
+  public categoriesData!: Array<Category>;
   private dialogRef = inject(MatDialogRef);
   private dialogService = inject(MatDialog);
   private productService = inject(ProductService);
   private formBuilderService = inject(FormBuilder);
   private categoriaService = inject(CategoryService);
-  public categoriesData!: Array<Category>;
 
   createProductForm = this.formBuilderService.group({
     nomeProduto: ['', Validators.required],
@@ -58,14 +58,16 @@ export class ProductFormComponent implements OnInit, OnDestroy{
 
   createProductSubmit(): void{
     if (this.createProductForm.valid && this.createProductForm.value) {
-      if (!parseInt(this.createProductForm.value.quantidadeProduto ?? '0', 0)) {
+      if (!parseInt(this.createProductForm.value.quantidadeProduto ?? '0', 0) || (!parseFloat(this.createProductForm.value.precoProduto ?? '0'))) {
         console.log('errado')
         this.dialogService.open(ErrorComponent, {
           width: '300px',
           height: '300px',
-          data: this.createProductForm.value.quantidadeProduto
+          data: this.createProductForm.value
         });
-      } if(parseInt(this.createProductForm.value.quantidadeProduto ?? '0', 0)) {
+      }
+
+      if(parseInt(this.createProductForm.value.quantidadeProduto ?? '0', 0) && parseFloat(this.createProductForm.value.precoProduto ?? '0')) {
         this.productService.postProduct(this.createProductForm.value as Product).pipe(
           takeUntil(
             this.destroy$
@@ -84,8 +86,6 @@ export class ProductFormComponent implements OnInit, OnDestroy{
         });
       };
       }
-
-
   };
 
   getAllCategories(): void{
@@ -102,10 +102,6 @@ export class ProductFormComponent implements OnInit, OnDestroy{
       }
     });
   };
-
-  recarregarPagina(): void{
-    window.location.reload();
-  }
 
   closeModalCreateFormSubmit(): void{
     this.dialogRef.close();
