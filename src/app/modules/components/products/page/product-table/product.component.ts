@@ -116,9 +116,9 @@ export class ProductComponent implements  OnInit, OnDestroy{
   }
 
   exportToExcel(): void{
-    let produtos = document.getElementById('excel-table');
+    let produtos = this.productDatas;
 
-    const workSheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(produtos);
+    const workSheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(produtos);
     const workBook: XLSX.WorkBook = XLSX.utils.book_new();
 
     XLSX.utils.book_append_sheet(workBook, workSheet, 'Relatório');

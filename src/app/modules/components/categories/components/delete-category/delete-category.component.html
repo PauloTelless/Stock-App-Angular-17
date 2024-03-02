@@ -1,6 +1,6 @@
 <div class="control-delete">
   <h1 style="color: #7A67EE;" [matTooltip]="data.categoria.nomeCategoria">Excluir a categoria: {{data.categoria.nomeCategoria.length > 15 ? data.categoria.nomeCategoria.substring(0, 15) + '...': data.categoria.nomeCategoria}} ? </h1>
-
+  <h3 style="text-align: center; color: red;">Todos os produtos relacionados a essa categoria serão excluídos</h3>
   <div class="button-group">
     <button style="margin-right: 2%;" mat-raised-button color="warn" (click)="deleteCategory()">Sim</button>
     <button mat-raised-button color="primary" (click)="closeModalCategoryDelete()">Não</button>

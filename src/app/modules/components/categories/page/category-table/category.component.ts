@@ -103,18 +103,10 @@ export class CategoryComponent implements OnInit, OnDestroy{
     })
   }
 
-  getAllCategoriesProducts(): void{
-    this.categoryService.getAllCategoriesProducts().subscribe({
-      next: (response => {
-        this.categoriesProdutos = response;
-      })
-    })
-  }
-
   exportToExcel(): void{
-    let categorias = document.getElementById('table-excel');
+    let categorias = this.categoriesData;
 
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(categorias);
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(categorias);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
 
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1')
