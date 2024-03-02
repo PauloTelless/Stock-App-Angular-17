@@ -24,8 +24,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import * as XLSX from 'xlsx';
 import * as _ from 'lodash';
-import { ContentObserver } from '@angular/cdk/observers';
-
 
 @Component({
   selector: 'app-product',
@@ -70,6 +68,7 @@ export class ProductComponent implements  OnInit, OnDestroy{
     {propriedade: "Nome"},
     {propriedade: "Quantidade"},
     {propriedade: "Preço"},
+    {propriedade: "Marca"}
   ]
   private fileNameExcel = 'produtos.xlsx';
 
@@ -170,9 +169,10 @@ export class ProductComponent implements  OnInit, OnDestroy{
       this.productDatas = _.orderBy(this.productDatas, ['quantidadeProduto'])
     } else if(propriedade === 'Preço'){
       this.productDatas = _.orderBy(this.productDatas, ['precoProduto'], ['desc'])
-
     } else if(propriedade === 'Nome'){
       this.productDatas = _.orderBy(this.productDatas, ['nomeProduto'])
+    } else if(propriedade == 'Marca'){
+      this.productDatas = _.orderBy(this.productDatas, ['marcaProduto']);
     }
   }
 

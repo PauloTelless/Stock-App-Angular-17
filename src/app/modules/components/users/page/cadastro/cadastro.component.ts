@@ -8,6 +8,9 @@ import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../../../../services/auth/auth.service';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogModule } from '@angular/cdk/dialog';
+import { SuccessComponent } from './success/success.component';
 
 
 @Component({
@@ -18,7 +21,8 @@ import { Subject, takeUntil } from 'rxjs';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DialogModule
   ],
   templateUrl: './cadastro.component.html',
   styleUrl: './cadastro.component.sass'
@@ -32,6 +36,7 @@ export class CadastroComponent implements OnDestroy{
   private formBuilder = inject(FormBuilder);
   private userService = inject(AuthService);
   private routerServicer = inject(Router);
+  private dialogService = inject(MatDialog);
 
   createUserForm = this.formBuilder.group({
     nomeUsuario: ['', Validators.required],
@@ -49,6 +54,10 @@ export class CadastroComponent implements OnDestroy{
       ).subscribe({
         next: (response) => {
           console.log(response);
+          this.dialogService.open(SuccessComponent, {
+            width: '300px',
+            height: '300px'
+          })
           this.routerServicer.navigate(['/login'])
         },
         error: (err) => {

@@ -60,7 +60,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
-  @if (productDataResponse == false || !productDataResponse) {
+  @if (productDataResponse == false) {
     <h1 style="text-align: center; margin-top: 3%; color: #7A67EE;">Nenhum produto cadastrado</h1>
   }
 </div>
