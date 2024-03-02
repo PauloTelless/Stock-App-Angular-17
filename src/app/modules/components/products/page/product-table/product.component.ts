@@ -17,8 +17,9 @@ import { PaginatorModule } from 'primeng/paginator';
 import { CategoryService } from '../../../../../services/categories/category.service';
 import { Category } from '../../../../../models/category/category';
 import { CommonModule } from '@angular/common';
-import * as XLSX from 'xlsx';
 import { ProductsCategories } from '../../../../../models/products/productsCategories';
+import * as XLSX from 'xlsx';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-product',
@@ -43,6 +44,8 @@ import { ProductsCategories } from '../../../../../models/products/productsCateg
 export class ProductComponent implements  OnInit, OnDestroy{
   constructor(){}
 
+
+
   private destroy$ = new Subject<void>;
   private categoryService = inject(CategoryService);
   private productService = inject(ProductService);
@@ -66,7 +69,7 @@ export class ProductComponent implements  OnInit, OnDestroy{
       )
     ).subscribe({
       next: (response) => {
-        this.productDatas = response;
+        this.productDatas = _.sortBy(response, ['nomeProduto']);
         if (this.productDatas.length == 0) {
           this.productsDataResponse = false;
         }

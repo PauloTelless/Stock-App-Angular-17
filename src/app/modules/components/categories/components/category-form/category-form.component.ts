@@ -41,6 +41,7 @@ export class CategoryFormComponent implements OnDestroy{
 
   createCategoryFormSubmit(): void{
     if (this.createCategoryForm.valid && this.createCategoryForm.value) {
+      this.createCategoryForm.value.nomeCategoria = this.createCategoryForm.value.nomeCategoria?.toUpperCase();
       this.categoryService.postCategory(this.createCategoryForm.value as Category).pipe(
         takeUntil(
           this.destroy$

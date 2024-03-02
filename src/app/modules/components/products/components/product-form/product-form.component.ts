@@ -58,8 +58,8 @@ export class ProductFormComponent implements OnInit, OnDestroy{
 
   createProductSubmit(): void{
     if (this.createProductForm.valid && this.createProductForm.value) {
+      this.createProductForm.value.nomeProduto = this.createProductForm.value.nomeProduto?.toUpperCase();
       if (!parseInt(this.createProductForm.value.quantidadeProduto ?? '0', 0) || (!parseFloat(this.createProductForm.value.precoProduto ?? '0'))) {
-        console.log('errado')
         this.dialogService.open(ErrorComponent, {
           width: '300px',
           height: '300px',

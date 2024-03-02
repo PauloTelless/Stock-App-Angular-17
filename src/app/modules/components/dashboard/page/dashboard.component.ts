@@ -7,6 +7,7 @@ import { CategoryService } from '../../../../services/categories/category.servic
 import { CategoryComponent } from '../../categories/page/category-table/category.component';
 import { Subject, takeUntil } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-dashboard',
@@ -45,7 +46,7 @@ export class DashboardComponent implements OnDestroy{
       )
     ).subscribe({
       next: (response) => {
-        this.productsData = response;
+        this.productsData = _.sortBy(response, ['quantidadeProduto']);
         if (this.productsData.length == 0) {
           this.productDataResponse = false;
         }

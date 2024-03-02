@@ -9,6 +9,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { SellProductComponent } from '../../components/sell-product/sell-product.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import * as _ from 'lodash';
 
 
 @Component({
@@ -44,7 +45,7 @@ export class SellComponent implements OnInit, OnDestroy{
       )
     ).subscribe({
       next: (response) => {
-        this.productDatas = response;
+        this.productDatas = _.sortBy(response, ['nomeProduto']);
         if (this.productDatas.length == 0) {
           this.productDataResponse = false;
         }

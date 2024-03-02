@@ -17,6 +17,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { CategoryProducts } from '../../../../../models/category/categoryProducts';
 import { ProductService } from '../../../../../services/products/product.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import * as _ from 'lodash';
 import * as XLSX from 'xlsx';
 
 @Component({
@@ -44,12 +45,12 @@ export class CategoryComponent implements OnInit, OnDestroy{
     this.getAllProducts();
   }
 
-  private productService = inject(ProductService);
   public categoriesProdutos!: Array<CategoryProducts>
   public categoriesData!: Array<Category>;
   public productsData!: Array<Product>;
   public categoryDataResponse!: boolean;
   private destroy$ = new Subject<void>;
+  private productService = inject(ProductService);
   private dialogService = inject(MatDialog);
   private categoryService = inject(CategoryService);
   private fileNameExcel = 'categorias.xlsx'
@@ -61,7 +62,7 @@ export class CategoryComponent implements OnInit, OnDestroy{
       )
     ).subscribe({
       next: (response) => {
-        this.categoriesData = response;
+        this.categoriesData = _.sortBy(response, ['nomeCategoria']);
         if (this.categoriesData.length == 0) {
           this.categoryDataResponse = false
         }
@@ -106,11 +107,11 @@ export class CategoryComponent implements OnInit, OnDestroy{
   exportToExcel(): void{
     let categorias = this.categoriesData;
 
-    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(categorias);
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    const WorkSheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(categorias);
+    const WorkBook: XLSX.WorkBook = XLSX.utils.book_new();
 
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1')
-    XLSX.writeFile(wb, this.fileNameExcel)
+    XLSX.utils.book_append_sheet(WorkBook, WorkSheet, 'Categorias')
+    XLSX.writeFile(WorkBook, this.fileNameExcel)
   }
 
   displayedColumns: string[] = ['codigo', 'nome', 'acoes'];
