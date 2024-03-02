@@ -1,8 +1,13 @@
 <form [formGroup]="createProductForm" (submit)="createProductSubmit()">
   <h1 style="text-align: center; color: #7A67EE;">Cadastrar produto</h1>
-  <mat-form-field>
+   <mat-form-field>
       <mat-label class="cadastro-title">Nome do produto</mat-label>
       <input matInput type="text" placeholder="Nome do produto" required autocomplete="off" formControlName="nomeProduto">
+    </mat-form-field>
+
+   <mat-form-field>
+      <mat-label class="cadastro-title">Marca do produto</mat-label>
+      <input matInput type="text" placeholder="Marca" required autocomplete="off" formControlName="marcaProduto">
     </mat-form-field>
 
     <mat-form-field>

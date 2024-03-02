@@ -1,5 +1,5 @@
 import { Product } from '../../../../../models/products/product';
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges, inject } from '@angular/core';
 import { ToolBarComponent } from '../../../../../shared/tool-bar/tool-bar.component';
 import { TableModule } from 'primeng/table';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,8 +18,14 @@ import { CategoryService } from '../../../../../services/categories/category.ser
 import { Category } from '../../../../../models/category/category';
 import { CommonModule } from '@angular/common';
 import { ProductsCategories } from '../../../../../models/products/productsCategories';
+import { MatSelectChange, MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import * as XLSX from 'xlsx';
 import * as _ from 'lodash';
+import { ContentObserver } from '@angular/cdk/observers';
+
 
 @Component({
   selector: 'app-product',
@@ -35,7 +41,12 @@ import * as _ from 'lodash';
     MatTooltipModule,
     MatProgressSpinnerModule,
     PaginatorModule,
-    CommonModule
+    MatSelectModule,
+    CommonModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule
   ],
   templateUrl: './product.component.html',
   styleUrl: './product.component.sass'
@@ -44,22 +55,47 @@ import * as _ from 'lodash';
 export class ProductComponent implements  OnInit, OnDestroy{
   constructor(){}
 
-
-
   private destroy$ = new Subject<void>;
   private categoryService = inject(CategoryService);
   private productService = inject(ProductService);
   private dialogRef = inject(MatDialog);
+  private formbuilder = inject(FormBuilder);
   public categoryDataResponse!: boolean;
   public productsDataResponse!: boolean;
   public productDatas!: Array<Product>;
   public productDatasCategories!: Array<ProductsCategories>;
   public categoryDatas!: Array<Category>;
+  public ordernaQuantidade!: boolean;
+  public productsProps = [
+    {propriedade: "Nome"},
+    {propriedade: "Quantidade"},
+    {propriedade: "Preço"},
+  ]
   private fileNameExcel = 'produtos.xlsx';
 
   ngOnInit(): void {
     this.getAllCategories();
     this.getAllProducts();
+  }
+
+  public formSearchProduct = this.formbuilder.group({
+    nomeProduto: ['']
+  });
+
+  searchProduct(): void{
+    const nameProductSearch = this.formSearchProduct.value.nomeProduto?.toUpperCase();
+    this.productDatas = _.filter(this.productDatas, {'nomeProduto': `${nameProductSearch}`})
+    if (this.productDatas == null) {
+      alert('Não tem')
+    }
+    if (nameProductSearch == '') {
+      this.getAllProducts();
+    } else {
+      if(this.productDatas.length == 0){
+        alert(`Produto ${nameProductSearch} não encontrado`)
+        this.getAllProducts();
+      }
+    }
   }
 
   getAllProducts(): void{
@@ -128,7 +164,19 @@ export class ProductComponent implements  OnInit, OnDestroy{
     XLSX.writeFile(workBook, this.fileNameExcel);
   }
 
-  displayedColumns: string[] = ['codigo', 'nome', 'descricao', 'quantidade', 'preco', 'acoes'];
+  selecionarPropriedadeProduto(event: MatSelectChange) {
+    const propriedade = event.value;
+    if (propriedade === 'Quantidade') {
+      this.productDatas = _.orderBy(this.productDatas, ['quantidadeProduto'])
+    } else if(propriedade === 'Preço'){
+      this.productDatas = _.orderBy(this.productDatas, ['precoProduto'], ['desc'])
+
+    } else if(propriedade === 'Nome'){
+      this.productDatas = _.orderBy(this.productDatas, ['nomeProduto'])
+    }
+  }
+
+  displayedColumns: string[] = ['codigo', 'nome', 'marca', 'descricao', 'quantidade', 'preco', 'acoes'];
 
   ngOnDestroy(): void {
     this.destroy$.next();

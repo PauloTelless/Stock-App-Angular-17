@@ -52,7 +52,8 @@ export class ProductFormComponent implements OnInit, OnDestroy{
     descricaoProduto: ['', Validators.required],
     categoriaId: ['', Validators.required],
     precoProduto: ['', Validators.required],
-    quantidadeProduto: ['', Validators.required]
+    quantidadeProduto: ['', Validators.required],
+    marcaProduto: ['', Validators.required]
 
   })
 

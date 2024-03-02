@@ -5,7 +5,7 @@ import { MatIconModule} from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
 
 @Component({
-  selector: 'app-error-product-form',
+  selector: 'app-error-login',
   standalone: true,
   imports: [
     MatIconModule,

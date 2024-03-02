@@ -6,4 +6,5 @@ export interface Product{
   categoriaName: string;
   precoProduto: string,
   quantidadeProduto: string,
+  marcaProduto: string
 }

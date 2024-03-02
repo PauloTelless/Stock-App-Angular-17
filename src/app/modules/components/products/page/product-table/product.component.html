@@ -8,6 +8,7 @@
     <button matTooltip="Sem dados." mat-raised-button color="warn" style="margin-left: 2%;"><mat-icon class="icon">file_download_off</mat-icon>
      Baixar relação
     </button>
+
   } @else {
     <button mat-raised-button color="primary" (click)="openModalProductForm()"><mat-icon>add</mat-icon>
       Adicionar produto
@@ -21,6 +22,25 @@
       <button mat-raised-button color="primary" style="margin-left: 2%;" (click)="exportToExcel()"><mat-icon class="icon">download</mat-icon>
         Baixar relação
       </button>
+
+      <div class="filter-search">
+        <mat-form-field class="orderProduct">
+          <mat-label>Ordernar por</mat-label>
+          <mat-select (selectionChange)=selecionarPropriedadeProduto($event)>
+            @for (product of productsProps; track product) {
+              <mat-option [value]="product.propriedade">{{product.propriedade}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <form [formGroup]="formSearchProduct" class="searchProduct">
+          <mat-form-field>
+            <mat-label>Encontrar produto</mat-label>
+            <input type="text" matInput placeholder="Nome do produto" formControlName="nomeProduto">
+          </mat-form-field>
+          <button mat-mini-fab (click)="searchProduct()" color="primary"><mat-icon>search</mat-icon></button>
+        </form>
+      </div>
     }
   }
 
@@ -34,6 +54,11 @@
     <ng-container matColumnDef="nome">
       <th mat-header-cell *matHeaderCellDef> Nome </th>
       <td mat-cell *matCellDef="let produto" [matTooltip]="produto.nomeProduto" > {{ produto.nomeProduto.length > 18 ? produto.nomeProduto.substring(0, 18) + '...': produto.nomeProduto }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="marca">
+      <th mat-header-cell *matHeaderCellDef> Marca </th>
+      <td mat-cell *matCellDef="let produto" [matTooltip]="produto.marcaProduto">{{produto.marcaProduto.length > 10 ? produto.marcaProduto.substring(0, 10) + '...': produto.marcaProduto}}</td>
     </ng-container>
 
     <ng-container matColumnDef="descricao">
