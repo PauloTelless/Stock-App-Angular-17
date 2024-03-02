@@ -1,6 +1,6 @@
 <app-tool-bar></app-tool-bar>
 
-@if (productDataResponse == false) {
+@if (productDataResponse == false || !productDataResponse) {
   <h1 style="text-align: center; color: #7A67EE; margin-top: 5%;">Nenhum produto localizado</h1>
   <div class="spinner">
     <mat-spinner></mat-spinner>
