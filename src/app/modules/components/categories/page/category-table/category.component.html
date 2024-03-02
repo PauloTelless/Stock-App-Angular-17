@@ -24,7 +24,7 @@
 
     <ng-container matColumnDef="nome">
       <th mat-header-cell *matHeaderCellDef > Nome </th>
-      <td mat-cell *matCellDef="let categoria" [matTooltip]="categoria.nomeCategoria"> {{categoria.nomeCategoria.length> 15 ? categoria.nomeCategoria.substring(0, 15) + '...': categoria.nomeCategoria }} </td>
+      <td mat-cell *matCellDef="let categoria" [matTooltip]="categoria.nomeCategoria"> {{categoria.nomeCategoria.length> 25 ? categoria.nomeCategoria.substring(0, 25) + '...': categoria.nomeCategoria }} </td>
     </ng-container>
 
     <ng-container matColumnDef="acoes" class="button-group">

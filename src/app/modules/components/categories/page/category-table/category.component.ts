@@ -1,3 +1,4 @@
+import { Product } from './../../../../../models/products/product';
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { ToolBarComponent } from '../../../../../shared/tool-bar/tool-bar.component';
 import { MatButtonModule } from '@angular/material/button';
@@ -46,6 +47,7 @@ export class CategoryComponent implements OnInit, OnDestroy{
   private productService = inject(ProductService);
   public categoriesProdutos!: Array<CategoryProducts>
   public categoriesData!: Array<Category>;
+  public productsData!: Array<Product>;
   public categoryDataResponse!: boolean;
   private destroy$ = new Subject<void>;
   private dialogService = inject(MatDialog);
@@ -71,7 +73,11 @@ export class CategoryComponent implements OnInit, OnDestroy{
   }
 
   getAllProducts(): void{
-    this.productService.getAllProducts().subscribe();
+    this.productService.getAllProducts().subscribe({
+      next: (response) => {
+        this.productsData = response;
+      }
+    });
   }
 
   openModalCategoryForm(): void{

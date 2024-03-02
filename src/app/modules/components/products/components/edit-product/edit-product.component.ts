@@ -66,7 +66,8 @@ export class EditProductComponent implements OnInit, OnDestroy{
         this.destroy$
         )
         ).subscribe({
-          next: () => {
+          next: (response) => {
+            this.categoriesData = response;
       },
       error: (err) => {
       console.log(err)
