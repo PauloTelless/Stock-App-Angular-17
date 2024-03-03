@@ -91,7 +91,7 @@ export class ProductComponent implements  OnInit, OnDestroy{
       )
     ).subscribe({
       next: (response) => {
-        this.productDatas = _.sortBy(response, ['nomeProduto']);
+        this.productDatas = response;
         if (this.productDatas.length == 0) {
           this.productsDataResponse = false;
         }
@@ -113,9 +113,7 @@ export class ProductComponent implements  OnInit, OnDestroy{
     this.productDatas = _.filter(this.productDatas, (produto) => {
       return produto.nomeProduto.toUpperCase().includes(nameProductSearch);
     });
-
   }
-
 
   getAllCategories(): void{
     this.categoryService.getAllCategory().pipe(
