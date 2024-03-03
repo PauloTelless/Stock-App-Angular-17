@@ -1,5 +1,5 @@
 import { Product } from '../../../../../models/products/product';
-import { Component, OnChanges, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { ToolBarComponent } from '../../../../../shared/tool-bar/tool-bar.component';
 import { TableModule } from 'primeng/table';
 import { MatButtonModule } from '@angular/material/button';
@@ -66,8 +66,10 @@ export class ProductComponent implements  OnInit, OnDestroy{
   public ordernaQuantidade!: boolean;
   public productsProps = [
     {propriedade: "Nome"},
-    {propriedade: "Quantidade"},
-    {propriedade: "Preço"},
+    {propriedade: "Quantidade - Maior"},
+    {propriedade: "Quantidade - Menor"},
+    {propriedade: "Preço - Maior"},
+    {propriedade: "Preço - Menor"},
     {propriedade: "Marca"}
   ]
   private fileNameExcel = 'produtos.xlsx';
@@ -123,6 +125,7 @@ export class ProductComponent implements  OnInit, OnDestroy{
     ).subscribe({
       next: (response) => {
         this.categoryDatas = response;
+        console.log(this.categoryDatas)
         if (this.categoryDatas.length == 0) {
           this.categoryDataResponse = false
         }
@@ -132,14 +135,18 @@ export class ProductComponent implements  OnInit, OnDestroy{
 
   selecionarPropriedadeProduto(event: MatSelectChange) {
     const propriedade = event.value;
-    if (propriedade === 'Quantidade') {
+    if (propriedade === 'Quantidade - Maior') {
       this.productDatas = _.orderBy(this.productDatas, ['quantidadeProduto'],['desc'])
-    } else if(propriedade === 'Preço'){
+    } else if(propriedade === 'Quantidade - Menor'){
+      this.productDatas = _.orderBy(this.productDatas, ['quantidadeProduto'], ['asc'])
+    } else if(propriedade === 'Preço - Maior') {
       this.productDatas = _.orderBy(this.productDatas, ['precoProduto'], ['desc'])
-    } else if(propriedade === 'Nome'){
+    } else if (propriedade === 'Preço - Menor') {
+      this.productDatas = _.orderBy(this.productDatas, ['precoProduto'], ['asc'])
+    } else if (propriedade === 'Marca') {
+      this.productDatas = _.orderBy(this.productDatas, ['marcaProduto'])
+    } else if (propriedade === 'Nome') {
       this.productDatas = _.orderBy(this.productDatas, ['nomeProduto'])
-    } else if(propriedade == 'Marca'){
-      this.productDatas = _.orderBy(this.productDatas, ['marcaProduto']);
     }
   }
 
