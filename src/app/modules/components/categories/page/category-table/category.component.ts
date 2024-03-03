@@ -14,7 +14,6 @@ import { CategoryFormComponent } from '../../components/category-form/category-f
 import { DeleteCategoryComponent } from '../../components/delete-category/delete-category.component';
 import { EditCategoryComponent } from '../../components/edit-category/edit-category.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { CategoryProducts } from '../../../../../models/category/categoryProducts';
 import { ProductService } from '../../../../../services/products/product.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import * as _ from 'lodash';
@@ -45,7 +44,6 @@ export class CategoryComponent implements OnInit, OnDestroy{
     this.getAllProducts();
   }
 
-  public categoriesProdutos!: Array<CategoryProducts>
   public categoriesData!: Array<Category>;
   public productsData!: Array<Product>;
   public categoryDataResponse!: boolean;

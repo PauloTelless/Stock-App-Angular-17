@@ -1,5 +1,5 @@
 import { Product } from '../../models/products/product';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, withFetch } from '@angular/common/http';
 import { APP_ID, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { enviroment } from '../../environments/environments';

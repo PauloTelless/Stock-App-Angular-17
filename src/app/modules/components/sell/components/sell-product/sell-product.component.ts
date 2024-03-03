@@ -45,6 +45,7 @@ export class SellProductComponent implements OnDestroy {
   sellProductForm = this.formBuilder.group({
     nomeProduto: this.nomeProduto,
     descricaoProduto: this.data.descricaoProduto,
+    marcaProduto: this.data.marcaProduto,
     categoriaId: this.data.categoriaId,
     precoProduto: this.data.precoProduto,
     quantidadeProduto: ['', Validators.required]

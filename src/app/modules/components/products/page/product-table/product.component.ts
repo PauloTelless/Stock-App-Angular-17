@@ -1,5 +1,5 @@
 import { Product } from '../../../../../models/products/product';
-import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges, inject } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, inject } from '@angular/core';
 import { ToolBarComponent } from '../../../../../shared/tool-bar/tool-bar.component';
 import { TableModule } from 'primeng/table';
 import { MatButtonModule } from '@angular/material/button';
@@ -75,27 +75,14 @@ export class ProductComponent implements  OnInit, OnDestroy{
   ngOnInit(): void {
     this.getAllCategories();
     this.getAllProducts();
+    this.formSearchProduct.valueChanges.subscribe(() => {
+      this.searchProduct();
+    });
   }
 
   public formSearchProduct = this.formbuilder.group({
     nomeProduto: ['']
   });
-
-  searchProduct(): void{
-    const nameProductSearch = this.formSearchProduct.value.nomeProduto?.toUpperCase();
-    this.productDatas = _.filter(this.productDatas, {'nomeProduto': `${nameProductSearch}`})
-    if (this.productDatas == null) {
-      alert('Não tem')
-    }
-    if (nameProductSearch == '') {
-      this.getAllProducts();
-    } else {
-      if(this.productDatas.length == 0){
-        alert(`Produto ${nameProductSearch} não encontrado`)
-        this.getAllProducts();
-      }
-    }
-  }
 
   getAllProducts(): void{
     this.productService.getAllProducts().pipe(
@@ -115,6 +102,21 @@ export class ProductComponent implements  OnInit, OnDestroy{
     });
   };
 
+  searchProduct(): void {
+    const nameProductSearch = this.formSearchProduct.value.nomeProduto?.toUpperCase();
+
+    if (!nameProductSearch || nameProductSearch.trim() === '') {
+      this.getAllProducts();
+      return;
+    }
+
+    this.productDatas = _.filter(this.productDatas, (produto) => {
+      return produto.nomeProduto.toUpperCase().includes(nameProductSearch);
+    });
+
+  }
+
+
   getAllCategories(): void{
     this.categoryService.getAllCategory().pipe(
       takeUntil(
@@ -128,6 +130,19 @@ export class ProductComponent implements  OnInit, OnDestroy{
         }
       }
     })
+  }
+
+  selecionarPropriedadeProduto(event: MatSelectChange) {
+    const propriedade = event.value;
+    if (propriedade === 'Quantidade') {
+      this.productDatas = _.orderBy(this.productDatas, ['quantidadeProduto'],['desc'])
+    } else if(propriedade === 'Preço'){
+      this.productDatas = _.orderBy(this.productDatas, ['precoProduto'], ['desc'])
+    } else if(propriedade === 'Nome'){
+      this.productDatas = _.orderBy(this.productDatas, ['nomeProduto'])
+    } else if(propriedade == 'Marca'){
+      this.productDatas = _.orderBy(this.productDatas, ['marcaProduto']);
+    }
   }
 
   openModalProductForm(): void{
@@ -161,19 +176,6 @@ export class ProductComponent implements  OnInit, OnDestroy{
 
     XLSX.utils.book_append_sheet(workBook, workSheet, 'Relatório');
     XLSX.writeFile(workBook, this.fileNameExcel);
-  }
-
-  selecionarPropriedadeProduto(event: MatSelectChange) {
-    const propriedade = event.value;
-    if (propriedade === 'Quantidade') {
-      this.productDatas = _.orderBy(this.productDatas, ['quantidadeProduto'])
-    } else if(propriedade === 'Preço'){
-      this.productDatas = _.orderBy(this.productDatas, ['precoProduto'], ['desc'])
-    } else if(propriedade === 'Nome'){
-      this.productDatas = _.orderBy(this.productDatas, ['nomeProduto'])
-    } else if(propriedade == 'Marca'){
-      this.productDatas = _.orderBy(this.productDatas, ['marcaProduto']);
-    }
   }
 
   displayedColumns: string[] = ['codigo', 'nome', 'marca', 'descricao', 'quantidade', 'preco', 'acoes'];
