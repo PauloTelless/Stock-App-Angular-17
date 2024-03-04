@@ -133,20 +133,29 @@ export class ProductComponent implements  OnInit, OnDestroy{
 
   selecionarPropriedadeProduto(event: MatSelectChange) {
     const propriedade = event.value;
-    if (propriedade === 'Quantidade - Maior') {
-      this.productDatas = _.orderBy(this.productDatas, ['quantidadeProduto'],['desc'])
-    } else if(propriedade === 'Quantidade - Menor'){
-      this.productDatas = _.orderBy(this.productDatas, ['quantidadeProduto'], ['asc'])
-    } else if(propriedade === 'Preço - Maior') {
-      this.productDatas = _.orderBy(this.productDatas, [precoProduto => parseFloat(precoProduto.precoProduto)], ['desc'])
-    } else if (propriedade === 'Preço - Menor') {
-      this.productDatas = _.orderBy(this.productDatas, [precoProduto => parseFloat(precoProduto.precoProduto)], ['asc'])
-    } else if (propriedade === 'Marca') {
-      this.productDatas = _.orderBy(this.productDatas, ['marcaProduto'])
-    } else if (propriedade === 'Nome') {
-      this.productDatas = _.orderBy(this.productDatas, ['nomeProduto'])
+
+    switch (propriedade) {
+      case 'Quantidade - Maior':
+        this.productDatas = _.orderBy(this.productDatas, ['quantidadeProduto'], ['desc'])
+        break;
+      case 'Quantidade - Menor':
+        this.productDatas = _.orderBy(this.productDatas, ['quantidadeProduto'], ['asc'])
+        break;
+      case 'Preço - Maior':
+        this.productDatas = _.orderBy(this.productDatas,[(precoProduto) => parseFloat(precoProduto.precoProduto)], ['desc'])
+        break;
+      case 'Preço - Menor':
+        this.productDatas = _.orderBy(this.productDatas, [(precoProduto) => parseFloat(precoProduto.precoProduto)], ['asc'])
+        break;
+      case 'Nome':
+        this.productDatas = _.sortBy(this.productDatas, ['nomeProduto'])
+        break;
+      case 'Marca':
+        this.productDatas = _.sortBy(this.productDatas)
+        break;
     }
   }
+
 
   openModalProductForm(): void{
     this.dialogRef.open(ProductFormComponent, {
