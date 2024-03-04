@@ -17,7 +17,7 @@
 
     <mat-form-field>
       <mat-label>Categoria</mat-label>
-       <mat-select formControlName="categoriaId" required>
+       <mat-select formControlName="categoriaId"  (selectionChange)=selecionarCategoriaProduto($event)>
         @for (category of categoriesData; track category) {
           <mat-option [value]="category.categoriaId">{{category.nomeCategoria}}</mat-option>
         }

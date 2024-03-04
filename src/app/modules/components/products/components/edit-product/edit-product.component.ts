@@ -3,10 +3,10 @@ import { Product } from '../../../../../models/products/product';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProductService } from '../../../../../services/products/product.service';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { MatSelectModule } from '@angular/material/select';
+import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { CategoryService } from '../../../../../services/categories/category.service';
 import { Category } from '../../../../../models/category/category';
 import { Subject, takeUntil } from 'rxjs';
@@ -52,9 +52,19 @@ export class EditProductComponent implements OnInit, OnDestroy{
     this.getAllProducts();
   }
 
+  selecionarCategoriaProduto(event: MatSelectChange){
+    const categoriaIdSelecionada = event.value;
+    const categoriaSelecionada = this.categoriesData.find((categoria) => categoria.categoriaId == categoriaIdSelecionada);
+    if (categoriaSelecionada) {
+      this.editProductForm.patchValue({categoriaProduto: categoriaSelecionada.nomeCategoria})
+      console.log(categoriaIdSelecionada)
+    }
+  }
+
   editProductForm = this.formBuilder.group({
     nomeProduto: this.produto.nomeProduto,
     descricaoProduto: this.produto.descricaoProduto,
+    categoriaProduto: ['', Validators.required],
     marcaProduto: this.produto.marcaProduto,
     categoriaId: this.produto.categoriaId,
     precoProduto: this.produto.precoProduto,
