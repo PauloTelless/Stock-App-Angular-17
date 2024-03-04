@@ -15,7 +15,6 @@ import { MatButtonModule } from '@angular/material/button'
   styleUrl: './error.component.sass'
 })
 export class ErrorComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Product){}
   private dialogService = inject(MatDialogRef);
 
   closeModalError(){

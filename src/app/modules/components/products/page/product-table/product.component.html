@@ -48,12 +48,17 @@
 
     <ng-container matColumnDef="codigo">
       <th mat-header-cell *matHeaderCellDef> Código </th>
-      <td mat-cell *matCellDef="let produto"> {{ produto.produtoId}} </td>
+      <td mat-cell *matCellDef="let produto" [matTooltip]="produto.produtoId"> {{ produto.produtoId.length > 15 ? produto.produtoId.substring(0, 15) + '...': produto.produtoId}} </td>
     </ng-container>
 
     <ng-container matColumnDef="nome">
       <th mat-header-cell *matHeaderCellDef> Nome </th>
       <td mat-cell *matCellDef="let produto" [matTooltip]="produto.nomeProduto" > {{ produto.nomeProduto.length > 18 ? produto.nomeProduto.substring(0, 18) + '...': produto.nomeProduto }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="categoria">
+      <th mat-header-cell *matHeaderCellDef> Categoria </th>
+      <td mat-cell *matCellDef="let produto" [matTooltip]="produto.categoriaProduto" > {{ produto.categoriaProduto.length > 14 ? produto.categoriaProduto.substring(0, 14) + '...': produto.categoriaProduto }} </td>
     </ng-container>
 
     <ng-container matColumnDef="marca">

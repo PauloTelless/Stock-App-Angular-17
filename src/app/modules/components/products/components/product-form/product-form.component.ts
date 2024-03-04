@@ -6,12 +6,13 @@ import { MatInputModule } from '@angular/material/input';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProductService } from '../../../../../services/products/product.service';
 import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { MatSelectModule } from '@angular/material/select';
+import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { CategoryService } from '../../../../../services/categories/category.service';
 import { Category } from '../../../../../models/category/category';
 import { Subject, takeUntil } from 'rxjs';
 import { SuccessComponent } from './success/success.component';
 import { ErrorComponent } from './error/error.component';
+import { ContentObserver } from '@angular/cdk/observers';
 
 @Component({
   selector: 'app-success-produto-form',
@@ -39,6 +40,7 @@ export class ProductFormComponent implements OnInit, OnDestroy{
     this.getAllCategories();
   }
 
+  public categoriaProduto!: string;
   private destroy$ = new Subject<void>;
   public categoriesData!: Array<Category>;
   private dialogRef = inject(MatDialogRef);
@@ -47,25 +49,32 @@ export class ProductFormComponent implements OnInit, OnDestroy{
   private formBuilderService = inject(FormBuilder);
   private categoriaService = inject(CategoryService);
 
+  selecionarCategoriaProduto(event: MatSelectChange){
+    const categoriaIdSelecionada = event.value;
+    const categoriaSelecionada = this.categoriesData.find((categoria) => categoria.categoriaId == categoriaIdSelecionada);
+    if (categoriaSelecionada) {
+      this.createProductForm.patchValue({categoriaProduto: categoriaSelecionada.nomeCategoria})
+    }
+  }
+
   createProductForm = this.formBuilderService.group({
     nomeProduto: ['', Validators.required],
+    marcaProduto: ['', Validators.required],
+    categoriaProduto: ['', Validators.required],
     descricaoProduto: ['', Validators.required],
-    categoriaId: ['', Validators.required],
     precoProduto: ['', Validators.required],
     quantidadeProduto: ['', Validators.required],
-    marcaProduto: ['', Validators.required]
-
+    categoriaId: ['', Validators.required]
   })
 
   createProductSubmit(): void{
     if (this.createProductForm.valid && this.createProductForm.value) {
-      this.createProductForm.value.marcaProduto = this.createProductForm.value.marcaProduto?.toUpperCase();
       this.createProductForm.value.nomeProduto = this.createProductForm.value.nomeProduto?.toUpperCase();
+      this.createProductForm.value.marcaProduto = this.createProductForm.value.marcaProduto?.toUpperCase();
       if (!parseInt(this.createProductForm.value.quantidadeProduto ?? '0', 0) || (!parseFloat(this.createProductForm.value.precoProduto ?? '0'))) {
         this.dialogService.open(ErrorComponent, {
           width: '300px',
-          height: '300px',
-          data: this.createProductForm.value
+          height: '300px'
         });
       }
 

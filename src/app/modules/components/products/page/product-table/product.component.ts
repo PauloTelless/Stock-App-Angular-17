@@ -58,6 +58,7 @@ export class ProductComponent implements  OnInit, OnDestroy{
   private productService = inject(ProductService);
   private dialogRef = inject(MatDialog);
   private formbuilder = inject(FormBuilder);
+  private fileNameExcel = 'produtos.xlsx';
   public categoryDataResponse!: boolean;
   public productsDataResponse!: boolean;
   public productDatas!: Array<Product>;
@@ -66,13 +67,12 @@ export class ProductComponent implements  OnInit, OnDestroy{
   public ordernaQuantidade!: boolean;
   public productsProps = [
     {propriedade: "Nome"},
+    {propriedade: "Marca"},
     {propriedade: "Quantidade - Maior"},
     {propriedade: "Quantidade - Menor"},
     {propriedade: "Preço - Maior"},
     {propriedade: "Preço - Menor"},
-    {propriedade: "Marca"}
   ]
-  private fileNameExcel = 'produtos.xlsx';
 
   ngOnInit(): void {
     this.getAllCategories();
@@ -125,7 +125,6 @@ export class ProductComponent implements  OnInit, OnDestroy{
     ).subscribe({
       next: (response) => {
         this.categoryDatas = response;
-        console.log(this.categoryDatas)
         if (this.categoryDatas.length == 0) {
           this.categoryDataResponse = false
         }
@@ -183,7 +182,7 @@ export class ProductComponent implements  OnInit, OnDestroy{
     XLSX.writeFile(workBook, this.fileNameExcel);
   }
 
-  displayedColumns: string[] = ['codigo', 'nome', 'marca', 'descricao', 'quantidade', 'preco', 'acoes'];
+  displayedColumns: string[] = ['codigo', 'nome', 'categoria', 'marca', 'descricao', 'quantidade', 'preco', 'acoes'];
 
   ngOnDestroy(): void {
     this.destroy$.next();
