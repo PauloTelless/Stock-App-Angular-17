@@ -77,6 +77,7 @@ export class ProductComponent implements  OnInit, OnDestroy{
   ngOnInit(): void {
     this.getAllCategories();
     this.getAllProducts();
+    console.log(this.productDatas)
     this.formSearchProduct.valueChanges.subscribe(() => {
       this.searchProduct();
     });
@@ -139,9 +140,9 @@ export class ProductComponent implements  OnInit, OnDestroy{
     } else if(propriedade === 'Quantidade - Menor'){
       this.productDatas = _.orderBy(this.productDatas, ['quantidadeProduto'], ['asc'])
     } else if(propriedade === 'Preço - Maior') {
-      this.productDatas = _.orderBy(this.productDatas, ['precoProduto'], ['desc'])
+      this.productDatas = _.orderBy(this.productDatas, [precoProduto => parseFloat(precoProduto.precoProduto)], ['desc'])
     } else if (propriedade === 'Preço - Menor') {
-      this.productDatas = _.orderBy(this.productDatas, ['precoProduto'], ['asc'])
+      this.productDatas = _.orderBy(this.productDatas, [precoProduto => parseFloat(precoProduto.precoProduto)], ['asc'])
     } else if (propriedade === 'Marca') {
       this.productDatas = _.orderBy(this.productDatas, ['marcaProduto'])
     } else if (propriedade === 'Nome') {
@@ -182,7 +183,7 @@ export class ProductComponent implements  OnInit, OnDestroy{
     XLSX.writeFile(workBook, this.fileNameExcel);
   }
 
-  displayedColumns: string[] = ['codigo', 'nome', 'categoria', 'marca', 'descricao', 'quantidade', 'preco', 'acoes'];
+  displayedColumns: string[] = ['codigo', 'estado', 'nome', 'categoria', 'marca', 'descricao', 'quantidade', 'preco', 'acoes'];
 
   ngOnDestroy(): void {
     this.destroy$.next();

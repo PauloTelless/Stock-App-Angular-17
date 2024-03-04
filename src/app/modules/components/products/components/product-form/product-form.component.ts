@@ -12,7 +12,6 @@ import { Category } from '../../../../../models/category/category';
 import { Subject, takeUntil } from 'rxjs';
 import { SuccessComponent } from './success/success.component';
 import { ErrorComponent } from './error/error.component';
-import { ContentObserver } from '@angular/cdk/observers';
 
 @Component({
   selector: 'app-success-produto-form',
@@ -69,6 +68,8 @@ export class ProductFormComponent implements OnInit, OnDestroy{
 
   createProductSubmit(): void{
     if (this.createProductForm.valid && this.createProductForm.value) {
+      const precoProduto: number = parseFloat(this.createProductForm.value.precoProduto ?? '0.0');
+
       this.createProductForm.value.nomeProduto = this.createProductForm.value.nomeProduto?.toUpperCase();
       this.createProductForm.value.marcaProduto = this.createProductForm.value.marcaProduto?.toUpperCase();
       if (!parseInt(this.createProductForm.value.quantidadeProduto ?? '0', 0) || (!parseFloat(this.createProductForm.value.precoProduto ?? '0'))) {

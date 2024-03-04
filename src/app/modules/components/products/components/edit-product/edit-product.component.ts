@@ -64,7 +64,7 @@ export class EditProductComponent implements OnInit, OnDestroy{
   editProductForm = this.formBuilder.group({
     nomeProduto: this.produto.nomeProduto,
     descricaoProduto: this.produto.descricaoProduto,
-    categoriaProduto: ['', Validators.required],
+    categoriaProduto: this.produto.categoriaProduto,
     marcaProduto: this.produto.marcaProduto,
     categoriaId: this.produto.categoriaId,
     precoProduto: this.produto.precoProduto,
