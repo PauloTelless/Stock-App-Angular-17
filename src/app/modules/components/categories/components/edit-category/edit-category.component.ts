@@ -30,13 +30,13 @@ import { SuccessComponent } from './success/success.component';
 export class EditCategoryComponent implements OnDestroy{
   constructor(@Inject(MAT_DIALOG_DATA) public data:any ){}
 
-  public categoriaId = this.data.categoriaId
+  public categoriaId = this.data.categoriaId;
   public category = this.data;
   private destroy$ = new Subject<void>;
   private categoryService = inject(CategoryService);
   private formBuilder = inject(FormBuilder);
-  private dialogService = inject(MatDialog)
-  private dialogRef = inject(MatDialogRef)
+  private dialogService = inject(MatDialog);
+  private dialogRef = inject(MatDialogRef);
 
   editCategoryForm = this.formBuilder.group({
     nomeCategoria: this.category.categoria.nomeCategoria

@@ -17,7 +17,6 @@ import { PaginatorModule } from 'primeng/paginator';
 import { CategoryService } from '../../../../../services/categories/category.service';
 import { Category } from '../../../../../models/category/category';
 import { CommonModule } from '@angular/common';
-import { ProductsCategories } from '../../../../../models/products/productsCategories';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -52,7 +51,6 @@ import * as _ from 'lodash';
 
 export class ProductComponent implements  OnInit, OnDestroy{
   constructor(){}
-
   private destroy$ = new Subject<void>;
   private categoryService = inject(CategoryService);
   private productService = inject(ProductService);
@@ -62,7 +60,6 @@ export class ProductComponent implements  OnInit, OnDestroy{
   public categoryDataResponse!: boolean;
   public productsDataResponse!: boolean;
   public productDatas!: Array<Product>;
-  public productDatasCategories!: Array<ProductsCategories>;
   public categoryDatas!: Array<Category>;
   public ordernaQuantidade!: boolean;
   public productsProps = [
@@ -76,8 +73,8 @@ export class ProductComponent implements  OnInit, OnDestroy{
 
   ngOnInit(): void {
     this.getAllCategories();
+    console.log(this.categoryDatas)
     this.getAllProducts();
-    console.log(this.productDatas)
     this.formSearchProduct.valueChanges.subscribe(() => {
       this.searchProduct();
     });
@@ -125,6 +122,7 @@ export class ProductComponent implements  OnInit, OnDestroy{
       )
     ).subscribe({
       next: (response) => {
+        console.log(response);
         this.categoryDatas = response;
         if (this.categoryDatas.length == 0) {
           this.categoryDataResponse = false
