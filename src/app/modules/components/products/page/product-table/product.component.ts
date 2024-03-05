@@ -121,7 +121,6 @@ export class ProductComponent implements  OnInit, OnDestroy{
       )
     ).subscribe({
       next: (response) => {
-        console.log(response);
         this.categoryDatas = response;
         if (this.categoryDatas.length == 0) {
           this.categoryDataResponse = false
@@ -154,7 +153,6 @@ export class ProductComponent implements  OnInit, OnDestroy{
         break;
     }
   }
-
 
   openModalProductForm(): void{
     this.dialogRef.open(ProductFormComponent, {

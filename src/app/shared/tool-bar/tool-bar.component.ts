@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatButtonModule} from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
+import { MatToolbarModule }  from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,7 +11,8 @@ import { Router } from '@angular/router';
   imports: [
     MatToolbarModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatSlideToggleModule
   ],
   templateUrl: './tool-bar.component.html',
   styleUrl: './tool-bar.component.sass'
@@ -18,28 +20,24 @@ import { Router } from '@angular/router';
 export class ToolBarComponent {
   private routerService = inject(Router)
 
-  handleLogout(){
+  redirecionarLogin(){
     this.routerService.navigate(['login']);
   }
 
-  handleProduct(){
+  redirecionarProdutos(){
     this.routerService.navigate(['products']);
   }
 
-  handleCategory(){
+  redirecionarCategorias(){
     this.routerService.navigate(['categories']);
   }
 
-  handleSell(){
+  redirecionarVendas(){
     this.routerService.navigate(['sell']);
   }
 
-  handleDashboard(){
+  redirecionarDashboard(){
     this.routerService.navigate(['dashboard']);
-  }
-
-  turnDarkMode(){
-
   }
 
 }

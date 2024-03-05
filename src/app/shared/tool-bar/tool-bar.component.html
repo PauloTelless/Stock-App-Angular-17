@@ -1,33 +1,27 @@
 <mat-toolbar color="primary">
 
-    <button mat-raised-button color="info" (click)="handleDashboard()">
+    <button mat-raised-button color="info" (click)="redirecionarDashboard()">
       <mat-icon>dashboard</mat-icon>
       Dashboard
     </button>
 
-    <button mat-raised-button color="info" (click)="handleProduct()">
+    <button mat-raised-button color="info" (click)="redirecionarProdutos()">
       <mat-icon>shopping_cart</mat-icon>
         Produtos
     </button>
 
-    <button mat-raised-button color="info" (click)="handleCategory()">
+    <button mat-raised-button color="info" (click)="redirecionarCategorias()">
       <mat-icon>sell</mat-icon>
       Categorias
     </button>
 
-    <button mat-raised-button color="info" (click)="handleSell()">
+    <button mat-raised-button color="info" (click)="redirecionarVendas()">
       <mat-icon>payments</mat-icon>
         Efetuar venda
     </button>
 
-    <button mat-raised-button color="warn" (click)="handleLogout()">
+    <button mat-raised-button color="warn" (click)="redirecionarLogin()">
       <mat-icon>logout</mat-icon>
       Sair
     </button>
-
-    <button mat-mini-fab color="info" class="btn-dark" (click)="turnDarkMode()">
-      <mat-icon>dark_mode</mat-icon>
-    </button>
-
-
 </mat-toolbar>
