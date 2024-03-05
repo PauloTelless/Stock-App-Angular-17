@@ -38,4 +38,8 @@ export class ToolBarComponent {
     this.routerService.navigate(['dashboard']);
   }
 
+  turnDarkMode(){
+
+  }
+
 }
