@@ -73,7 +73,6 @@ export class ProductComponent implements  OnInit, OnDestroy{
 
   ngOnInit(): void {
     this.getAllCategories();
-    console.log(this.categoryDatas)
     this.getAllProducts();
     this.formSearchProduct.valueChanges.subscribe(() => {
       this.searchProduct();
@@ -151,7 +150,7 @@ export class ProductComponent implements  OnInit, OnDestroy{
         this.productDatas = _.sortBy(this.productDatas, ['nomeProduto'])
         break;
       case 'Marca':
-        this.productDatas = _.sortBy(this.productDatas)
+        this.productDatas = _.sortBy(this.productDatas, ['marcaProduto'])
         break;
     }
   }
