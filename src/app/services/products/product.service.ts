@@ -9,6 +9,7 @@ import { ProductsCategories } from '../../models/products/productsCategories';
 @Injectable({
   providedIn: 'root'
 })
+
 export class ProductService {
   API_URL = enviroment.API_URL;
 

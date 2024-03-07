@@ -5,7 +5,6 @@ import { DashboardComponent } from './modules/components/dashboard/page/dashboar
 import { ProductComponent } from './modules/components/products/page/product-table/product.component';
 import { CategoryComponent } from './modules/components/categories/page/category-table/category.component';
 import { SellComponent } from './modules/components/sell/page/sell/sell.component';
-
 export const routes: Routes = [
   {
     path: '',

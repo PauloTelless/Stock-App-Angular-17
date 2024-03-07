@@ -54,6 +54,7 @@ export class LoginComponent implements OnDestroy{
         next: (response: TokenResponse) => {
           localStorage.setItem('token', response.token);
           this.logoutInfo = response.token;
+          console.log(this.logoutInfo)
           this.dialogService.open(SuccessComponent, { width: '300px', height: '300px' });
           this.routerService.navigate(['/dashboard']);
         },
