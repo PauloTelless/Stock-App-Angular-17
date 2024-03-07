@@ -5,6 +5,7 @@ import { DashboardComponent } from './modules/components/dashboard/page/dashboar
 import { ProductComponent } from './modules/components/products/page/product-table/product.component';
 import { CategoryComponent } from './modules/components/categories/page/category-table/category.component';
 import { SellComponent } from './modules/components/sell/page/sell/sell.component';
+import { authGuard } from './guards/auth-guard.guard';
 export const routes: Routes = [
   {
     path: '',
@@ -21,18 +22,22 @@ export const routes: Routes = [
   },
   {
     path: 'dashboard',
-    component: DashboardComponent
+    component: DashboardComponent,
+    canActivate: [authGuard]
   },
   {
     path: 'products',
-    component: ProductComponent
+    component: ProductComponent,
+    canActivate: [authGuard]
   },
   {
     path: 'categories',
-    component: CategoryComponent
+    component: CategoryComponent,
+    canActivate: [authGuard]
   },
   {
     path: 'sell',
-    component: SellComponent
+    component: SellComponent,
+    canActivate: [authGuard]
   }
 ];
