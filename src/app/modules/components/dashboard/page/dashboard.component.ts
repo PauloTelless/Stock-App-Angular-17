@@ -1,4 +1,4 @@
-import { Component, OnDestroy, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { ToolBarComponent } from '../../../../shared/tool-bar/tool-bar.component';
 import { ProductService } from '../../../../services/products/product.service';
 import { Product } from '../../../../models/products/product';
@@ -24,9 +24,12 @@ import * as _ from 'lodash';
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.sass'
 })
-export class DashboardComponent implements OnDestroy{
+export class DashboardComponent implements OnInit, OnDestroy{
   constructor(){}
 
+  ngOnInit(): void {
+    this.getAllProducts();
+  }
   public productDataResponse!: boolean;
   private destroy$ = new Subject<void>;
   private productService = inject(ProductService);
@@ -34,10 +37,6 @@ export class DashboardComponent implements OnDestroy{
 
   basicOptions: any;
   basicData: any;
-
-  ngOnInit(): void {
-    this.getAllProducts();
-  }
 
   getAllProducts(): void {
     this.productService.getAllProducts().pipe(

@@ -1,13 +1,13 @@
-import { Component, OnDestroy, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
 import { Router } from '@angular/router';
 import { ReactiveFormsModule, FormsModule, FormBuilder, Validators } from '@angular/forms';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AuthService } from '../../../../../services/auth/auth.service';
 import { Subject, takeUntil } from 'rxjs';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { SuccessComponent } from './success/success.component';
 import { ErrorComponent } from './error/error.component';
 import { User } from '../../../../../models/user/user';
@@ -27,13 +27,14 @@ import { ToolBarComponent } from '../../../../../shared/tool-bar/tool-bar.compon
     MatDialogModule,
     ToolBarComponent
   ],
+  providers: [
+    AuthService
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.sass'
 })
 export class LoginComponent implements OnDestroy{
-  constructor(){}
 
-  public logoutInfo !: string;
   private destroy$ = new Subject<void>;
   public usersDatas !: Array<User>;
   private routerService = inject(Router)
@@ -53,13 +54,18 @@ export class LoginComponent implements OnDestroy{
       ).subscribe({
         next: (response: TokenResponse) => {
           localStorage.setItem('token', response.token);
-          this.logoutInfo = response.token;
-          console.log(this.logoutInfo)
-          this.dialogService.open(SuccessComponent, { width: '300px', height: '300px' });
+          this.dialogService.open(SuccessComponent,
+            {
+              width: '300px',
+              height: '300px'
+            });
           this.routerService.navigate(['/dashboard']);
         },
         error: () => {
-          this.dialogService.open(ErrorComponent, { width: '300px', height: '300px' });
+          this.dialogService.open(ErrorComponent,
+          { width: '300px',
+            height: '300px'
+          });
         }
       });
     }

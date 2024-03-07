@@ -20,8 +20,7 @@ import { CategoryService } from './services/categories/category.service';
     AuthService,
     ProductService,
     CategoryService,
-    HttpClient,
-
+    HttpClient
   ],
   host: { ngSkipHydration: 'true'},
   templateUrl: './app.component.html',

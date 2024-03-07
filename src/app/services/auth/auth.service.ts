@@ -12,8 +12,15 @@ import { TokenResponse } from '../../models/user/token';
 })
 export class AuthService {
   private API_URL = enviroment.API_URL;
+  private logged!: boolean;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+    if (localStorage.getItem('token')) {
+      this.logged = true
+    } else {
+      this.logged = false
+    }
+  }
 
   postUser(usuario: RegisterUser): Observable<RegisterUser>{
     return this.httpClient.post<RegisterUser>(`${this.API_URL}auth/register`, usuario);
@@ -23,4 +30,8 @@ export class AuthService {
     return this.httpClient.post<TokenResponse>(`${this.API_URL}auth/login`, usuario);
   }
 
+  loggedIn(){
+    console.log(this.logged)
+    return this.logged;
+  }
 }

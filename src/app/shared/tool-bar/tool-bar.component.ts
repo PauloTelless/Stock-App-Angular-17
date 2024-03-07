@@ -1,7 +1,7 @@
-import { Component, Input, inject } from '@angular/core';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatButtonModule} from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
+import { Component, inject } from '@angular/core';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,10 +17,9 @@ import { Router } from '@angular/router';
 })
 export class ToolBarComponent {
   private routerService = inject(Router)
-  @Input() public logoutInfo!: any;
 
   redirecionarLogin(){
-    localStorage.removeItem(this.logoutInfo)
+    localStorage.removeItem('token')
     this.routerService.navigate(['login']);
   }
 
@@ -39,10 +38,4 @@ export class ToolBarComponent {
   redirecionarDashboard(){
     this.routerService.navigate(['dashboard']);
   }
-
-  turnDarkMode(){
-
-  }
-
-
 }
