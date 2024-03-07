@@ -19,24 +19,24 @@ export class ToolBarComponent {
   private routerService = inject(Router)
   @Input() public logoutInfo!: any;
 
-  handleLogout(){
-    localStorage.removeItem(this.logoutInfo);
+  redirecionarLogin(){
+    localStorage.removeItem(this.logoutInfo)
     this.routerService.navigate(['login']);
   }
 
-  handleProduct(){
+  redirecionarProdutos(){
     this.routerService.navigate(['products']);
   }
 
-  handleCategory(){
+  redirecionarCategorias(){
     this.routerService.navigate(['categories']);
   }
 
-  handleSell(){
+  redirecionarVendas(){
     this.routerService.navigate(['sell']);
   }
 
-  handleDashboard(){
+  redirecionarDashboard(){
     this.routerService.navigate(['dashboard']);
   }
 
