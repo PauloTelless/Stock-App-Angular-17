@@ -1,6 +1,6 @@
-export interface PostUser{
-  nomeUsuario: string,
-  emailUsuario: string,
-  senha: string,
-  confirmarSenha: string
+export interface RegisterUser{
+  userName: string,
+  email: string,
+  password: string,
+
 }

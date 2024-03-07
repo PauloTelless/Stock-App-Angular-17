@@ -1,5 +1,4 @@
-export interface user{
-    usuarioId: string,
-    nomeUsuario: string,
-    senha: string
+export interface User{
+  userName: string,
+  password: string,
 }

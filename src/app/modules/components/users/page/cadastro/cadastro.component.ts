@@ -1,4 +1,4 @@
-import { PostUser } from '../../../../../models/user/postUser';
+import { RegisterUser } from '../../../../../models/user/postUser';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { Component, OnDestroy, inject } from '@angular/core';
@@ -39,21 +39,19 @@ export class CadastroComponent implements OnDestroy{
   private dialogService = inject(MatDialog);
 
   createUserForm = this.formBuilder.group({
-    nomeUsuario: ['', Validators.required],
-    emailUsuario: ['', Validators.required],
-    senha: ['', Validators.required],
-    confirmarSenha: ['', Validators.required]
+    userName: ['', Validators.required],
+    email: ['', Validators.required],
+    password: ['', Validators.required]
   });
 
   handleCreateUser(): void{
     if (this.createUserForm.value && this.createUserForm.valid) {
-      this.userService.postUser(this.createUserForm.value as PostUser).pipe(
+      this.userService.postUser(this.createUserForm.value as RegisterUser).pipe(
         takeUntil(
           this.destroy$
         )
       ).subscribe({
-        next: (response) => {
-          console.log(response);
+        next: () => {
           this.dialogService.open(SuccessComponent, {
             width: '300px',
             height: '300px'
