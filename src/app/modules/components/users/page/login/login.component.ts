@@ -13,6 +13,7 @@ import { ErrorComponent } from './error/error.component';
 import { User } from '../../../../../models/user/user';
 import { TokenResponse } from '../../../../../models/user/token';
 import { ToolBarComponent } from '../../../../../shared/tool-bar/tool-bar.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +26,9 @@ import { ToolBarComponent } from '../../../../../shared/tool-bar/tool-bar.compon
     ReactiveFormsModule,
     FormsModule,
     MatDialogModule,
-    ToolBarComponent
+    ToolBarComponent,
+    MatCheckboxModule,
+    FormsModule
   ],
   providers: [
     AuthService
@@ -37,6 +40,7 @@ export class LoginComponent implements OnDestroy{
 
   private destroy$ = new Subject<void>;
   public usersDatas !: Array<User>;
+  private token !: TokenResponse;
   private routerService = inject(Router)
   private formBuilder = inject(FormBuilder);
   private authService = inject(AuthService);
@@ -53,13 +57,17 @@ export class LoginComponent implements OnDestroy{
         takeUntil(this.destroy$)
       ).subscribe({
         next: (response: TokenResponse) => {
-          localStorage.setItem('token', response.token);
-          this.dialogService.open(SuccessComponent,
-            {
-              width: '300px',
-              height: '300px'
-            });
+          this.token = response
           this.routerService.navigate(['/dashboard']);
+          if (localStorage.getItem('token') == undefined) {
+            this.dialogService.open(SuccessComponent,
+              {
+                width: '300px',
+                height: '300px',
+                data: this.token.token
+              });
+          }
+          localStorage.setItem('token', this.token.token);
         },
         error: () => {
           this.dialogService.open(ErrorComponent,

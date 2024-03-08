@@ -1,4 +1,17 @@
 <div class="success-message">
   <span><mat-icon style="color: greenyellow;">task_alt</mat-icon></span>
   <h3>Login realizado com sucesso !</h3>
+  <div class="save-login" (click)="saveLogin()" >
+    <mat-checkbox color="primary" (change)="checkboxChanged($event)">
+      Deseja salvar o login ?
+    </mat-checkbox>
+  </div>
+  <button
+  mat-raised-button color="primary"
+  (click)="closeModal()">
+  <mat-icon>
+    dashboard
+  </mat-icon>
+  Ir para dashboard
+</button>
 </div>

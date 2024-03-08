@@ -1,32 +1,49 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, Inject, OnInit, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { TimeOutLoggedComponent } from '../time-out-logged/time-out-logged.component';
 
 @Component({
   selector: 'app-success-login',
   standalone: true,
   imports: [
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCheckboxModule
   ],
   templateUrl: './success.component.html',
   styleUrl: './success.component.sass'
 })
-export class SuccessComponent implements OnInit{
-  private dialogService = inject(MatDialogRef);
+export class SuccessComponent{
+  constructor(@Inject(MAT_DIALOG_DATA) public data:any){}
 
-  ngOnInit(): void {
-    this.closeModalSucess();
+  public salvarLogin!: boolean;
+  private dialogRef = inject(MatDialogRef);
+  private dialogService = inject(MatDialog);
+
+  checkboxChanged(event: any): void {
+    this.salvarLogin = event.checked;
   }
 
-  closeModalSucess(): void{
-    setTimeout(() => {
-      this.dialogService.close();
-    }, 1000)
+  saveLogin(): void {
+    this.salvarLogin = true
+    localStorage.setItem('token', this.data)
   }
 
-  recarregarPagina(): void{
-    window.location.reload();
+  closeModal(): void {
+    if (this.salvarLogin == true) {
+      localStorage.setItem('token', this.data)
+    } else {
+      setTimeout(() => {
+        this.dialogService.open(TimeOutLoggedComponent, {
+          width: '300px',
+          height: '300px'
+        })
+        localStorage.removeItem('token')
+      }, 8000);
+    }
+    this.dialogRef.close()
   }
 }
