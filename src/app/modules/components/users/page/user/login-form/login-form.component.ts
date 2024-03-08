@@ -8,6 +8,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from '../../../../../../services/auth/auth.service';
 import { DeleteUserSuccessComponent } from '../delete-user-success/delete-user-success.component';
+import { User } from '../../../../../../models/user/user';
+import { NotFoundError } from 'rxjs';
+import { ExecException } from 'child_process';
 
 @Component({
   selector: 'app-login-form',
@@ -48,22 +51,31 @@ export class LoginFormComponent implements OnInit{
     password: ['', Validators.required]
   });
 
-  loginFormSubmit(){
-    this.userService.deleteUser(this.userName).subscribe({
-      next: (() => {
-        localStorage.removeItem('token');
-        this.dialogService.open(DeleteUserSuccessComponent, {
-          width: '300px',
-          height: '300px'
-        });
-      }),
-      error: (err) => {
-        console.log(err)
-      }
-    });
+  loginFormSubmit(): void{
+    if (this.formLogin.value.userName != this.userName) {
+      alert('Esse não é o seu usuário.')
+    } else {
+      if (this.formLogin.value && this.formLogin.valid) {
+        try {
+          this.userService.loginUser(this.formLogin.value as User).subscribe({
+            next: (() => {
+              this.userService.deleteUser(this.formLogin.value.userName as string).subscribe()
+              localStorage.removeItem('token');
+              localStorage.removeItem('userName');
+              this.dialogService.open(DeleteUserSuccessComponent, {
+                width: '300px',
+                height: '300px'
+              });
+            })
+          });
+        } catch (error) {
+          alert('Usuário e senha podem estar errados.')
+        };
+      };
+    };
   };
 
-  recarregarPagina(){
+  recarregarPagina(): void{
     this.dialogRef.close();
     window.location.reload();
   };

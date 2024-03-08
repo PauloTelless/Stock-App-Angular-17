@@ -6,7 +6,7 @@ import { ProductComponent } from './modules/components/products/page/product-tab
 import { CategoryComponent } from './modules/components/categories/page/category-table/category.component';
 import { SellComponent } from './modules/components/sell/page/sell/sell.component';
 import { authGuard } from './guards/auth-guard.guard';
-import { UserComponent } from './modules/components/users/page/user/user.component';
+import { UserComponent } from './modules/components/users/page/user/page/user.component';
 
 export const routes: Routes = [
   {

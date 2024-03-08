@@ -14,7 +14,7 @@ import { User } from '../../../../../models/user/user';
 import { TokenResponse } from '../../../../../models/user/token';
 import { ToolBarComponent } from '../../../../../shared/tool-bar/tool-bar.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { UserComponent } from '../user/user.component';
+import { UserComponent } from '../user/page/user.component';
 
 @Component({
   selector: 'app-login',

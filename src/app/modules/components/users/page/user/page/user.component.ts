@@ -1,10 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ToolBarComponent } from '../../../../../shared/tool-bar/tool-bar.component';
+import { ToolBarComponent } from '../../../../../../shared/tool-bar/tool-bar.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { UserDeleteComponent } from './user-delete/user-delete.component';
+import { UserDeleteComponent } from '../user-delete/user-delete.component';
 
 @Component({
   selector: 'app-user',
