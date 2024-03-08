@@ -6,6 +6,8 @@ import { ProductComponent } from './modules/components/products/page/product-tab
 import { CategoryComponent } from './modules/components/categories/page/category-table/category.component';
 import { SellComponent } from './modules/components/sell/page/sell/sell.component';
 import { authGuard } from './guards/auth-guard.guard';
+import { UserComponent } from './modules/components/users/page/user/user.component';
+
 export const routes: Routes = [
   {
     path: '',
@@ -38,6 +40,11 @@ export const routes: Routes = [
   {
     path: 'sell',
     component: SellComponent,
+    canActivate: [authGuard]
+  },
+  {
+    path: 'user',
+    component: UserComponent,
     canActivate: [authGuard]
   }
 ];

@@ -22,4 +22,8 @@ export class AuthService {
   loginUser(usuario: User): Observable<TokenResponse>{
     return this.httpClient.post<TokenResponse>(`${this.API_URL}auth/login`, usuario);
   }
+
+  deleteUser(usuarioNome: string): Observable<any>{
+    return this.httpClient.delete(`${this.API_URL}Auth/deleteUser/${usuarioNome}`);
+  }
 }

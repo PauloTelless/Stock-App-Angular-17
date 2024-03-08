@@ -1,0 +1,25 @@
+<div class="login-class">
+
+  <form [formGroup]="formLogin" (submit)="loginFormSubmit()">
+    <mat-card-title class="login-title">Refaça o login</mat-card-title>
+
+      <mat-form-field>
+        <mat-label>Usuário</mat-label>
+        <input matInput type="text" placeholder="Usuário de rede" required autocomplete="off" formControlName="userName">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Senha</mat-label>
+        <input matInput type="password" placeholder="Digite a senha" required formControlName="password">
+      </mat-form-field>
+
+      <button
+      type="submit"
+      mat-raised-button
+      color="warn">
+      <mat-icon>delete</mat-icon>
+      Excluir
+      </button>
+   </form>
+
+</div>
