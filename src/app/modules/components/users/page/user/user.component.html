@@ -1,0 +1,27 @@
+<app-tool-bar></app-tool-bar>
+
+<div class="user-session-config">
+  <h1 style="color: #7A67EE;">Configuração do usuário</h1>
+  <h2>Olá, {{userName}} !</h2>
+
+  <mat-card style="width: 250px; height: 50vh;">
+      <mat-card-header>
+          <mat-card-title>Opções</mat-card-title>
+      </mat-card-header>
+      <mat-card-content style="margin-top: 2%;">
+          <button mat-raised-button (click)="openModalDeleteUser()"
+          style="
+          background: none;
+          outline: none;
+          box-shadow: none;
+          transition: none;">
+          Excluir usuário
+          <mat-icon
+          style="color: red;">
+          delete
+          </mat-icon>
+          </button>
+      </mat-card-content>
+  </mat-card>
+
+</div>

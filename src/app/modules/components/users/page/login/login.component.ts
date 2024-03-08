@@ -14,6 +14,7 @@ import { User } from '../../../../../models/user/user';
 import { TokenResponse } from '../../../../../models/user/token';
 import { ToolBarComponent } from '../../../../../shared/tool-bar/tool-bar.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { UserComponent } from '../user/user.component';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +29,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatDialogModule,
     ToolBarComponent,
     MatCheckboxModule,
-    FormsModule
+    FormsModule,
+    UserComponent
   ],
   providers: [
     AuthService
@@ -38,6 +40,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 })
 export class LoginComponent implements OnDestroy{
 
+  public userNameForm !: any;
   private destroy$ = new Subject<void>;
   public usersDatas !: Array<User>;
   private token !: TokenResponse;
@@ -52,7 +55,8 @@ export class LoginComponent implements OnDestroy{
   })
 
   formLoginSubmit() {
-    if (this.formLogin.valid) {
+    if (this.formLogin.valid && this.formLogin.value) {
+      this.userNameForm = localStorage.setItem('userName', this.formLogin.value.userName as string)
       this.authService.loginUser(this.formLogin.value as User).pipe(
         takeUntil(this.destroy$)
       ).subscribe({

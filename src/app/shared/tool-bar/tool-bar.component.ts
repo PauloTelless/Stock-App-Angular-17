@@ -38,4 +38,8 @@ export class ToolBarComponent {
   redirecionarDashboard(){
     this.routerService.navigate(['dashboard']);
   }
+
+  redirecionarPaginaUsuario(){
+    this.routerService.navigate(['user'])
+  }
 }
