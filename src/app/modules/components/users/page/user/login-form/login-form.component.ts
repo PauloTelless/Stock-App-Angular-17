@@ -9,8 +9,6 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angu
 import { AuthService } from '../../../../../../services/auth/auth.service';
 import { DeleteUserSuccessComponent } from '../delete-user-success/delete-user-success.component';
 import { User } from '../../../../../../models/user/user';
-import { NotFoundError } from 'rxjs';
-import { ExecException } from 'child_process';
 
 @Component({
   selector: 'app-login-form',
@@ -32,7 +30,7 @@ import { ExecException } from 'child_process';
   styleUrl: './login-form.component.sass'
 })
 
-export class LoginFormComponent implements OnInit{
+export class LoginFormComponent{
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any){}
 
@@ -41,10 +39,6 @@ export class LoginFormComponent implements OnInit{
   private userService = inject(AuthService);
   private formBuilder = inject(FormBuilder);
   private dialogRef = inject(MatDialogRef);
-
-  ngOnInit(): void {
-    console.log(this.data)
-  };
 
   formLogin = this.formBuilder.group({
     userName: this.userName,
@@ -70,6 +64,7 @@ export class LoginFormComponent implements OnInit{
           });
         } catch (error) {
           alert('Usuário e senha podem estar errados.')
+          console.log(error)
         };
       };
     };

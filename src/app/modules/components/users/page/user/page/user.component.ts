@@ -34,6 +34,6 @@ export class UserComponent implements OnInit{
       width: '300px',
       height: '300px',
       data: this.userName
-    })
-  }
-}
+    });
+  };
+};

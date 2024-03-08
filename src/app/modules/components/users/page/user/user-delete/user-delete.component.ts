@@ -2,7 +2,6 @@ import { Component, Inject, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { LoginComponent } from '../../login/login.component';
 import { LoginFormComponent } from '../login-form/login-form.component';
 
 @Component({
@@ -22,7 +21,7 @@ export class UserDeleteComponent {
   private dialogService = inject(MatDialog);
   private dialogRef = inject(MatDialogRef);
 
-  openModalLogin(){
+  openModalLogin(): void{
     this.dialogService.open(LoginFormComponent, {
       width: '350px',
       height: '350px',
