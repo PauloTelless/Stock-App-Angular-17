@@ -29,7 +29,6 @@ export class SuccessComponent{
 
   saveLogin(): void {
     this.salvarLogin = true
-    localStorage.setItem('token', this.data)
   }
 
   closeModal(): void {
