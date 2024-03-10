@@ -46,32 +46,37 @@ export class CadastroComponent implements OnDestroy{
     confirmPassword: ['', Validators.required]
   });
 
-  handleCreateUser(): void{
-    if (this.createUserForm.value && this.createUserForm.valid) {
-      if (this.createUserForm.value.password != this.createUserForm.value.confirmPassword) {
-        this.dialogService.open(ErrorComponent, {
-          width: '300px',
-          height: '300px'
-        })
-      } else {
-          this.userService.postUser(this.createUserForm.value as RegisterUser).pipe(
-            takeUntil(
-              this.destroy$
-            )
-          ).subscribe({
-            next: () => {
-              this.dialogService.open(SuccessComponent, {
-                width: '300px',
-                height: '300px'
-              })
-              this.routerService.navigate(['/login'])
-            },
-            error: (err) => {
-              console.log(err)
-            }
-        });
-      }
-    };
+  createUser(): void{
+    try {
+      if (this.createUserForm.value && this.createUserForm.valid) {
+        if (this.createUserForm.value.password != this.createUserForm.value.confirmPassword) {
+          this.dialogService.open(ErrorComponent, {
+            width: '300px',
+            height: '300px'
+          })
+        } else {
+            this.userService.postUser(this.createUserForm.value as RegisterUser).pipe(
+              takeUntil(
+                this.destroy$
+              )
+            ).subscribe({
+              next: () => {
+                this.dialogService.open(SuccessComponent, {
+                  width: '300px',
+                  height: '300px'
+                })
+                this.routerService.navigate(['/login'])
+              },
+              error: (err) => {
+                console.log(err)
+              }
+          });
+        }
+      };
+    } catch (error) {
+      alert(error);
+    }
+
   };
 
   ngOnDestroy(): void {

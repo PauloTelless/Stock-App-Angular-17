@@ -40,7 +40,8 @@ export class SuccessComponent{
           width: '300px',
           height: '300px'
         })
-        localStorage.removeItem('token')
+        localStorage.removeItem('token');
+        localStorage.removeItem('userName');
       }, 8000);
     }
     this.dialogRef.close()

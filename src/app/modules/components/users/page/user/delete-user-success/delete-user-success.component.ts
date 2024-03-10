@@ -17,9 +17,9 @@ export class DeleteUserSuccessComponent implements OnInit{
 
   ngOnInit(): void {
     setTimeout(() => {
-      this.dialogRef.close()
+      this.recarregarPagina();
+      this.dialogRef.close();
     }, 2500);
-    this.recarregarPagina();
   }
 
   recarregarPagina(){

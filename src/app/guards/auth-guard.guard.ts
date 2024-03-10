@@ -4,8 +4,8 @@ export const authGuard: CanActivateFn = () => {
   let token;
   const routerService = new Router();
 
-  if (typeof localStorage !== undefined) {
-    token = localStorage!.getItem('token');
+  if (typeof localStorage !== 'undefined') {
+    token = localStorage.getItem('token');
   }
 
   if (token) {
@@ -14,5 +14,4 @@ export const authGuard: CanActivateFn = () => {
     routerService.navigate(['login'])
     return false;
   }
-
 };

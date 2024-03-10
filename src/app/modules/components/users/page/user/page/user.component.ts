@@ -29,7 +29,7 @@ export class UserComponent implements OnInit{
     this.userName = localStorage.getItem('userName')?.toUpperCase() as string;
   }
 
-  openModalDeleteUser(){
+  openModalDeleteUser(): void{
     this.dialogService.open(UserDeleteComponent, {
       width: '300px',
       height: '300px',

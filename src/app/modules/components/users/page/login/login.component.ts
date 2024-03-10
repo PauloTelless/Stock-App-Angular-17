@@ -54,13 +54,14 @@ export class LoginComponent implements OnDestroy{
     password: ['', Validators.required]
   })
 
-  formLoginSubmit() {
+  formLoginSubmit():void {
     if (this.formLogin.valid && this.formLogin.value) {
-      this.userNameForm = localStorage.setItem('userName', this.formLogin.value.userName as string)
+      this.formLogin.value.userName?.toLocaleLowerCase();
       this.authService.loginUser(this.formLogin.value as User).pipe(
         takeUntil(this.destroy$)
       ).subscribe({
         next: (response: TokenResponse) => {
+          this.userNameForm = localStorage.setItem('userName', this.formLogin.value.userName as string)
           this.token = response
           this.routerService.navigate(['/dashboard']);
           if (localStorage.getItem('token') == undefined) {
@@ -83,7 +84,7 @@ export class LoginComponent implements OnDestroy{
     }
   }
 
-  redirectToRegister(){
+  redirectToRegister(): void{
     this.routerService.navigate(['/cadastro'])
   }
 

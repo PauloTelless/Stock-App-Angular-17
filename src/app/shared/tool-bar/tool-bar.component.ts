@@ -18,28 +18,29 @@ import { Router } from '@angular/router';
 export class ToolBarComponent {
   private routerService = inject(Router)
 
-  redirecionarLogin(){
-    localStorage.removeItem('token')
+  logout(): void{
+    localStorage.removeItem('token');
+    localStorage.removeItem('userName');
     this.routerService.navigate(['login']);
   }
 
-  redirecionarProdutos(){
+  redirecionarProdutos(): void{
     this.routerService.navigate(['products']);
   }
 
-  redirecionarCategorias(){
+  redirecionarCategorias(): void{
     this.routerService.navigate(['categories']);
   }
 
-  redirecionarVendas(){
+  redirecionarVendas(): void{
     this.routerService.navigate(['sell']);
   }
 
-  redirecionarDashboard(){
+  redirecionarDashboard(): void{
     this.routerService.navigate(['dashboard']);
   }
 
-  redirecionarPaginaUsuario(){
+  redirecionarPaginaUsuario(): void{
     this.routerService.navigate(['user'])
   }
 }
