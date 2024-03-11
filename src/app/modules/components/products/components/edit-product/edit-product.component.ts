@@ -10,7 +10,7 @@ import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { CategoryService } from '../../../../../services/categories/category.service';
 import { Category } from '../../../../../models/category/category';
 import { Subject, takeUntil } from 'rxjs';
-import { MatTooltip } from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { SuccessComponent } from './success/success.component';
 
 @Component({
@@ -23,7 +23,7 @@ import { SuccessComponent } from './success/success.component';
     ReactiveFormsModule,
     MatDialogModule,
     MatSelectModule,
-    MatTooltip
+    MatTooltipModule
   ],
   providers:[
     CategoryService,

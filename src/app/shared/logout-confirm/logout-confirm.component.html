@@ -2,10 +2,21 @@
   <h1>Você está saindo</h1>
   <h3>Tem certeza ?</h3>
 
-  <button
-  mat-raised-button
-  color="warn"
-  (click)="logout()">
-  <mat-icon>logout</mat-icon>
-  Sair</button>
+  <div class="button-group">
+    <button
+    mat-raised-button
+    color="warn"
+    (click)="logout()">
+    <mat-icon>logout</mat-icon>
+    Sair
+    </button>
+
+    <button
+    mat-raised-button
+    color="primary"
+    (click)="closeModalLogoutConfirm()">
+    <mat-icon>close</mat-icon>
+    Cancelar
+    </button>
+  </div>
 </div>

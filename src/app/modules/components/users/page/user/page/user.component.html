@@ -9,17 +9,33 @@
           <mat-card-title>Opções</mat-card-title>
       </mat-card-header>
       <mat-card-content style="margin-top: 2%;">
-          <button mat-raised-button (click)="openModalDeleteUser()"
+          <button
+          mat-raised-button
+          (click)="openModalDeleteUser()"
           style="
           background: none;
           outline: none;
-          box-shadow: none;
-          transition: none;">
+          box-shadow: none;">
           Excluir usuário
           <mat-icon
           style="color: red;">
           delete
           </mat-icon>
+          </button>
+
+          <button
+          (click)="openModalConfigurationUser()"
+          mat-raised-button
+          style="
+          background: none;
+          outline: none;
+          box-shadow: none;
+          "
+          >
+          <mat-icon style="color: gray;">
+          manage_accounts
+          </mat-icon>
+          Cadastro
           </button>
       </mat-card-content>
   </mat-card>

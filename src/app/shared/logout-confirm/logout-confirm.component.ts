@@ -26,4 +26,7 @@ export class LogoutConfirmComponent{
     this.routerService.navigate(['login']);
   };
 
+  closeModalLogoutConfirm(): void{
+    this.dialogRef.close();
+  }
 }

@@ -21,7 +21,7 @@ export class SuccessComponent implements OnInit{
   ngOnInit(): void {
     setTimeout(() => {
       this.dialogRef.close();
-    }, 1000);
+    }, 2500);
   };
 
   closeModalSucess(): void{

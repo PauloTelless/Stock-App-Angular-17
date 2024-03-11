@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { UserDeleteComponent } from '../user-delete/user-delete.component';
+import { ConfigurationUserComponent } from '../configuration-user/configuration-user.component';
 
 @Component({
   selector: 'app-user',
@@ -36,4 +37,12 @@ export class UserComponent implements OnInit{
       data: this.userName
     });
   };
+
+  openModalConfigurationUser(): void{
+    this.dialogService.open(ConfigurationUserComponent, {
+      width: '850px',
+      height: '650px'
+    });
+  };
+
 };
