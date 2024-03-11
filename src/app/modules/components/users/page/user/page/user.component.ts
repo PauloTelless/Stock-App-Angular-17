@@ -41,7 +41,8 @@ export class UserComponent implements OnInit{
   openModalConfigurationUser(): void{
     this.dialogService.open(ConfigurationUserComponent, {
       width: '850px',
-      height: '650px'
+      height: '550px',
+      data: this.userName
     });
   };
 

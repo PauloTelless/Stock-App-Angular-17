@@ -1,1 +1,82 @@
-<p>configuration-user works!</p>
+<div class="configuration-login">
+  <h2 style="color: #7A67EE; text-align: center; margin-top: 2%;">Informações do usuário</h2>
+  <form [formGroup]="configurationUserForm">
+
+    <div class="left-info">
+      <h3>Nome de usuário</h3>
+      <mat-form-field>
+        <input matInput formControlName="userName">
+      </mat-form-field>
+
+      <h3>Nome completo</h3>
+      <mat-form-field>
+        <input matInput formControlName="userNameCompleted" placeholder="Nome">
+      </mat-form-field>
+
+      <h3>Cargo</h3>
+      <mat-form-field>
+        <input matInput formControlName="officeUser">
+      </mat-form-field>
+
+      <h3>Gênero</h3>
+      <mat-form-field selectChande>
+        <mat-label>Selecione o gênero</mat-label>
+        <mat-select (selectionChange)=selecionarGeneroUsuario($event)>
+          @for(gender of selectGenderUser; track $index){
+            <mat-option [value]="gender.value">{{gender.valueView}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+
+    <div class="right-info">
+
+      <h3>Número</h3>
+      <mat-form-field>
+        <input matInput formControlName="numberUser" placeholder="Celular">
+      </mat-form-field>
+
+      <h3>Estado</h3>
+      <mat-form-field>
+        <mat-label>Selecione o estado</mat-label>
+        <mat-select formControlName="stateUser" (selectionChange)=selecionarEstadoUsuario($event)>
+          @for(state of selectStateUser; track $index){
+            <mat-option [value]="state.value">{{state.valueView}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <h3>Cidade</h3>
+      <mat-form-field>
+        <input matInput formControlName="cityUser" placeholder="Nome da cidade">
+      </mat-form-field>
+
+      <h3>Endereço</h3>
+      <mat-form-field>
+        <input matInput formControlName="streetUser" placeholder="Ex:. Av.Sulgipe, 1234...">
+      </mat-form-field>
+
+    </div>
+  </form>
+
+  <div class="button-group">
+    <button
+    (click)="closeModalConfigurationUser()"
+    mat-raised-button
+    color="primary"
+    style="margin-right: 1%;" >
+    Voltar
+    </button>
+
+    <button
+    (click)="saveLocalStorageConfigurationUser()"
+    type="submit"
+    mat-raised-button
+    color="warn"
+     >
+    Salvar
+    </button>
+  </div>
+
+</div>
