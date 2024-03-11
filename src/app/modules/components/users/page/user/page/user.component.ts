@@ -27,7 +27,7 @@ export class UserComponent implements OnInit{
 
   ngOnInit(): void {
     this.userName = localStorage.getItem('userName')?.toUpperCase() as string;
-  }
+  };
 
   openModalDeleteUser(): void{
     this.dialogService.open(UserDeleteComponent, {

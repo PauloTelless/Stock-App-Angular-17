@@ -19,9 +19,9 @@ export class SuccessComponent {
   closeModalSucess(): void{
     this.recarregarPagina();
     this.dialogService.close();
-  }
+  };
 
   recarregarPagina(): void{
     window.location.reload();
-  }
+  };
 }

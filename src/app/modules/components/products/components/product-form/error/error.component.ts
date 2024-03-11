@@ -19,5 +19,5 @@ export class ErrorComponent {
 
   closeModalError(){
     this.dialogService.close()
-  }
+  };
 }

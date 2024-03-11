@@ -43,7 +43,7 @@ export class SuccessComponent{
         localStorage.removeItem('token');
         localStorage.removeItem('userName');
       }, 8000);
-    }
+    };
     this.dialogRef.close()
-  }
+  };
 }

@@ -77,7 +77,7 @@ export class ProductFormComponent implements OnInit, OnDestroy{
           width: '300px',
           height: '300px'
         });
-      }
+      };
 
       if(parseInt(this.createProductForm.value.quantidadeProduto ?? '0', 0) && parseFloat(this.createProductForm.value.precoProduto ?? '0')) {
         this.productService.postProduct(this.createProductForm.value as Product).pipe(
@@ -90,14 +90,14 @@ export class ProductFormComponent implements OnInit, OnDestroy{
             this.dialogService.open(SuccessComponent, {
               width: '300px',
               height: '300px'
-            })
+            });
           },
           error: (err) => {
           console.log(err)
           }
         });
       };
-      }
+    };
   };
 
   getAllCategories(): void{
@@ -122,5 +122,5 @@ export class ProductFormComponent implements OnInit, OnDestroy{
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-  }
+  };
 }

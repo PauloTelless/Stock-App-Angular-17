@@ -17,13 +17,13 @@ export class AuthService {
 
   postUser(usuario: RegisterUser): Observable<RegisterUser>{
     return this.httpClient.post<RegisterUser>(`${this.API_URL}auth/register`, usuario);
-  }
+  };
 
   loginUser(usuario: User): Observable<TokenResponse>{
     return this.httpClient.post<TokenResponse>(`${this.API_URL}auth/login`, usuario);
-  }
+  };
 
   deleteUser(usuarioNome: string): Observable<any>{
     return this.httpClient.delete(`${this.API_URL}Auth/deleteUser/${usuarioNome}`);
-  }
+  };
 }

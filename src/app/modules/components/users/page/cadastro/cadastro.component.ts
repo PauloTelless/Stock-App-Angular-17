@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogModule } from '@angular/cdk/dialog';
 import { SuccessComponent } from './success/success.component';
 import { ErrorComponent } from './error/error.component';
+import { ErrorRegisterCredentialsComponent } from './error/error-register-credentials/error-register-credentials.component';
 
 
 @Component({
@@ -67,24 +68,27 @@ export class CadastroComponent implements OnDestroy{
                 })
                 this.routerService.navigate(['/login'])
               },
-              error: (err) => {
-                console.log(err)
+              error: () => {
+                this.dialogService.open(ErrorRegisterCredentialsComponent,{
+                  width: '430px',
+                  height: '430px'
+                })
               }
           });
-        }
+        };
       };
     } catch (error) {
       alert(error);
-    }
+    };
 
   };
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-  }
+  };
 
   redirectLogin(){
     this.routerService.navigate(['login']);
-  }
+  };
 }

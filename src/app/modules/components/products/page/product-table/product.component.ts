@@ -77,7 +77,7 @@ export class ProductComponent implements  OnInit, OnDestroy{
     this.formSearchProduct.valueChanges.subscribe(() => {
       this.searchProduct();
     });
-  }
+  };
 
   public formSearchProduct = this.formbuilder.group({
     nomeProduto: ['']
@@ -93,7 +93,7 @@ export class ProductComponent implements  OnInit, OnDestroy{
         this.productDatas = response;
         if (this.productDatas.length == 0) {
           this.productsDataResponse = false;
-        }
+        };
       },
       error: (err) => {
       console.log(err);
@@ -107,12 +107,12 @@ export class ProductComponent implements  OnInit, OnDestroy{
     if (!nameProductSearch || nameProductSearch.trim() === '') {
       this.getAllProducts();
       return;
-    }
+    };
 
     this.productDatas = _.filter(this.productDatas, (produto) => {
       return produto.nomeProduto.toUpperCase().includes(nameProductSearch);
     });
-  }
+  };
 
   getAllCategories(): void{
     this.categoryService.getAllCategory().pipe(
@@ -124,10 +124,10 @@ export class ProductComponent implements  OnInit, OnDestroy{
         this.categoryDatas = response;
         if (this.categoryDatas.length == 0) {
           this.categoryDataResponse = false
-        }
+        };
       }
-    })
-  }
+    });
+  };
 
   selecionarPropriedadeProduto(event: MatSelectChange) {
     const propriedade = event.value;
@@ -151,31 +151,31 @@ export class ProductComponent implements  OnInit, OnDestroy{
       case 'Marca':
         this.productDatas = _.sortBy(this.productDatas, ['marcaProduto'])
         break;
-    }
-  }
+    };
+  };
 
   openModalProductForm(): void{
     this.dialogRef.open(ProductFormComponent, {
       width: '500px',
       height: '600px'
-    })
-  }
+    });
+  };
 
   openModalDeleteProduct(produtoId: string, produto: Product): void{
     this.dialogRef.open(DeleteProductComponent, {
       width: '500px',
       height: '400px',
       data: {produtoId, produto}
-    })
-  }
+    });
+  };
 
   openModalEditProduct(produtoId: string, produto: Product): void{
     this.dialogRef.open(EditProductComponent, {
       width: '500px',
       height: '600px',
       data: {produtoId, produto}
-    })
-  }
+    });
+  };
 
   exportToExcel(): void{
     let produtos = this.productDatas;
@@ -185,12 +185,12 @@ export class ProductComponent implements  OnInit, OnDestroy{
 
     XLSX.utils.book_append_sheet(workBook, workSheet, 'Relatório');
     XLSX.writeFile(workBook, this.fileNameExcel);
-  }
+  };
 
   displayedColumns: string[] = ['codigo', 'estado', 'nome', 'categoria', 'marca', 'descricao', 'quantidade', 'preco', 'acoes'];
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-  }
+  };
 }

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input'
@@ -54,7 +54,7 @@ export class LoginComponent implements OnDestroy{
     password: ['', Validators.required]
   })
 
-  formLoginSubmit():void {
+  formLoginSubmit(): void{
     if (this.formLogin.valid && this.formLogin.value) {
       this.formLogin.value.userName?.toLocaleLowerCase();
       this.authService.loginUser(this.formLogin.value as User).pipe(
@@ -81,16 +81,16 @@ export class LoginComponent implements OnDestroy{
           });
         }
       });
-    }
-  }
+    };
+  };
 
   redirectToRegister(): void{
     this.routerService.navigate(['/cadastro'])
-  }
+  };
 
   ngOnDestroy(): void {
     this.destroy$.next()
     this.destroy$.complete()
-  }
+  };
 }
 

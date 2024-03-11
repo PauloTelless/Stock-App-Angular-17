@@ -58,8 +58,8 @@ export class EditProductComponent implements OnInit, OnDestroy{
     if (categoriaSelecionada) {
       this.editProductForm.patchValue({categoriaProduto: categoriaSelecionada.nomeCategoria})
       console.log(categoriaIdSelecionada)
-    }
-  }
+    };
+  };
 
   editProductForm = this.formBuilder.group({
     nomeProduto: this.produto.nomeProduto,
@@ -83,8 +83,8 @@ export class EditProductComponent implements OnInit, OnDestroy{
       error: (err) => {
       console.log(err)
       }
-    })
-  }
+    });
+  };
 
   getAllProducts(): void{
     this.productService.getAllProducts().pipe(
@@ -98,8 +98,8 @@ export class EditProductComponent implements OnInit, OnDestroy{
       error: (err) => {
       console.log(err)
       }
-    })
-  }
+    });
+  };
 
   putProduct(): void{
     this.productService.putProduct(this.produtoId, this.editProductForm.value as Product).pipe(
@@ -111,14 +111,14 @@ export class EditProductComponent implements OnInit, OnDestroy{
       this.dialogService.open(SuccessComponent, {
         width: '300px',
         height: '300px'
-      })
-    }
+        });
+      }
     );
-  }
+  };
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-  }
+  };
 
 }

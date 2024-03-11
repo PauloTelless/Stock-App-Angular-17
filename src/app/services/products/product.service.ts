@@ -17,25 +17,25 @@ export class ProductService {
 
   getAllProducts(): Observable<Array<Product>>{
     return this.httpClient.get<Array<Product>>(`${this.API_URL}produtos`);
-  }
+  };
 
   getAllProductsCategories(): Observable<Array<ProductsCategories>>{
     return this.httpClient.get<Array<ProductsCategories>>(`${this.API_URL}categoriasprodutos`);
-  }
+  };
 
   postProduct(product: Product): Observable<Product> {
     return this.httpClient.post<Product>(`${this.API_URL}produtos`, product);
-  }
+  };
 
   deleteAllProductsCategory(): Observable<Category>{
     return this.httpClient.get<Category>(`${this.API_URL}categorias/categoriaId/`);
-  }
+  };
 
   deleteProduct(productId: string): Observable<Product>{
     return this.httpClient.delete<Product>(`${this.API_URL}produtos/${productId}`);
-  }
+  };
 
   putProduct(productId: string, produto: Product): Observable<Product>{
     return this.httpClient.put<Product>(`${this.API_URL}produtos/${productId}`, produto);
-  }
+  };
 }

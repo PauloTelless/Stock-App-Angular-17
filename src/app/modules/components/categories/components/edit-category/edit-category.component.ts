@@ -53,16 +53,16 @@ export class EditCategoryComponent implements OnDestroy{
         this.dialogService.open(SuccessComponent, {
           width: '300px',
           height: '300px'
-        })
+        });
       },
       error: (err) => {
       console.log(err)
       }
-    })
-  }
+    });
+  };
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-  }
+  };
 }

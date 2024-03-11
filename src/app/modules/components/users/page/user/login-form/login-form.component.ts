@@ -73,10 +73,13 @@ export class LoginFormComponent implements OnDestroy{
                   });
                 })
               });
+            }),
+            error:(() => {
+              alert('Credênciais inválidas.')
             })
           });
         } catch (error) {
-          alert('Revise as suas credênciais.');
+          console.log(error);
         };
       };
     };
@@ -90,6 +93,6 @@ export class LoginFormComponent implements OnDestroy{
   ngOnDestroy(): void{
     this.destroy$.next();
     this.destroy$.complete();
-  }
+  };
 
 }

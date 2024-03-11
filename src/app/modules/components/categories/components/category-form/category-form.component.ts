@@ -53,12 +53,12 @@ export class CategoryFormComponent implements OnDestroy{
           width: '300px',
           height: '300px'
         }
-      )
-    }
-  }
+      );
+    };
+  };
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-  }
+  };
 }

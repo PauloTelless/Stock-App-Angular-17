@@ -27,6 +27,6 @@ export class UserDeleteComponent {
       height: '350px',
       data: this.data
     })
-    this.dialogRef.close()
-  }
+    this.dialogRef.close();
+  };
 }

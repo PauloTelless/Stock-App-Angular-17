@@ -48,23 +48,23 @@ export class SellComponent implements OnInit, OnDestroy{
         this.productDatas = _.sortBy(response, ['nomeProduto']);
         if (this.productDatas.length == 0) {
           this.productDataResponse = false;
-        }
+        };
       }
-    })
-  }
+    });
+  };
 
   openModalSellProduct(produto: Product): void{
     this.dialogService.open(SellProductComponent,{
       width: '500px',
       height: '600px',
       data: produto
-    })
-  }
+    });
+  };
 
   displayedColumns: string[] = ['codigo', 'nome', 'acoes', 'disponivel'];
 
     ngOnDestroy(): void {
       this.destroy$.next();
       this.destroy$.complete();
-    }
+    };
 }

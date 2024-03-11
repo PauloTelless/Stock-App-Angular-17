@@ -13,12 +13,12 @@ import { MatIconModule } from '@angular/material/icon';
 export class TimeOutLoggedComponent implements OnInit{
   ngOnInit(): void {
     this.recarregarPagina();
-  }
+  };
 
   recarregarPagina(){
     setTimeout(() => {
       window.location.reload()
     }, 2500);
-  }
+  };
 
 }

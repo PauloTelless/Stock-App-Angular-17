@@ -40,14 +40,14 @@ export class DeleteProductComponent implements OnDestroy{
           width: '300px',
           height: '300px'
         });
-      }
+      };
 
       cancelDeleteProduct(): void{
         this.dialogRef.close();
-      }
+      };
 
       ngOnDestroy(): void{
         this.destroy$.next();
         this.destroy$.complete();
-      }
+      };
 }

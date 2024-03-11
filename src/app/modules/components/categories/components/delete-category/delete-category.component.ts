@@ -23,16 +23,13 @@ import { SuccessComponent } from './success/success.component';
   styleUrl: './delete-category.component.sass'
 })
 
-export class DeleteCategoryComponent implements OnInit,OnDestroy{
+export class DeleteCategoryComponent{
   constructor(@Inject(MAT_DIALOG_DATA) public data: any){}
-  ngOnInit(): void {
-    console.log(this.data)
-  }
 
   private destroy$ = new Subject<void>;
   private categorieService = inject(CategoryService);
-  private dialogService = inject(MatDialog)
-  private dialogRef = inject(MatDialogRef)
+  private dialogService = inject(MatDialog);
+  private dialogRef = inject(MatDialogRef);
 
   deleteCategory(): void{
     this.categorieService.deleteCategory(this.data.categoria.categoriaId).pipe(
@@ -44,15 +41,15 @@ export class DeleteCategoryComponent implements OnInit,OnDestroy{
     this.dialogService.open(SuccessComponent, {
       width: '300px',
       height: '300px'
-    })
-  }
+    });
+  };
 
   closeModalCategoryDelete(): void{
     this.dialogRef.close();
-  }
+  };
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-  }
+  };
 }

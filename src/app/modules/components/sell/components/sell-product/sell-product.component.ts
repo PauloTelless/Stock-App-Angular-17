@@ -73,15 +73,15 @@ export class SellProductComponent implements OnDestroy {
         height: '300px'
       });
       this.dialogRef.close();
-    }
-  }
+    };
+  };
 
   recarregarPagina(): void{
     window.location.reload();
-  }
+  };
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-  }
+  };
 }

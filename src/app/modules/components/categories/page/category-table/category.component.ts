@@ -42,7 +42,7 @@ export class CategoryComponent implements OnInit, OnDestroy{
   ngOnInit(): void {
     this.getAllCategories();
     this.getAllProducts();
-  }
+  };
 
   public categoriesData!: Array<Category>;
   public productsData!: Array<Product>;
@@ -68,8 +68,8 @@ export class CategoryComponent implements OnInit, OnDestroy{
       error: (err) => {
       console.log(err)
       }
-    })
-  }
+    });
+  };
 
   getAllProducts(): void{
     this.productService.getAllProducts().subscribe({
@@ -77,30 +77,30 @@ export class CategoryComponent implements OnInit, OnDestroy{
         this.productsData = response;
       }
     });
-  }
+  };
 
   openModalCategoryForm(): void{
     this.dialogService.open(CategoryFormComponent, {
       width: '400px',
       height: '300px'
-    })
-  }
+    });
+  };
 
   openModalEditCategory(categoriaId: string, categoria: Category): void{
     this.dialogService.open(EditCategoryComponent, {
       width: '400px',
       height: '300px',
       data: {categoriaId, categoria}
-    })
-  }
+    });
+  };
 
   openModalDeleteCategory(categoriaId: string, categoria: Category): void{
     this.dialogService.open(DeleteCategoryComponent,{
       width: '500px',
       height: '400px',
       data: {categoriaId, categoria}
-    })
-  }
+    });
+  };
 
   exportToExcel(): void{
     let categorias = this.categoriesData;
@@ -110,13 +110,13 @@ export class CategoryComponent implements OnInit, OnDestroy{
 
     XLSX.utils.book_append_sheet(WorkBook, WorkSheet, 'Categorias')
     XLSX.writeFile(WorkBook, this.fileNameExcel)
-  }
+  };
 
   displayedColumns: string[] = ['codigo', 'nome', 'acoes'];
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-  }
+  };
 
 }
