@@ -35,17 +35,17 @@ export class ConfigurationUserComponent implements OnInit{
     if (configurationUserLocalStorage) {
       const configurationUserJson = JSON.parse(configurationUserLocalStorage) as ConfigurationUser;
       this.configurationUser = configurationUserJson;
-    }
+    };
 
     this.configurationUserForm = this.formBuilder.group({
       userName: [{value: this.userName, disabled: true}],
       userNameCompleted: this.configurationUser.userNameCompleted,
+      genderUser: this.configurationUser.genderUser,
       streetUser: this.configurationUser.streetUser,
       cityUser: this.configurationUser.cityUser,
       stateUser: this.configurationUser.stateUser,
       officeUser: [{value: 'Administrador', disabled: true}],
-      numberUser: this.configurationUser.numberUser,
-      genderUser: this.configurationUser.genderUser
+      numberUser: this.configurationUser.numberUser
     });
   }
 
@@ -58,7 +58,7 @@ export class ConfigurationUserComponent implements OnInit{
     {value: 'Masculino', valueView: 'Masculino'},
     {value: 'Feminimo', valueView: 'Feminino'},
     {value: 'Prefere não dizer', valueView: 'Prefiro não dizer'},
-  ]
+  ];
   public selectStateUser: Array<StateUser> = [
       { value: 'Acre', valueView: 'Acre' },
       { value: 'Alagoas', valueView: 'Alagoas' },
@@ -87,7 +87,7 @@ export class ConfigurationUserComponent implements OnInit{
       { value: 'São Paulo', valueView: 'São Paulo' },
       { value: 'Sergipe', valueView: 'Sergipe' },
       { value: 'Tocantins', valueView: 'Tocantins' }
-  ]
+  ];
 
 
   configurationUserForm = this.formBuilder.group({
@@ -108,12 +108,12 @@ export class ConfigurationUserComponent implements OnInit{
   selecionarGeneroUsuario(event: MatSelectChange): void{
     const nomeGenero = event.value;
     this.configurationUserForm.patchValue({genderUser: nomeGenero})
-  }
+  };
 
   selecionarEstadoUsuario(event: MatSelectChange): void{
     const estadoUsuario = event.value;
     this.configurationUserForm.patchValue({stateUser: estadoUsuario});
-  }
+  };
 
   saveLocalStorageConfigurationUser(): void{
     const configurationUser = this.configurationUserForm.value as ConfigurationUser
@@ -126,7 +126,7 @@ export class ConfigurationUserComponent implements OnInit{
     this.dialogService.open(ConfigurationUserSuccessComponent, {
       width: '300px',
       height: '300px'
-    })
-  }
+    });
+  };
 
 }

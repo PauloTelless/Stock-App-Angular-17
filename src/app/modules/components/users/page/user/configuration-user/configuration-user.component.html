@@ -21,7 +21,7 @@
       <h3>Gênero</h3>
       <mat-form-field selectChande>
         <mat-label>Selecione o gênero</mat-label>
-        <mat-select (selectionChange)=selecionarGeneroUsuario($event)>
+        <mat-select formControlName="genderUser" (selectionChange)=selecionarGeneroUsuario($event)>
           @for(gender of selectGenderUser; track $index){
             <mat-option [value]="gender.value">{{gender.valueView}}</mat-option>
           }
@@ -34,7 +34,7 @@
 
       <h3>Número</h3>
       <mat-form-field>
-        <input matInput formControlName="numberUser" placeholder="Celular">
+        <input matInput formControlName="numberUser" placeholder="Ex:. (xx) xxxxx-xxxx">
       </mat-form-field>
 
       <h3>Estado</h3>
@@ -62,20 +62,21 @@
 
   <div class="button-group">
     <button
-    (click)="closeModalConfigurationUser()"
-    mat-raised-button
-    color="primary"
-    style="margin-right: 1%;" >
-    Voltar
-    </button>
-
-    <button
     (click)="saveLocalStorageConfigurationUser()"
     type="submit"
     mat-raised-button
     color="warn"
+    style="margin-right: 1%;"
      >
     Salvar
+    </button>
+
+    <button
+    (click)="closeModalConfigurationUser()"
+    mat-raised-button
+    color="primary"
+      >
+    Voltar
     </button>
   </div>
 
