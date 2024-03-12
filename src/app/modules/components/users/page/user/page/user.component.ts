@@ -6,7 +6,6 @@ import { MatIcon } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { UserDeleteComponent } from '../user-delete/user-delete.component';
 import { ConfigurationUserComponent } from '../configuration-user/configuration-user.component';
-import { MetricsUserComponent } from '../metrics-user/metrics-user.component';
 
 @Component({
   selector: 'app-user',
@@ -44,13 +43,6 @@ export class UserComponent implements OnInit{
       width: '850px',
       height: '550px',
       data: this.userName
-    });
-  };
-
-  openModalMetricProducts(): void{
-    this.dialogService.open(MetricsUserComponent, {
-      width: '850px',
-      height: '550px'
     });
   };
 
