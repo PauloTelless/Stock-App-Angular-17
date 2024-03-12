@@ -29,4 +29,8 @@ export class UserDeleteComponent {
     })
     this.dialogRef.close();
   };
+
+  closeModalDeleteUser(): void{
+    this.dialogRef.close();
+  }
 }

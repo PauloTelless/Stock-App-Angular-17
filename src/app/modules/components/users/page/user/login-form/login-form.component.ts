@@ -10,6 +10,7 @@ import { AuthService } from '../../../../../../services/auth/auth.service';
 import { DeleteUserSuccessComponent } from '../delete-user-success/delete-user-success.component';
 import { User } from '../../../../../../models/user/user';
 import { Subject, takeUntil } from 'rxjs';
+import { UserDeleteComponent } from '../user-delete/user-delete.component';
 
 @Component({
   selector: 'app-login-form',
@@ -88,6 +89,14 @@ export class LoginFormComponent implements OnDestroy{
   recarregarPagina(): void{
     this.dialogRef.close();
     window.location.reload();
+  };
+
+  closeModalLoginForm(): void{
+    this.dialogService.open(UserDeleteComponent, {
+      width: '300px',
+      height: '300px'
+    })
+    this.dialogRef.close();
   };
 
   ngOnDestroy(): void{

@@ -13,13 +13,26 @@
         <input matInput type="password" placeholder="Digite a senha" required formControlName="password">
       </mat-form-field>
 
-      <button
-      type="submit"
-      mat-raised-button
-      color="warn">
-      <mat-icon>delete</mat-icon>
-      Excluir
-      </button>
+      <div class="button-group">
+
+        <button
+        style="margin-right: 2%;"
+        type="submit"
+        mat-raised-button
+        color="warn">
+        <mat-icon>delete</mat-icon>
+        Excluir
+        </button>
+
+        <button
+        (click)="closeModalLoginForm()"
+        mat-raised-button
+        color="primary"
+        >
+        Voltar
+        </button>
+
+      </div>
    </form>
 
 </div>
