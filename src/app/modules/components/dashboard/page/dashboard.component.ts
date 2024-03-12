@@ -81,12 +81,12 @@ export class DashboardComponent implements OnInit, OnDestroy{
         this.productsData = _.orderBy(this.productsData, ['quantidadeProduto'],['asc'])
         break;
       case 'Preço - Maior':
-        this.productsData = _.orderBy(this.productsData, ['precoProduto'],['desc'])
+        this.productsData = _.orderBy(this.productsData, [(precoProduto) => parseFloat(precoProduto.precoProduto)],['desc'])
         break;
       case 'Preço - Menor':
-        this.productsData = _.orderBy(this.productsData, ['precoProduto'],['asc'])
+        this.productsData = _.orderBy(this.productsData, [(precoProduto) => parseFloat(precoProduto.precoProduto)],['asc'])
         break;
-    }
+    };
 
     this.ChartData();
   }
