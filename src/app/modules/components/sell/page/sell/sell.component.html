@@ -1,6 +1,14 @@
 <app-tool-bar></app-tool-bar>
 <div class="table-class">
   <h1 style="text-align: center; color: #7A67EE;">Vender produto</h1>
+
+    <form [formGroup]="formSearchProductSell" class="search-product">
+      <mat-form-field>
+        <mat-label>Procurar produto</mat-label>
+        <input matInput placeholder="Nome do produto" formControlName="nomeProduto">
+      </mat-form-field>
+    </form>
+
   <table mat-table [dataSource]="productDatas" class="mat-elevation-z8">
 
     <ng-container matColumnDef="codigo">

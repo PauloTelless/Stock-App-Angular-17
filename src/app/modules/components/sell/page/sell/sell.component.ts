@@ -9,8 +9,10 @@ import { Subject, takeUntil } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { SellProductComponent } from '../../components/sell-product/sell-product.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormField } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import * as _ from 'lodash';
-
 
 @Component({
   selector: 'app-sell',
@@ -21,7 +23,11 @@ import * as _ from 'lodash';
     MatIconModule,
     MatTableModule,
     SellProductComponent,
-    MatTooltipModule
+    MatTooltipModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatFormField,
+    MatInputModule
   ],
   templateUrl: './sell.component.html',
   styleUrl: './sell.component.sass'
@@ -30,13 +36,21 @@ export class SellComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     this.getAllProducts();
-  }
+    this.formSearchProductSell.valueChanges.subscribe(() => {
+      this.searchProductSell()
+    });
+  };
 
   private dialogService = inject(MatDialog);
   private productService = inject(ProductService);
+  private formBuilder = inject(FormBuilder);
   public productDataResponse!: boolean;
   private destroy$ = new Subject<void>
   public productDatas!: Array<Product>;
+
+  formSearchProductSell = this.formBuilder.group({
+    nomeProduto: ['']
+  })
 
   getAllProducts(): void{
     this.productService.getAllProducts().pipe(
@@ -50,6 +64,18 @@ export class SellComponent implements OnInit, OnDestroy{
           this.productDataResponse = false;
         };
       }
+    });
+  };
+
+  searchProductSell(): void{
+    const nomeProduto = this.formSearchProductSell.value.nomeProduto?.toUpperCase();
+    if (!nomeProduto || nomeProduto.trim() === '') {
+      this.getAllProducts();
+      return;
+    };
+
+    this.productDatas = _.filter(this.productDatas, (produto) => {
+      return produto.nomeProduto.toUpperCase().includes(nomeProduto)
     });
   };
 
