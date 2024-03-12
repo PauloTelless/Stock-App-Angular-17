@@ -57,7 +57,6 @@ export class EditProductComponent implements OnInit, OnDestroy{
     const categoriaSelecionada = this.categoriesData.find((categoria) => categoria.categoriaId == categoriaIdSelecionada);
     if (categoriaSelecionada) {
       this.editProductForm.patchValue({categoriaProduto: categoriaSelecionada.nomeCategoria})
-      console.log(categoriaIdSelecionada)
     };
   };
 
