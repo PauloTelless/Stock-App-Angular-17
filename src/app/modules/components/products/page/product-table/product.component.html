@@ -10,6 +10,8 @@
     </button>
 
   } @else {
+
+    <h4 style="color: #7A67EE;">Produtos cadastrados: {{productDatas.length }}</h4>
     <button mat-raised-button color="primary" (click)="openModalProductForm()"><mat-icon>add</mat-icon>
       Adicionar produto
     </button>
@@ -41,7 +43,7 @@
         </form>
 
       </div>
-      <h4 style="color: #7A67EE;">Produtos cadastrados: {{productDatas.length }}</h4>
+
     }
   }
 
