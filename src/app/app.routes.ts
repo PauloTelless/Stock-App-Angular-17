@@ -6,6 +6,7 @@ import { CategoryComponent } from './modules/components/categories/page/category
 import { SellComponent } from './modules/components/sell/page/sell/sell.component';
 import { authGuard } from './guards/auth-guard.guard';
 import { UserComponent } from './modules/components/users/page/user/page/user.component';
+import { DashboardComponent } from './modules/components/dashboard/page/dashboard.component';
 
 export const routes: Routes = [
   {
@@ -27,9 +28,7 @@ export const routes: Routes = [
     title: 'Dashboard',
     path: 'dashboard',
     canActivate: [authGuard],
-    loadChildren: () => import('./modules/components/dashboard/dashboard/dashboard.module')
-    .then((module) =>
-    module.DashboardModule)
+    component: DashboardComponent
   },
   {
     title: 'Produtos',
