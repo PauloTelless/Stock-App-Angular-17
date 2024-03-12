@@ -7,6 +7,8 @@ import { CategoryService } from '../../../../services/categories/category.servic
 import { CategoryComponent } from '../../categories/page/category-table/category.component';
 import { Subject, takeUntil } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectChange, MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import * as _ from 'lodash';
 
 @Component({
@@ -16,7 +18,9 @@ import * as _ from 'lodash';
     ToolBarComponent,
     CategoryComponent,
     ChartModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSelectModule,
+    MatFormFieldModule
   ],
   providers: [
     CategoryService
@@ -30,10 +34,17 @@ export class DashboardComponent implements OnInit, OnDestroy{
   ngOnInit(): void {
     this.getAllProducts();
   }
-  public productDataResponse!: boolean;
-  private destroy$ = new Subject<void>;
   private productService = inject(ProductService);
+  private destroy$ = new Subject<void>;
+  public productDataResponse!: boolean;
   public productsData!: Array<Product>;
+  public produtoSelecaoPropriedade = [
+    {propriedade: 'Nome'},
+    {propriedade: 'Quantidade - Maior'},
+    {propriedade: 'Quantidade - Menor'},
+    {propriedade: 'Preço - Maior'},
+    {propriedade: 'Preço - Menor'}
+  ]
 
   basicOptions: any;
   basicData: any;
@@ -45,7 +56,7 @@ export class DashboardComponent implements OnInit, OnDestroy{
       )
     ).subscribe({
       next: (response) => {
-        this.productsData = _.sortBy(response, ['quantidadeProduto']);
+        this.productsData = response;
         if (this.productsData.length == 0) {
           this.productDataResponse = false;
         }
@@ -54,6 +65,30 @@ export class DashboardComponent implements OnInit, OnDestroy{
         }
       }
     });
+  }
+
+  selecionarOrdernamento(event: MatSelectChange): void{
+    const propriedadeSelecionada = event.value as string;
+
+    switch (propriedadeSelecionada) {
+      case 'Nome':
+        this.productsData = _.sortBy(this.productsData, ['nomeProduto'])
+        break;
+      case 'Quantidade - Maior':
+        this.productsData = _.orderBy(this.productsData, ['quantidadeProduto'],['desc'])
+        break;
+      case 'Quantidade - Menor':
+        this.productsData = _.orderBy(this.productsData, ['quantidadeProduto'],['asc'])
+        break;
+      case 'Preço - Maior':
+        this.productsData = _.orderBy(this.productsData, ['precoProduto'],['desc'])
+        break;
+      case 'Preço - Menor':
+        this.productsData = _.orderBy(this.productsData, ['precoProduto'],['asc'])
+        break;
+    }
+
+    this.ChartData();
   }
 
   ChartData(): void{

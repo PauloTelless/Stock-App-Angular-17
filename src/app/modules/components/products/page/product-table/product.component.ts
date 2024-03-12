@@ -65,6 +65,7 @@ export class ProductComponent implements  OnInit, OnDestroy{
   public productsProps = [
     {propriedade: "Nome"},
     {propriedade: "Marca"},
+    {propriedade: "Categoria"},
     {propriedade: "Quantidade - Maior"},
     {propriedade: "Quantidade - Menor"},
     {propriedade: "Preço - Maior"},
@@ -133,6 +134,15 @@ export class ProductComponent implements  OnInit, OnDestroy{
     const propriedade = event.value;
 
     switch (propriedade) {
+      case 'Nome':
+        this.productDatas = _.sortBy(this.productDatas, ['nomeProduto'])
+        break;
+      case 'Marca':
+        this.productDatas = _.sortBy(this.productDatas, ['marcaProduto'])
+        break;
+      case 'Categoria':
+        this.productDatas = _.sortBy(this.productDatas, ['categoriaProduto'])
+        break;
       case 'Quantidade - Maior':
         this.productDatas = _.orderBy(this.productDatas, ['quantidadeProduto'], ['desc'])
         break;
@@ -144,12 +154,6 @@ export class ProductComponent implements  OnInit, OnDestroy{
         break;
       case 'Preço - Menor':
         this.productDatas = _.orderBy(this.productDatas, [(precoProduto) => parseFloat(precoProduto.precoProduto)], ['asc'])
-        break;
-      case 'Nome':
-        this.productDatas = _.sortBy(this.productDatas, ['nomeProduto'])
-        break;
-      case 'Marca':
-        this.productDatas = _.sortBy(this.productDatas, ['marcaProduto'])
         break;
     };
   };

@@ -5,5 +5,17 @@
   <div class="spinner">
     <mat-spinner></mat-spinner>
   </div>
+} @else {
+  <div class="selection-order">
+    <mat-form-field style="justify-content: center; align-items: center;">
+      <mat-label>Ordernar por</mat-label>
+      <mat-select (selectionChange)=selecionarOrdernamento($event)>
+        @for (product of produtoSelecaoPropriedade; track $index) {
+          <mat-option [value]="product.propriedade">{{product.propriedade}}</mat-option>
+        }
+      </mat-select >
+    </mat-form-field>
+  </div>
+
+  <p-chart type="bar"  [data]="basicData" [options]="basicOptions"></p-chart>
 }
-<p-chart type="bar"  [data]="basicData" [options]="basicOptions"></p-chart>
